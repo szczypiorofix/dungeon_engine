@@ -39,9 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="res\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Animation.h">
       <Filter>Header Files\graphics</Filter>
     </ClInclude>
@@ -111,6 +108,10 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\dungeon_engine.aps" />
+    <None Include="README.md" />
+    <None Include="LICENSE" />
+    <None Include=".gitignore" />
+    <None Include=".gitattributes" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\nevada.ico">
