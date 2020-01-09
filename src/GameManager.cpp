@@ -90,15 +90,26 @@ void GameManager::input(SDL_Event* event) {
 			switch (event->key.keysym.sym) {
 				case SDLK_LEFT:
 				case SDLK_a:
+					if (currentLockVector->x < 0) {
+						currentLockVector->x = 0;
+					}
+					break;
 				case SDLK_RIGHT:
 				case SDLK_d:
-					currentLockVector->x = 0.0f;
+					if (currentLockVector->x > 0) {
+						currentLockVector->x = 0;
+					}
 					break;
 				case SDLK_UP:
 				case SDLK_w:
+					if (currentLockVector->y < 0) {
+						currentLockVector->y = 0;
+					}
 				case SDLK_DOWN:
 				case SDLK_s:
-					currentLockVector->y = 0.0f;
+					if (currentLockVector->y > 0) {
+						currentLockVector->y = 0;
+					}
 					break;
 			}
 		}
