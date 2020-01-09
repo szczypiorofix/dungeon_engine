@@ -6,7 +6,8 @@
 class TiledMap {
 
 public:
-
+	TiledMap();
+	~TiledMap();
 
 private:
 

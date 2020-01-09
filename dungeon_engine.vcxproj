@@ -93,7 +93,6 @@
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Animation.h" />
-    <ClInclude Include="res\resource.h" />
     <ClInclude Include="src\SpriteSheet.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Defines.h" />
@@ -117,6 +116,10 @@
     <Image Include="res\nevada.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="LICENSE" />
+    <None Include="README.md" />
     <None Include="res\dungeon_engine.aps" />
     <None Include="res\ex-aws_cave.xm" />
     <None Include="res\images\animals1.tsx" />
