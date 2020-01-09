@@ -1,0 +1,24 @@
+{
+    "activeFile": "worldmap.tmx",
+    "fileStates": {
+        "worldmap.tmx": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 273,
+                "y": 201.875
+            }
+        }
+    },
+    "openFiles": [
+        "worldmap.tmx",
+        "characters.tsx"
+    ],
+    "project": "dungeon_engine.tiled-project",
+    "recentFiles": [
+        "worldmap.tmx",
+        "characters.tsx",
+        "animals1.tsx",
+        "basictiles.tsx"
+    ]
+}
