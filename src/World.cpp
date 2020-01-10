@@ -1,6 +1,8 @@
 #include <iostream>
+#include <cstdlib>
 #include "World.h"
 #include "GraphicAssets.h"
+#include "Defines.h"
 
 
 World::World(SDL_Renderer* renderer)
@@ -12,7 +14,7 @@ World::World(SDL_Renderer* renderer)
 	moveVec = new Vector2(0.0f, 0.0f);
 
 	prepareBackground();
-
+	randomBackground();
 }
 
 World::~World() {
@@ -23,6 +25,19 @@ void World::prepareBackground() {
 	for (int i = 0; i < MAP_HEIGHT; i++) {
 		for (int j = 0; j < MAP_WIDTH; j++) {
 			mMap[i * MAP_WIDTH + j] = BGRND_GRASS1;
+		}
+	}
+}
+
+void World::randomBackground() {
+	std::cout << "Randomize background of the world." << std::endl;
+	for (int i = 0; i < MAP_HEIGHT; i++) {
+		for (int j = 0; j < MAP_WIDTH; j++) {
+			
+			if ( (rand() % 100) > 70 && i > 0 && i < MAP_HEIGHT-1 && j > 0 && j < MAP_WIDTH-1 ) {
+				mMap[i * MAP_WIDTH + j] = BGRND_GRASS2;
+			}
+			
 		}
 	}
 }
@@ -45,8 +60,8 @@ void World::render(float scale) {
 		GraphicAssets::getAssets()->spriteSheets[SpriteSheet::BASICTILES]->draw(
 			mRenderer,
 			&tempClip,
-			(int) ( ( ( i % MAP_WIDTH ) * tileWidth  * scale) + vec->x ),
-			(int) ( ( ( i / MAP_WIDTH ) * tileHeight * scale) + vec->y ),
+			(int) ( ( ( i % MAP_WIDTH ) * tileWidth  * scale) - vec->x),
+			(int) ( ( ( i / MAP_WIDTH ) * tileHeight * scale) - vec->y),
 			scale);
 	}
 }

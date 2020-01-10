@@ -6,12 +6,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <SDL_ttf.h>
 #include <libxml/parser.h>
 
 #include "Camera.h"
 #include "Vector2.h"
-#include "TextFont.h"
 
 
 enum class ViewLockedOn {
@@ -75,7 +73,6 @@ private:
 	double mNs;
 	bool mFpsCap;
 	int mDisplayMode;
-	//TextFont* mCoordinates;
 	char mCoordinatesText[80];
 	bool mMouseRightButtonPressed;
 
@@ -85,7 +82,7 @@ private:
 	void createRenderer();
 	void initializePngImages();
 	void initializeAudioSystem();
-	void initializeTTFFonts();
+
 };
 
 #endif

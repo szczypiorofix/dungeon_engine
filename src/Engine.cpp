@@ -94,21 +94,12 @@ void Engine::initializeAudioSystem() {
 	mStarted = true;
 }
 
-void Engine::initializeTTFFonts() {
-	if (TTF_Init() == -1) {
-		std::cout << "SDL_ttf TTF_Init() error: " << TTF_GetError() << std::endl;
-		exit(1);
-	}
-	mStarted = true;
-}
-
 void Engine::engineStop(void) {
 
 	Mix_FreeMusic(mMusic);
 	SDL_DestroyRenderer(mRenderer);
 	SDL_DestroyWindow(mWindow);
 
-	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 
@@ -121,7 +112,6 @@ void Engine::launchSubsystems(void) {
 	createRenderer();
 	initializePngImages();
 	initializeAudioSystem();
-	initializeTTFFonts();
 
 	if (!mStarted) {
 		std::cout << "Engine could not be started." << std::endl;

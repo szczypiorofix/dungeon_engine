@@ -9,7 +9,7 @@
 #include "World.h"
 #include "TiledMap.h"
 #include "Vector2.h"
-
+#include "TextFont.h"
 
 
 class GameManager
@@ -27,6 +27,7 @@ private:
 	World* world;
 	Camera* camera;
 	Vector2* currentLockVector;
+	TextFont* textFont;
 
 	const float SCROLL_SPEED = 2.0f;
 

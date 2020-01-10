@@ -104,14 +104,20 @@
     <None Include="res\images\npc.tx">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\ex-aws_cave.xm">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\dungeon_engine.aps" />
     <None Include="README.md" />
     <None Include="LICENSE" />
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
+    <None Include="res\images\dungeon_engine.tiled-project" />
+    <None Include="res\images\dungeon_engine.tiled-session" />
+    <None Include="res\images\nevada.tiled-session" />
+    <None Include="res\images\characters.tsx">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\music\ex-aws_cave.xm">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\nevada.ico">
@@ -138,15 +144,15 @@
     <Image Include="res\images\grassland.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\images\vingue.png">
+    <Image Include="res\dg.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\dg.ico">
+    <Image Include="res\fonts\vingue.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="res\images\vingue.xml">
+    <Xml Include="res\fonts\vingue.xml">
       <Filter>Resource Files</Filter>
     </Xml>
   </ItemGroup>

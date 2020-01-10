@@ -11,6 +11,7 @@ GameManager::GameManager() {
 	camera = NULL;
 	world = NULL;
 	currentLockVector = new Vector2(0.0f, 0.0f);
+	textFont = NULL;
 }
 
 GameManager::~GameManager() {
@@ -18,6 +19,8 @@ GameManager::~GameManager() {
 
 
 void GameManager::gameLoop() {
+
+	textFont = new TextFont(engine->getRenderer(), "vingue");
 
 	engine->loadMusic("ex-aws_cave.xm");
 	if (Mix_PlayingMusic() == 0) {

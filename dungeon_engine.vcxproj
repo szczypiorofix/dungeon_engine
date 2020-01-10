@@ -62,10 +62,11 @@
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/Zm10 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -83,7 +84,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -105,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\dg.ico" />
+    <Image Include="res\fonts\vingue.png" />
     <Image Include="res\images\animals1.png" />
     <Image Include="res\images\animals3.png" />
     <Image Include="res\images\basictiles.png" />
@@ -112,7 +114,6 @@
     <Image Include="res\images\characters.png" />
     <Image Include="res\images\food_t.png" />
     <Image Include="res\images\grassland.png" />
-    <Image Include="res\images\vingue.png" />
     <Image Include="res\nevada.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -121,16 +122,20 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\dungeon_engine.aps" />
-    <None Include="res\ex-aws_cave.xm" />
     <None Include="res\images\animals1.tsx" />
     <None Include="res\images\basictiles.tsx" />
+    <None Include="res\images\characters.tsx" />
+    <None Include="res\images\dungeon_engine.tiled-project" />
+    <None Include="res\images\dungeon_engine.tiled-session" />
     <None Include="res\images\grassland.tsx" />
     <None Include="res\images\map.tmx" />
+    <None Include="res\images\nevada.tiled-session" />
     <None Include="res\images\npc.tx" />
     <None Include="res\images\worldmap.tmx" />
+    <None Include="res\music\ex-aws_cave.xm" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="res\images\vingue.xml" />
+    <Xml Include="res\fonts\vingue.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Level.cpp" />

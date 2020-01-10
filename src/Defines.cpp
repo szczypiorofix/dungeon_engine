@@ -9,7 +9,7 @@ const int SCREEN_HEIGHT			= 600;
 const char* DIR_RES_IMAGES		= "../res/images/";
 const char* DIR_RES_MUSIC		= "../res/music/";
 const char* DIR_RES				= "../res/";
-
+const char* DIR_FONTS			= "../res/fonts/";
 
 const short WALK_UP				= 0;
 const short WALK_RIGHT			= 1;
