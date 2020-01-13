@@ -18,6 +18,14 @@ enum class ViewLockedOn {
 	MOUSE
 };
 
+typedef struct Settings {
+	int screenWidth;
+	int screenHeight;
+	float scale;
+	int fullScreen;
+	int musicVolume;
+} Settings;
+
 
 class Engine
 {
@@ -31,9 +39,12 @@ public:
 	static const int MIN_SCALE = 1;
 	static const int MAX_SCALE = 5;
 
-	void launchSubsystems(void);
-	void engineStop(void);
+	const char* CONFIG_FILE_NAME = "dungeon_engine.cfg";
 
+	void launchSubsystems(void);
+	void stop(void);
+
+	Settings settings;
 	float scale;
 
 	bool isQuit();
@@ -61,9 +72,7 @@ private:
 
 	Vector2* mScrollVector;
 
-	bool mFullScreen;
 	ViewLockedOn mViewLockedOn;
-	int mMusicVolume;
 	long mLastTime;
 	double mDelta;
 	long mTimer;
@@ -79,6 +88,9 @@ private:
 	char mCoordinatesText[80];
 	bool mMouseRightButtonPressed;
 
+
+	bool writeConfigFile();
+	bool readConfigFile();
 
 	void initSDL();
 	void createWindow();

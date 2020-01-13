@@ -1,17 +1,28 @@
 #include <iostream>
+#include <fstream>
+
 #include "Engine.h"
 #include "Defines.h"
 
 
 Engine::Engine() {
+	
+	if (!readConfigFile()) {
+		settings = {
+		800,					// Screen width
+		600,					// Screen height
+		Engine::MIN_SCALE,		// scale
+		0,// fullscreen
+		20 // music volume
+		};
+	}	
+	
 	mStarted = false;
 	mQuit = false;
 	mWindow = NULL;
 	mRenderer = NULL;
 	mMusic = NULL;
 	mCamera = NULL;
-	mMusicVolume = 20;
-	scale = Engine::MIN_SCALE;
 	mTilesOnScreenFromCenterX = 0;
 	mTilesOnScreenFromCenterY = 0;
 	mCoordinatesText[0] = ' ';
@@ -20,8 +31,9 @@ Engine::Engine() {
 
 	mViewLockedOn = ViewLockedOn::PLAYER;
 
+	this->scale = settings.scale;
+
 	mFpsCap = true;
-	mFullScreen = false;
 	mLastTime = 0L;
 	mTimer = 0L;
 	mDelta = 0.0f;
@@ -39,7 +51,6 @@ Engine::Engine() {
 }
 
 Engine::~Engine() {
-
 }
 
 void Engine::initTimer() {
@@ -94,7 +105,9 @@ void Engine::initializeAudioSystem() {
 	mStarted = true;
 }
 
-void Engine::engineStop(void) {
+void Engine::stop(void) {
+	
+	writeConfigFile();
 
 	Mix_FreeMusic(mMusic);
 	SDL_DestroyRenderer(mRenderer);
@@ -154,3 +167,29 @@ SDL_Window* Engine::getWindow() {
 TextFont* Engine::createFont(std::string fn, bool s) {
 	return new TextFont(mRenderer, fn, s);
 }
+
+bool Engine::writeConfigFile() {
+	settings.scale = scale;
+
+	std::ofstream ofile(CONFIG_FILE_NAME, std::ios::binary);
+	if (!ofile.good()) {
+		std::cout << "Cannot open settings file for writing!" << std::endl;
+		return false;
+	}
+	ofile.write((const char*)&settings, sizeof(settings));
+	ofile.close();
+	return true;
+}
+
+bool Engine::readConfigFile() {
+	std::ifstream ifile(CONFIG_FILE_NAME, std::ios::binary);
+	if (!ifile.good()) {
+		std::cout << "Cannot open settings file for reading!" << std::endl;
+		std::cout << "Switching to default values." << std::endl;
+		return false;
+	}
+	ifile.read((char*)&settings, sizeof(settings));
+	ifile.close();
+	return true;
+}
+

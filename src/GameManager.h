@@ -35,7 +35,6 @@ private:
 	void input(SDL_Event* event);
 	void update();
 	void render();
-	void quit();
 
 };
 

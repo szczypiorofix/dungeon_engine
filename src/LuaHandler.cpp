@@ -11,7 +11,7 @@ LuaHandler::LuaHandler(const std::string& fileName) {
 }
 
 LuaHandler::~LuaHandler() {
-    this->close();
+    close();
 }
 
 void LuaHandler::close() {

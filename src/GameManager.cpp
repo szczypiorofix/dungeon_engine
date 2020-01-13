@@ -32,7 +32,6 @@ void GameManager::gameLoop() {
 
 	
 
-
 	textFont = engine->createFont("vingue", true);
 
 	engine->loadMusic("ex-aws_cave.xm");
@@ -63,6 +62,7 @@ void GameManager::gameLoop() {
 
 	}
 
+	engine->stop();
 }
 
 void GameManager::input(SDL_Event* event) {
@@ -159,10 +159,6 @@ void GameManager::render() {
 	// Render end
 
 	SDL_RenderPresent(engine->getRenderer());
-}
-
-void GameManager::quit() {
-	engine->engineStop();
 }
 
 void GameManager::launch(void) {
