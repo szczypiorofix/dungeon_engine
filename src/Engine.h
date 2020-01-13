@@ -10,6 +10,7 @@
 
 #include "Camera.h"
 #include "Vector2.h"
+#include "TextFont.h"
 
 
 enum class ViewLockedOn {
@@ -40,6 +41,8 @@ public:
 
 	SDL_Renderer* getRenderer();
 	SDL_Window* getWindow();
+
+	TextFont* createFont(std::string, bool s);
 
 	void initTimer();
 

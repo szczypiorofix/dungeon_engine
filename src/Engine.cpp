@@ -150,3 +150,7 @@ SDL_Renderer* Engine::getRenderer() {
 SDL_Window* Engine::getWindow() {
 	return mWindow;
 }
+
+TextFont* Engine::createFont(std::string fn, bool s) {
+	return new TextFont(mRenderer, fn, s);
+}

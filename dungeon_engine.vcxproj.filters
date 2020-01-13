@@ -84,6 +84,9 @@
     <ClInclude Include="src\Level.h">
       <Filter>Header Files\level</Filter>
     </ClInclude>
+    <ClInclude Include="src\XMLHelper.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\images\animals1.tsx">
@@ -201,6 +204,9 @@
     </ClCompile>
     <ClCompile Include="src\Level.cpp">
       <Filter>Source Files\level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XMLHelper.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

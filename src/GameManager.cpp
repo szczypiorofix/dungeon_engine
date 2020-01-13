@@ -20,15 +20,15 @@ GameManager::~GameManager() {
 
 void GameManager::gameLoop() {
 
-	textFont = new TextFont(engine->getRenderer(), "vingue");
+	textFont = engine->createFont("vingue", true);
 
 	engine->loadMusic("ex-aws_cave.xm");
 	if (Mix_PlayingMusic() == 0) {
 		Mix_PlayMusic(engine->getMusic(), -1); // -1 play forever, 0 - no play
 	}
 
-	GraphicAssets::loadAsset("characters.png", engine->getRenderer(), 16, 16, SpriteSheet::CHARACTERS);
-	GraphicAssets::loadAsset("basictiles.png", engine->getRenderer(), 16, 16, SpriteSheet::BASICTILES);
+	GraphicAssets::getAssets()->loadAsset("characters.png", engine->getRenderer(), 16, 16, SpriteSheet::CHARACTERS);
+	GraphicAssets::getAssets()->loadAsset("basictiles.png", engine->getRenderer(), 16, 16, SpriteSheet::BASICTILES);
 
 	world = new World(engine->getRenderer());
 
@@ -125,7 +125,6 @@ void GameManager::update() {
 
 	//player->update(engine->scale);
 
-	
 
 	camera->update(engine->scale);
 
@@ -142,7 +141,7 @@ void GameManager::render() {
 
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
-
+	textFont->draw("DUPA BLADA", 10, 50, 0.5f, engine->scale);
 
 	// Render end
 

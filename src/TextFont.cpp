@@ -1,16 +1,28 @@
 #include "TextFont.h"
 #include "Defines.h"
+#include "XMLHelper.h"
 
 
-
-TextFont::TextFont(SDL_Renderer* renderer, std::string fontName) {
+TextFont::TextFont(SDL_Renderer* r, std::string fn) {
+	renderer = r;
 	charsCount = 0;
 	fontWidth = 0;
 	fontHeight = 0;
 	fontSpace = 0;
-
+	fontName = fn;
+	scallable = false;
 	fontImage = NULL;
-	std::string fileName = DIR_FONTS + fontName + ".png";
+	fontItems = NULL;
+	prepareImage(r, fn);
+	parseXML(fontName);
+}
+
+TextFont::TextFont(SDL_Renderer* r, std::string fn, bool s): TextFont(r, fn) {
+	scallable = s;
+}
+
+void TextFont::prepareImage(SDL_Renderer* r, std::string f) {
+	std::string fileName = DIR_FONTS + f + ".png";
 	SDL_Surface* loadedSurface = IMG_Load(fileName.c_str());
 	if (loadedSurface == NULL) {
 		std::cout << "Unable to load image vingue.png. SDL_image error: " << IMG_GetError() << std::endl;
@@ -18,7 +30,7 @@ TextFont::TextFont(SDL_Renderer* renderer, std::string fontName) {
 	}
 	else {
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
-		fontImage = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		fontImage = SDL_CreateTextureFromSurface(r, loadedSurface);
 		if (fontImage == NULL) {
 			std::cout << "Unable to create texture from vingue.png. Error: " << SDL_GetError() << std::endl;
 			exit(1);
@@ -29,59 +41,12 @@ TextFont::TextFont(SDL_Renderer* renderer, std::string fontName) {
 		}
 		SDL_FreeSurface(loadedSurface);
 	}
-
-	fontItems = NULL;
-	parseXML(fontName);
 }
 
 TextFont::~TextFont() {
 }
 
-int TextFont::xmlCharToInt(const xmlChar a[]) {
-	int c = 0, sign = 0, offset = 0, n = 0;
-	if (a[0] == '-') {
-		sign = -1;
-	}
-	if (sign == -1) {
-		offset = 1;
-	}
-	else {
-		offset = 0;
-	}
-	n = 0;
-	for (c = offset; a[c] != '\0'; c++) {
-		n = n * 10 + a[c] - '0';
-	}
-	if (sign == -1) {
-		n = -n;
-	}
-	return n;
-}
 
-short TextFont::xmlCharToShort(const xmlChar a[]) {
-	short c = 0, sign = 0, offset = 0, n = 0;
-	if (a[0] == '-') {
-		sign = -1;
-	}
-	if (sign == -1) {
-		offset = 1;
-	}
-	else {
-		offset = 0;
-	}
-	n = 0;
-	for (c = offset; a[c] != '\0'; c++) {
-		n = n * 10 + a[c] - '0';
-	}
-	if (sign == -1) {
-		n = -n;
-	}
-	return n;
-}
-
-short TextFont::readPropShort(xmlNodePtr node, const xmlChar* prop) {
-	return xmlGetProp(node, prop) != NULL ? xmlCharToShort(xmlGetProp(node, prop)) : 0;
-}
 
 void TextFont::parseXML(std::string xmlFileName) {
 
@@ -109,9 +74,9 @@ void TextFont::parseXML(std::string xmlFileName) {
 		exit(1);
 	}
 
-	fontWidth = xmlCharToInt(xmlGetProp( cur, (const xmlChar *) "width" ));
-	fontHeight = xmlCharToInt(xmlGetProp(cur, (const xmlChar*)"height"));
-	fontSpace = xmlCharToInt(xmlGetProp(cur, (const xmlChar*)"space"));
+	fontWidth = XMLHelper::readPropShort(cur, (const xmlChar*)"width");
+	fontHeight = XMLHelper::readPropShort(cur, (const xmlChar*)"height");
+	fontSpace = XMLHelper::readPropShort(cur, (const xmlChar*)"space");
 
 	cur = cur->xmlChildrenNode;
 
@@ -131,16 +96,16 @@ void TextFont::parseXML(std::string xmlFileName) {
 	while (mainItems != NULL) {
 		if (!xmlStrcmp(mainItems->name, (const xmlChar*)"item")) {
 			FontItem* tempItem = new FontItem();
-			tempItem->ascii = readPropShort(mainItems, (const xmlChar*)"ascii");
-			tempItem->ucode = readPropShort(mainItems, (const xmlChar*)"ucode");
-			tempItem->top = readPropShort(mainItems, (const xmlChar*)"top");
-			tempItem->bottom = readPropShort(mainItems, (const xmlChar*)"bottom");
-			tempItem->x = readPropShort(mainItems, (const xmlChar*)"x");
-			tempItem->y = readPropShort(mainItems, (const xmlChar*)"y");
-			tempItem->width = readPropShort(mainItems, (const xmlChar*)"width");
-			tempItem->height = readPropShort(mainItems, (const xmlChar*)"height");
-			tempItem->leading = readPropShort(mainItems, (const xmlChar*)"leading");
-			tempItem->trailing = readPropShort(mainItems, (const xmlChar*)"trailing");
+			tempItem->ascii = XMLHelper::readPropShort(mainItems, (const xmlChar*)"ascii");
+			tempItem->ucode = XMLHelper::readPropShort(mainItems, (const xmlChar*)"ucode");
+			tempItem->top = XMLHelper::readPropShort(mainItems, (const xmlChar*)"top");
+			tempItem->bottom = XMLHelper::readPropShort(mainItems, (const xmlChar*)"bottom");
+			tempItem->x = XMLHelper::readPropShort(mainItems, (const xmlChar*)"x");
+			tempItem->y = XMLHelper::readPropShort(mainItems, (const xmlChar*)"y");
+			tempItem->width = XMLHelper::readPropShort(mainItems, (const xmlChar*)"width");
+			tempItem->height = XMLHelper::readPropShort(mainItems, (const xmlChar*)"height");
+			tempItem->leading = XMLHelper::readPropShort(mainItems, (const xmlChar*)"leading");
+			tempItem->trailing = XMLHelper::readPropShort(mainItems, (const xmlChar*)"trailing");
 			
 			fontItems[i] = tempItem;
 			i++;
@@ -148,10 +113,43 @@ void TextFont::parseXML(std::string xmlFileName) {
 		mainItems = mainItems->next;
 	}
 
-	std::cout << "Chars count: " << charsCount << std::endl;
-
 	xmlFreeDoc(doc);
 	xmlCleanupMemory();
 	xmlCleanupParser();
 
 }
+
+float TextFont::getStringFontWidth(const char* text) {
+	float c = 0.0f;
+	for (int i = 0; text[i] != 0; i++) {
+		for (int j = 0; j < charsCount; j++) {
+			if (text[i] == fontItems[j]->ascii) {
+				c += fontItems[j]->width;
+			}
+		}
+	}
+	std::cout << c << std::endl;
+	return c;
+}
+
+void TextFont::draw(const char* text, int x, int y, float size, float scale) {
+	SDL_Rect renderQuad = { 0, 0, 0, 0 };
+	int c = 0;
+	while (text[c] != 0) {
+		for (int i = 0; i < charsCount; i++) {
+			if (text[c] == fontItems[i]->ascii) {
+				
+				renderQuad.x = x + fontItems[i]->trailing + fontItems[i]->leading + (int)(c * fontWidth * size);
+				renderQuad.y = y + fontHeight + fontItems[i]->top;
+				renderQuad.w = (int) (fontWidth * scale * size);
+				renderQuad.h = (int) (fontHeight * scale * size);
+				
+				SDL_Rect clip = { fontItems[i]->x, fontItems[i]->y, fontItems[i]->width, fontItems[i]->height };
+				SDL_RenderCopy(renderer, fontImage, &clip, &renderQuad);
+			}
+		}
+		c++;
+	}
+	
+}
+

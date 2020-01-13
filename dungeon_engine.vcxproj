@@ -103,6 +103,7 @@
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\World.h" />
     <ClInclude Include="src\TiledMap.h" />
+    <ClInclude Include="src\XMLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\dg.ico" />
@@ -153,6 +154,7 @@
     <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="src\TiledMap.cpp" />
+    <ClCompile Include="src\XMLHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\dungeon_engine.rc" />
