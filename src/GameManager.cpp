@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "Animation.h"
 #include "GraphicAssets.h"
+#include "LuaHandler.h"
 
 
 GameManager::GameManager() {
@@ -19,6 +20,18 @@ GameManager::~GameManager() {
 
 
 void GameManager::gameLoop() {
+
+	LuaHandler lh = LuaHandler("script.lua");
+	int width = 0;
+	if (lh.get("width", width)) {
+		std::cout << "Width: " << width << std::endl;
+	}
+	else {
+		std::cout << "Cannot read property." << std::endl;
+	}
+
+	
+
 
 	textFont = engine->createFont("vingue", true);
 
