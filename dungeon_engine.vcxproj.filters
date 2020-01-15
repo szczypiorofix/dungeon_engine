@@ -37,6 +37,21 @@
     <Filter Include="Source Files\level">
       <UniqueIdentifier>{6c2ba1f9-13f4-496b-a1db-4bea2be90577}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{d39ca75b-20d5-4967-9366-e6317e9ad5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\maps">
+      <UniqueIdentifier>{e37cd8a9-b9ed-47c0-aa54-8032d3ea45b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\scripts">
+      <UniqueIdentifier>{c049f3c1-b34b-4701-b258-8021ad91581b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\fonts">
+      <UniqueIdentifier>{8f0f8b61-cdee-4bff-84a1-04293ebead5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\music">
+      <UniqueIdentifier>{cee022a1-b654-47c4-bc85-f11ec4d003e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animation.h">
@@ -84,71 +99,57 @@
     <ClInclude Include="src\Level.h">
       <Filter>Header Files\level</Filter>
     </ClInclude>
+    <ClInclude Include="src\XMLHelper.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LuaHandler.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\images\animals1.tsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\images\basictiles.tsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\images\grassland.tsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\images\worldmap.tmx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\images\map.tmx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\images\npc.tx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\ex-aws_cave.xm">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\dungeon_engine.aps" />
     <None Include="README.md" />
     <None Include="LICENSE" />
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
+    <None Include="res\images\dungeon_engine.tiled-project" />
+    <None Include="res\images\dungeon_engine.tiled-session" />
+    <None Include="res\images\nevada.tiled-session" />
+    <None Include="res\images\animals1.tsx">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="res\images\basictiles.tsx">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="res\images\characters.tsx">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="res\images\worldmap.tmx">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="res\images\npc.tx">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="res\music\ex-aws_cave.xm">
+      <Filter>Resource Files\music</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\nevada.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\animals1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\animals3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\basictiles.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\birds1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\characters.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\food_t.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\grassland.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\vingue.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\dg.ico">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="res\images\vingue.xml">
-      <Filter>Resource Files</Filter>
-    </Xml>
+    <Image Include="res\images\animals1.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\basictiles.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\characters.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\fonts\vingue.png">
+      <Filter>Resource Files\fonts</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game.cpp">
@@ -196,10 +197,26 @@
     <ClCompile Include="src\Level.cpp">
       <Filter>Source Files\level</Filter>
     </ClCompile>
+    <ClCompile Include="src\XMLHelper.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LuaHandler.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\dungeon_engine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\scripts\script.lua">
+      <Filter>Resource Files\scripts</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="res\fonts\vingue.xml">
+      <Filter>Resource Files\fonts</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

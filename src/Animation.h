@@ -19,12 +19,12 @@ public:
 	void setCurrentFrame(int curFrame);
 
 private:
-	unsigned short mSize;
-	SDL_Rect* mFrames;
-	unsigned short mSpeed;
-	int mCurFrame;
-	int mCounter;
-	SpriteSheet* mSpriteSheet;
+	unsigned short size;
+	SDL_Rect* frames;
+	unsigned short speed;
+	int curFrame;
+	int counter;
+	SpriteSheet* spriteSheet;
 
 };
 

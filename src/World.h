@@ -17,8 +17,8 @@ public:
 
 	void render(float scale);
 
-	constexpr static int MAP_WIDTH = 12;
-	constexpr static int MAP_HEIGHT = 8;
+	constexpr static int MAP_WIDTH = 40;
+	constexpr static int MAP_HEIGHT = 32;
 
 	Vector2* vec;
 	Vector2* moveVec;
@@ -32,14 +32,15 @@ public:
 
 
 
-	int mMap[MAP_WIDTH * MAP_HEIGHT];
+	int map[MAP_WIDTH * MAP_HEIGHT];
 
 	int currentWorldSize = MAP_WIDTH * MAP_HEIGHT;
 
 private:
-	SDL_Renderer* mRenderer;
+	SDL_Renderer* renderer;
 
 	void prepareBackground();
+	void randomBackground();
 
 };
 

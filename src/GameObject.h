@@ -5,16 +5,6 @@
 #include "Vector2.h"
 
 
-enum Direction {
-	DIR_UP = 0,
-	DIR_RIGHT = 1,
-	DIR_DOWN = 2,
-	DIR_LEFT = 3,
-	DIR_UP_RIGHT = 4,
-	DIR_DOWN_RIGHT = 5,
-	DIR_DOWN_LEFT = 6,
-	DIR_UP_LEFT = 7
-};
 
 
 class GameObject
@@ -29,9 +19,9 @@ public:
 	int getTileX(unsigned int tileWidth);
 	int getTileY(unsigned int tileHeight);
 
-	Vector2* mVector;
-	int mWidth;
-	int mHeight;
+	Vector2* vector;
+	int width;
+	int height;
 
 };
 

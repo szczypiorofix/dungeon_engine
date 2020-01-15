@@ -19,7 +19,8 @@ typedef struct Layer {
 	std::string name;
 	int width;
 	int height;
-	int* data[];
+	int** data;
+	int dataSize;
 } Layer;
 
 typedef struct Map {

@@ -51,8 +51,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\</OutDir>
     <IntDir>$(SolutionDir)\obj\$(Configuration)\</IntDir>
-    <IncludePath>C:\vs_dev_lib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\vs_dev_lib\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\workshop\cpp\dungeon_engine\libs\lua535\include;C:\vs_dev_lib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\workshop\cpp\dungeon_engine\libs\lua535;C:\vs_dev_lib\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -62,10 +62,12 @@
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/Zm10 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib;lua53.lib</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:lua53.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -83,10 +85,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;libxml2.lib;iconv.lib;lua53.lib</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:lua53.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\LuaHandler.h" />
     <ClInclude Include="src\Level.h" />
     <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\GraphicAssets.h" />
@@ -102,18 +106,14 @@
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\World.h" />
     <ClInclude Include="src\TiledMap.h" />
+    <ClInclude Include="src\XMLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\dg.ico" />
+    <Image Include="res\fonts\vingue.png" />
     <Image Include="res\images\animals1.png" />
-    <Image Include="res\images\animals3.png" />
     <Image Include="res\images\basictiles.png" />
-    <Image Include="res\images\birds1.png" />
     <Image Include="res\images\characters.png" />
-    <Image Include="res\images\food_t.png" />
-    <Image Include="res\images\grassland.png" />
-    <Image Include="res\images\vingue.png" />
-    <Image Include="res\nevada.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
@@ -121,18 +121,24 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\dungeon_engine.aps" />
-    <None Include="res\ex-aws_cave.xm" />
     <None Include="res\images\animals1.tsx" />
     <None Include="res\images\basictiles.tsx" />
-    <None Include="res\images\grassland.tsx" />
-    <None Include="res\images\map.tmx" />
+    <None Include="res\images\characters.tsx" />
+    <None Include="res\images\dungeon_engine.tiled-project" />
+    <None Include="res\images\dungeon_engine.tiled-session" />
+    <None Include="res\images\nevada.tiled-session" />
     <None Include="res\images\npc.tx" />
     <None Include="res\images\worldmap.tmx" />
+    <None Include="res\music\ex-aws_cave.xm" />
+    <Text Include="res\scripts\script.lua">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="res\images\vingue.xml" />
+    <Xml Include="res\fonts\vingue.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LuaHandler.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -148,6 +154,7 @@
     <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="src\TiledMap.cpp" />
+    <ClCompile Include="src\XMLHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\dungeon_engine.rc" />

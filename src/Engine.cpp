@@ -1,80 +1,91 @@
 #include <iostream>
+#include <fstream>
+
 #include "Engine.h"
 #include "Defines.h"
 
 
 Engine::Engine() {
-	mStarted = false;
-	mQuit = false;
-	mWindow = NULL;
-	mRenderer = NULL;
-	mMusic = NULL;
-	mCamera = NULL;
-	mMusicVolume = 20;
-	scale = Engine::MIN_SCALE;
-	mTilesOnScreenFromCenterX = 0;
-	mTilesOnScreenFromCenterY = 0;
-	mCoordinatesText[0] = ' ';
+	
+	if (!readConfigFile()) {
+		settings = {
+		800,					// Screen width
+		600,					// Screen height
+		Engine::MIN_SCALE,		// scale
+		0,// fullscreen
+		20 // music volume
+		};
+	}	
+	
+	this->started = false;
+	this->quit = false;
+	this->window = NULL;
+	this->renderer = NULL;
+	this->music = NULL;
+	this->camera = NULL;
+	this->tilesOnScreenFromCenterX = 0;
+	this->tilesOnScreenFromCenterY = 0;
+	this->coordinatesText[0] = ' ';
 
-	mMouseRightButtonPressed = false;
+	this->mouseRightButtonPressed = false;
 
-	mViewLockedOn = ViewLockedOn::PLAYER;
+	this->viewLockedOn = ViewLockedOn::PLAYER;
 
-	mFpsCap = true;
-	mFullScreen = false;
-	mLastTime = 0L;
-	mTimer = 0L;
-	mDelta = 0.0f;
-	mUpdates = 0;
-	mFrames = 0;
-	mNow = 0L;
-	mAmountOfTicks = 60.0f;
-	mFpsCount = 0;
-	mTicksCount = 0;
-	mNs = 0;
-	mDisplayMode = 0;
+	this->scale = settings.scale;
 
-	mScrollVector = NULL;
+	this->fpsCap = true;
+	this->lastTime = 0L;
+	this->timer = 0L;
+	this->delta = 0.0f;
+	this->updates = 0;
+	this->frames = 0;
+	this->now = 0L;
+	this->amountOfTicks = 60.0f;
+	this->fpsCount = 0;
+	this->ticksCount = 0;
+	this->ns = 0;
+	this->displayMode = 0;
+
+	this->scrollVector = NULL;
 
 }
 
 Engine::~Engine() {
-
 }
 
 void Engine::initTimer() {
-	mLastTime = SDL_GetTicks();
-	mTimer = SDL_GetTicks();
+	this->lastTime = SDL_GetTicks();
+	this->timer = SDL_GetTicks();
 }
 
 void Engine::initSDL() {
-	mStarted = (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)  == 0);
-	if (!mStarted) {
+	this->started = (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)  == 0);
+	if (!this->started) {
 		std::cout << "SDL_Init() error : " << SDL_GetError() << std::endl;
 		exit(1);
 	}
 	atexit(SDL_Quit);
-	mStarted = true;
+	this->started = true;
 }
 
 void Engine::createWindow() {
-	mWindow = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (mWindow == NULL) {
+	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (this->window == NULL) {
 		std::cout << "SDL_CreateWindow() error: " << SDL_GetError() << std::endl;
 		exit(1);
 	}
-	mStarted = true;
+	this->started = true;
 }
 
 void Engine::createRenderer() {
 	
-	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (mRenderer == NULL) {
+	this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (this->renderer == NULL) {
 		std::cout << "SDL_CreateRenderer() error: " << SDL_GetError() << std::endl;
 		exit(1);
 	}
-	SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 0x00, 0xFF);
-	mStarted = true;
+	SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
+	this->started = true;
 }
 
 void Engine::initializePngImages() {
@@ -83,7 +94,7 @@ void Engine::initializePngImages() {
 		std::cout << "SDL_image IMG_Init() error: " << IMG_GetError() << std::endl;
 		exit(1);
 	}
-	mStarted = true;
+	this->started = true;
 }
 
 void Engine::initializeAudioSystem() {
@@ -91,24 +102,17 @@ void Engine::initializeAudioSystem() {
 		std::cout << "SDL_mixer Mix_OpenAudio() error: " << Mix_GetError() << std::endl;
 		exit(1);
 	}
-	mStarted = true;
+	this->started = true;
 }
 
-void Engine::initializeTTFFonts() {
-	if (TTF_Init() == -1) {
-		std::cout << "SDL_ttf TTF_Init() error: " << TTF_GetError() << std::endl;
-		exit(1);
-	}
-	mStarted = true;
-}
+void Engine::stop(void) {
+	
+	writeConfigFile();
 
-void Engine::engineStop(void) {
+	Mix_FreeMusic(this->music);
+	SDL_DestroyRenderer(this->renderer);
+	SDL_DestroyWindow(this->window);
 
-	Mix_FreeMusic(mMusic);
-	SDL_DestroyRenderer(mRenderer);
-	SDL_DestroyWindow(mWindow);
-
-	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 
@@ -121,9 +125,8 @@ void Engine::launchSubsystems(void) {
 	createRenderer();
 	initializePngImages();
 	initializeAudioSystem();
-	initializeTTFFonts();
 
-	if (!mStarted) {
+	if (!this->started) {
 		std::cout << "Engine could not be started." << std::endl;
 		exit(1);
 	}
@@ -132,31 +135,60 @@ void Engine::launchSubsystems(void) {
 
 bool Engine::loadMusic(const std::string musicFile) {
 	std::string musicFileName = DIR_RES_MUSIC + musicFile;
-	mMusic = Mix_LoadMUS(musicFileName.c_str());
-	if (mMusic == NULL) {
+	this->music = Mix_LoadMUS(musicFileName.c_str());
+	if (this->music == NULL) {
 		std::cout << "Failed to load beat music! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		return false;
 	}
 	return true;
 }
 
-Mix_Music* Engine::getMusic()
-{
-	return mMusic;
+Mix_Music* Engine::getMusic() {
+	return this->music;
 }
 
 bool Engine::isQuit() {
-	return mQuit;
+	return this->quit;
 }
 
-void Engine::setQuit(bool quit) {
-	mQuit = quit;
+void Engine::setQuit(bool q) {
+	this->quit = q;
 }
 
 SDL_Renderer* Engine::getRenderer() {
-	return mRenderer;
+	return this->renderer;
 }
 
 SDL_Window* Engine::getWindow() {
-	return mWindow;
+	return this->window;
 }
+
+TextFont* Engine::createFont(std::string fn, bool s) {
+	return new TextFont(this->renderer, fn, s);
+}
+
+bool Engine::writeConfigFile() {
+	this->settings.scale = this->scale;
+
+	std::ofstream ofile(CONFIG_FILE_NAME, std::ios::binary);
+	if (!ofile.good()) {
+		std::cout << "Cannot open settings file for writing!" << std::endl;
+		return false;
+	}
+	ofile.write((const char*)&this->settings, sizeof(this->settings));
+	ofile.close();
+	return true;
+}
+
+bool Engine::readConfigFile() {
+	std::ifstream ifile(CONFIG_FILE_NAME, std::ios::binary);
+	if (!ifile.good()) {
+		std::cout << "Cannot open settings file for reading!" << std::endl;
+		std::cout << "Switching to default values." << std::endl;
+		return false;
+	}
+	ifile.read((char*)&this->settings, sizeof(this->settings));
+	ifile.close();
+	return true;
+}
+

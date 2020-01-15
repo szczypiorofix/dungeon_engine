@@ -6,7 +6,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
-#include <SDL_ttf.h>
 #include <libxml/parser.h>
 
 #include "Camera.h"
@@ -18,6 +17,14 @@ enum class ViewLockedOn {
 	PLAYER,
 	MOUSE
 };
+
+typedef struct Settings {
+	int screenWidth;
+	int screenHeight;
+	float scale;
+	int fullScreen;
+	int musicVolume;
+} Settings;
 
 
 class Engine
@@ -32,9 +39,12 @@ public:
 	static const int MIN_SCALE = 1;
 	static const int MAX_SCALE = 5;
 
-	void launchSubsystems(void);
-	void engineStop(void);
+	const char* CONFIG_FILE_NAME = "dungeon_engine.cfg";
 
+	void launchSubsystems(void);
+	void stop(void);
+
+	Settings settings;
 	float scale;
 
 	bool isQuit();
@@ -43,49 +53,51 @@ public:
 	SDL_Renderer* getRenderer();
 	SDL_Window* getWindow();
 
+	TextFont* createFont(std::string, bool s);
+
 	void initTimer();
 
 	bool loadMusic(const std::string musicFile);
 	Mix_Music* getMusic();
 
 private:
-	bool mStarted;
-	bool mQuit;
-	int mTilesOnScreenFromCenterX;
-	int mTilesOnScreenFromCenterY;
-	SDL_Window* mWindow;
-	SDL_Renderer* mRenderer;
-	Mix_Music* mMusic;
-	Camera* mCamera;
+	bool started;
+	bool quit;
+	int tilesOnScreenFromCenterX;
+	int tilesOnScreenFromCenterY;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	Mix_Music* music;
+	Camera* camera;
 
-	Vector2* mScrollVector;
+	Vector2* scrollVector;
 
-	bool mFullScreen;
-	ViewLockedOn mViewLockedOn;
-	int mMusicVolume;
-	long mLastTime;
-	double mDelta;
-	long mTimer;
-	int mUpdates;
-	int mFrames;
-	long mNow;
-	float mAmountOfTicks;
-	int mFpsCount;
-	int mTicksCount;
-	double mNs;
-	bool mFpsCap;
-	int mDisplayMode;
-	//TextFont* mCoordinates;
-	char mCoordinatesText[80];
-	bool mMouseRightButtonPressed;
+	ViewLockedOn viewLockedOn;
+	long lastTime;
+	double delta;
+	long timer;
+	int updates;
+	int frames;
+	long now;
+	float amountOfTicks;
+	int fpsCount;
+	int ticksCount;
+	double ns;
+	bool fpsCap;
+	int displayMode;
+	char coordinatesText[80];
+	bool mouseRightButtonPressed;
 
+
+	bool writeConfigFile();
+	bool readConfigFile();
 
 	void initSDL();
 	void createWindow();
 	void createRenderer();
 	void initializePngImages();
 	void initializeAudioSystem();
-	void initializeTTFFonts();
+
 };
 
 #endif

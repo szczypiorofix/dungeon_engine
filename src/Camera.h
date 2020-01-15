@@ -8,13 +8,13 @@ class Camera
 {
 public:
 	Camera();
-	Camera(float cx, float cy);
-	Camera(Vector2 camVec);
+	Camera(float x, float y);
+	Camera(Vector2 vec);
 	~Camera();
 	Vector2* vec;
 
-	float* mLockCameraOnObjectX;
-	float* mLockCameraOnObjectY;
+	float* lockCameraOnObjectX;
+	float* lockCameraOnObjectY;
 
 	void update(float scale);
 	void lockCameraOnObject(float *x, float *y);
