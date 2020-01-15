@@ -3,20 +3,19 @@
 
 
 Player::Player(std::string name, float x, float y, int width, int height, SDL_Renderer* renderer) {
-	mName = name;
-	mWidth = width;
-	mHeight = height;
-	mDirection = Direction::DIR_RIGHT;
-	mSpeed = 1.0f;
-	mTileIndex = 0;
-	mTileX = 0;
-	mTileY = 0;
-	mVector = new Vector2(x, y);
-	mMoveVector = new Vector2(0.0f, 0.0f);
-	mMoving = false;
-	SDL_Rect c = { (int) x, (int) y, width, height };
-	mCol = c;
-	mRenderer = renderer;
+	this->name = name;
+	this->width = width;
+	this->height = height;
+	this->direction = DIR_RIGHT;
+	this->speed = 1.0f;
+	this->tileIndex = 0;
+	this->tileX = 0;
+	this->tileY = 0;
+	this->vector = new Vector2(x, y);
+	this->moveVector = new Vector2(0.0f, 0.0f);
+	this->moving = false;
+	this->col = { (int)x, (int)y, width, height };
+	this->renderer = renderer;
 
 	// ==================== ANIMATION ==================== //
 
@@ -26,122 +25,54 @@ Player::Player(std::string name, float x, float y, int width, int height, SDL_Re
 	const unsigned int framesPlayerDown[]	= { 4 , 5 , 6  };
 	
 	SpriteSheet* playerSprite = GraphicAssets::getAssets()->spriteSheets[SpriteSheet::CHARACTERS];
-	mWalkingAnimation = new Animation * [4];
+	this->walkingAnimation = new Animation * [4];
 
-	mWalkingAnimation[Direction::DIR_UP]	= new Animation(playerSprite, 6, mWidth, mHeight, 3, framesPlayerUp);
-	mWalkingAnimation[Direction::DIR_RIGHT]	= new Animation(playerSprite, 6, mWidth, mHeight, 3, framesPlayerRight);
-	mWalkingAnimation[Direction::DIR_DOWN]	= new Animation(playerSprite, 6, mWidth, mHeight, 3, framesPlayerDown);
-	mWalkingAnimation[Direction::DIR_LEFT]	= new Animation(playerSprite, 6, mWidth, mHeight, 3, framesPlayerLeft);
+	this->walkingAnimation[DIR_UP]		= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerUp);
+	this->walkingAnimation[DIR_RIGHT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerRight);
+	this->walkingAnimation[DIR_DOWN]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerDown);
+	this->walkingAnimation[DIR_LEFT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerLeft);
 
-	mWalkingAnimation[mDirection]->setCurrentFrame(1);
+	this->walkingAnimation[this->direction]->setCurrentFrame(1);
 }
 
 
 Player::~Player() {
 }
 
-std::string Player::getName()
-{
-	return mName;
-}
-
-float Player::getSpeed()
-{
-	return mSpeed;
-}
-
-int Player::getWidth()
-{
-	return mWidth;
-}
-
-int Player::getHeight()
-{
-	return mHeight;
-}
-
-int Player::getTileX()
-{
-	return mTileX;
-}
-
-int Player::getTileY()
-{
-	return mTileY;
-}
-
-int Player::getTileIndex()
-{
-	return mTileIndex;
-}
-
-bool Player::isMoving()
-{
-	return mMoving;
-}
-
-SDL_Rect Player::getCollision()
-{
-	return mCol;
-}
-
-Direction Player::getDirection() {
-	return mDirection;
-}
-
-Animation** Player::getAnimation()
-{
-	return mWalkingAnimation;
-}
-
-void Player::setAnimation(Animation** anim) {
-	mWalkingAnimation = anim;
-}
-
-void Player::setDirection(Direction dir) {
-	mDirection = dir;
-}
-
-void Player::setMoving(bool moving) {
-	mMoving = moving;
-}
-
-void Player::draw(float scale, float ox, float oy) {
+void Player::draw(float scale, float x, float y) {
 	SDL_Rect drawRect = { 0, 0, 16, 16 };
-	Animation* curAnim = mWalkingAnimation[mDirection];
+	Animation* curAnim = this->walkingAnimation[this->direction];
 	SDL_Rect tempClip = curAnim->getFrame(curAnim->getCurFrame());
 	GraphicAssets::getAssets()->spriteSheets[SpriteSheet::CHARACTERS]->draw(
-		mRenderer,
+		this->renderer,
 		&tempClip,
-		(int) ( mVector->x + ox ),
-		(int) ( mVector->y + oy ),
+		(int) ( this->vector->x + x ),
+		(int) ( this->vector->y + y ),
 		scale);
 }
 
 void Player::update(float scale) {
 	
-	//*mVector += *mMoveVector;
+	this->vector->x += (this->moveVector->x * scale);
+	this->vector->y += (this->moveVector->y * scale);
 
-	mVector->x += (mMoveVector->x * scale);
-	mVector->y += (mMoveVector->y * scale);
+	this->moving = true;
 
-	mMoving = true;
+	if (this->moveVector->x == this->speed) {
+		this->direction = DIR_RIGHT;
+	}
+	else if (this->moveVector->x == -this->speed) {
+		this->direction = DIR_LEFT;
+	}
+	else if (this->moveVector->y == this->speed) {
+		this->direction = DIR_DOWN;
+	}
+	else if (this->moveVector->y == -this->speed) {
+		this->direction = DIR_UP;
+	}
+	else this->moving = false;
 
-	if (mMoveVector->x == mSpeed) {
-		mDirection = Direction::DIR_RIGHT;
-	}
-	else if (mMoveVector->x == -mSpeed) {
-		mDirection = Direction::DIR_LEFT;
-	}
-	else if (mMoveVector->y == mSpeed) {
-		mDirection = Direction::DIR_DOWN;
-	}
-	else if (mMoveVector->y == -mSpeed) {
-		mDirection = Direction::DIR_UP;
-	}
-	else mMoving = false;
-
-	if (mMoving) {
-		mWalkingAnimation[mDirection]->nextFrame();
+	if (this->moving) {
+		this->walkingAnimation[this->direction]->nextFrame();
 	}
 }

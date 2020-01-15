@@ -11,7 +11,7 @@ SpriteSheet::SpriteSheet(std::string name, SDL_Renderer* renderer, int spriteWid
 		exit(1);
 	}
 	else {
-		mName = name;
+		this->name = name;
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == NULL) {
@@ -19,25 +19,25 @@ SpriteSheet::SpriteSheet(std::string name, SDL_Renderer* renderer, int spriteWid
 			exit(1);
 		}
 		else {
-			mWidth = loadedSurface->w;
-			mHeight = loadedSurface->h;
+			this->width = loadedSurface->w;
+			this->height = loadedSurface->h;
 		}
 		SDL_FreeSurface(loadedSurface);
 	}
-	mId = imagesEnum;
-	mTexture = newTexture;
-	mTileWidth = spriteWidth;
-	mTileHeight = spriteHeight;
+	this->id = imagesEnum;
+	this->texture = newTexture;
+	this->tileWidth = spriteWidth;
+	this->tileHeight = spriteHeight;
 }
 
 void SpriteSheet::draw(SDL_Renderer* renderer, SDL_Rect* clip, int x, int y, float scale) {
 	if (clip == NULL) return;
-	SDL_Rect renderQuad = { x, y, (int) (mTileWidth * scale), (int) (mTileHeight * scale) };
+	SDL_Rect renderQuad = { x, y, (int) (this->tileWidth * scale), (int) (this->tileHeight * scale) };
 	if (clip != NULL) {
 		renderQuad.w = (int) (clip->w * scale);
 		renderQuad.h = (int) (clip->h * scale);
 	}
-	SDL_RenderCopy(renderer, mTexture, clip, &renderQuad);
+	SDL_RenderCopy(renderer, this->texture, clip, &renderQuad);
 }
 
 SpriteSheet::~SpriteSheet() {
@@ -45,25 +45,25 @@ SpriteSheet::~SpriteSheet() {
 }
 
 int SpriteSheet::getWidth() {
-	return mWidth;
+	return this->width;
 }
 
 int SpriteSheet::getHeight() {
-	return mHeight;
+	return this->height;
 }
 
 int SpriteSheet::getTileWidth() {
-	return mTileWidth;
+	return this->tileWidth;
 }
 
 int SpriteSheet::getTileHeight() {
-	return mTileHeight;
+	return this->tileHeight;
 }
 
 SDL_Texture* SpriteSheet::getTexture() {
-	return mTexture;
+	return this->texture;
 }
 
 int SpriteSheet::getColumns() {
-	return mWidth / mTileWidth;
+	return this->width / this->tileWidth;
 }

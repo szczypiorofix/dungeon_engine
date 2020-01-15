@@ -32,12 +32,12 @@ public:
 
 
 
-	int mMap[MAP_WIDTH * MAP_HEIGHT];
+	int map[MAP_WIDTH * MAP_HEIGHT];
 
 	int currentWorldSize = MAP_WIDTH * MAP_HEIGHT;
 
 private:
-	SDL_Renderer* mRenderer;
+	SDL_Renderer* renderer;
 
 	void prepareBackground();
 	void randomBackground();

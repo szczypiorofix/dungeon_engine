@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <SDL.h>
+
+#include "Defines.h"
 #include "Vector2.h"
 #include "Animation.h"
 #include "GameObject.h"
@@ -16,40 +18,23 @@ public:
 	Player(std::string name, float x, float y, int width, int height, SDL_Renderer* renderer);
 	~Player();
 
-	Vector2* mMoveVector;
+	Vector2* moveVector;
 
-	std::string getName();
-	float getSpeed();
-	int getWidth();
-	int getHeight();
-	int getTileX();
-	int getTileY();
-	int getTileIndex();
-	bool isMoving();
-	SDL_Rect getCollision();
-	Animation** getAnimation();
+	std::string name;
+	float speed;
+	int tileX;
+	int tileY;
+	int tileIndex;
+	bool moving;
+	SDL_Rect col;
+	int direction;
+	Animation** walkingAnimation;
 
-	void draw(float scale, float ox, float oy);
+	void draw(float scale, float x, float y);
 	void update(float scale);
 
-	void setAnimation(Animation** anim);
-
-	void setDirection(Direction dir);
-	void setMoving(bool moving);
-
-	Direction getDirection();
-
 private:
-	std::string mName;
-	float mSpeed;
-	int mTileX;
-	int mTileY;
-	int mTileIndex;
-	bool mMoving;
-	SDL_Rect mCol;
-	Direction mDirection;
-	SDL_Renderer* mRenderer;
-	Animation** mWalkingAnimation;
+	SDL_Renderer* renderer;
 };
 
 #endif

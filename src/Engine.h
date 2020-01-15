@@ -61,32 +61,32 @@ public:
 	Mix_Music* getMusic();
 
 private:
-	bool mStarted;
-	bool mQuit;
-	int mTilesOnScreenFromCenterX;
-	int mTilesOnScreenFromCenterY;
-	SDL_Window* mWindow;
-	SDL_Renderer* mRenderer;
-	Mix_Music* mMusic;
-	Camera* mCamera;
+	bool started;
+	bool quit;
+	int tilesOnScreenFromCenterX;
+	int tilesOnScreenFromCenterY;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	Mix_Music* music;
+	Camera* camera;
 
-	Vector2* mScrollVector;
+	Vector2* scrollVector;
 
-	ViewLockedOn mViewLockedOn;
-	long mLastTime;
-	double mDelta;
-	long mTimer;
-	int mUpdates;
-	int mFrames;
-	long mNow;
-	float mAmountOfTicks;
-	int mFpsCount;
-	int mTicksCount;
-	double mNs;
-	bool mFpsCap;
-	int mDisplayMode;
-	char mCoordinatesText[80];
-	bool mMouseRightButtonPressed;
+	ViewLockedOn viewLockedOn;
+	long lastTime;
+	double delta;
+	long timer;
+	int updates;
+	int frames;
+	long now;
+	float amountOfTicks;
+	int fpsCount;
+	int ticksCount;
+	double ns;
+	bool fpsCap;
+	int displayMode;
+	char coordinatesText[80];
+	bool mouseRightButtonPressed;
 
 
 	bool writeConfigFile();

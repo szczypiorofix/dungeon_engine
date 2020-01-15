@@ -26,13 +26,13 @@ public:
 	void draw(SDL_Renderer* renderer, SDL_Rect* clip, int x, int y, float scale);
 	
 private:
-	SDL_Texture* mTexture;
-	std::string mName;
-	int mWidth;
-	int mHeight;
-	int mTileWidth;
-	int mTileHeight;
-	int mId;
+	SDL_Texture* texture;
+	std::string name;
+	int width;
+	int height;
+	int tileWidth;
+	int tileHeight;
+	int id;
 
 };
 

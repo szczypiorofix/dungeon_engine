@@ -2,46 +2,43 @@
 
 
 Animation::Animation(SpriteSheet* spriteSheet, unsigned short speed, unsigned int sw, unsigned int sh, const unsigned short size, const unsigned int* frames) {
-	mSize = size;
-	mSpeed = speed;
-	mCounter = 0;
-	mCurFrame = 0;
-	mSpriteSheet = spriteSheet;
-	mFrames = new SDL_Rect[size];
+	this->size = size;
+	this->speed = speed;
+	this->counter = 0;
+	this->curFrame = 0;
+	this->spriteSheet = spriteSheet;
+	this->frames = new SDL_Rect[size];
 
 	for (unsigned int i = 0; i < size; i++) {
 		int col = spriteSheet->getWidth() / spriteSheet->getTileWidth();
-		mFrames[i].x = ((frames[i] - 1) % col) * sw;
-		mFrames[i].y = ((frames[i] - 1) / col) * sh;
-		mFrames[i].w = sw;
-		mFrames[i].h = sh;
+		this->frames[i].x = ((frames[i] - 1) % col) * sw;
+		this->frames[i].y = ((frames[i] - 1) / col) * sh;
+		this->frames[i].w = sw;
+		this->frames[i].h = sh;
 	}
 }
 
 int Animation::nextFrame() {
-	mCounter++;
-	if (mCounter > mSpeed) {
-		mCounter = 0;
-		mCurFrame++;
-		if (mCurFrame >= mSize)
-			mCurFrame = 0;
+	this->counter++;
+	if (this->counter > this->speed) {
+		this->counter = 0;
+		this->curFrame++;
+		if (this->curFrame >= this->size)
+			this->curFrame = 0;
 	}
-	return mCurFrame;
+	return this->curFrame;
 }
 
-SDL_Rect Animation::getFrame(int index)
-{
-	return mFrames[index];
+SDL_Rect Animation::getFrame(int index) {
+	return this->frames[index];
 }
 
-int Animation::getCurFrame()
-{
-	return mCurFrame;
+int Animation::getCurFrame() {
+	return this->curFrame;
 }
 
-void Animation::setCurrentFrame(int curFrame)
-{
-	mCurFrame = curFrame;
+void Animation::setCurrentFrame(int cf) {
+	this->curFrame = cf;
 }
 
 Animation::~Animation() {

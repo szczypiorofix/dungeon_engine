@@ -7,12 +7,12 @@
 
 
 GameManager::GameManager() {
-	engine = new Engine();
-	player = NULL;
-	camera = NULL;
-	world = NULL;
-	currentLockVector = new Vector2(0.0f, 0.0f);
-	textFont = NULL;
+	this->engine = new Engine();
+	this->player = NULL;
+	this->camera = NULL;
+	this->world = NULL;
+	this->textFont = NULL;
+	this->currentLockVector = new Vector2(0.0f, 0.0f);
 }
 
 GameManager::~GameManager() {
@@ -22,9 +22,9 @@ GameManager::~GameManager() {
 void GameManager::gameLoop() {
 
 	LuaHandler lh = LuaHandler("script.lua");
-	int width = 0;
-	if (lh.get("width", width)) {
-		std::cout << "Width: " << width << std::endl;
+	PL pl{ 0, 0 };
+	if (lh.get("player", pl)) {
+		std::cout << "Player width: " << pl.width << std::endl;
 	}
 	else {
 		std::cout << "Cannot read property." << std::endl;
@@ -32,29 +32,29 @@ void GameManager::gameLoop() {
 
 	
 
-	textFont = engine->createFont("vingue", true);
+	this->textFont = this->engine->createFont("vingue", true);
 
-	engine->loadMusic("ex-aws_cave.xm");
+	this->engine->loadMusic("ex-aws_cave.xm");
 	if (Mix_PlayingMusic() == 0) {
-		Mix_PlayMusic(engine->getMusic(), -1); // -1 play forever, 0 - no play
+		Mix_PlayMusic(this->engine->getMusic(), -1); // -1 play forever, 0 - no play
 	}
 
-	GraphicAssets::getAssets()->loadAsset("characters.png", engine->getRenderer(), 16, 16, SpriteSheet::CHARACTERS);
-	GraphicAssets::getAssets()->loadAsset("basictiles.png", engine->getRenderer(), 16, 16, SpriteSheet::BASICTILES);
+	GraphicAssets::getAssets()->loadAsset("characters.png", this->engine->getRenderer(), 16, 16, SpriteSheet::CHARACTERS);
+	GraphicAssets::getAssets()->loadAsset("basictiles.png", this->engine->getRenderer(), 16, 16, SpriteSheet::BASICTILES);
 
-	world = new World(engine->getRenderer());
+	this->world = new World(this->engine->getRenderer());
 
-	player = new Player("Player", 0.0f, 0.0f, 16, 16, engine->getRenderer());
+	this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
 	
-	camera = new Camera();
+	this->camera = new Camera();
 	//camera->lockCameraOnObject(&player->mVector->x, &player->mVector->y);
 
-	currentLockVector = world->moveVec;
-	camera->lockCameraOnObject(currentLockVector);
+	this->currentLockVector = this->world->moveVec;
+	this->camera->lockCameraOnObject(this->currentLockVector);
 
 	SDL_Event event;
-	engine->initTimer();
-	while (!engine->isQuit()) {
+	this->engine->initTimer();
+	while (!this->engine->isQuit()) {
 		
 		input(&event);
 		update();
@@ -62,43 +62,43 @@ void GameManager::gameLoop() {
 
 	}
 
-	engine->stop();
+	this->engine->stop();
 }
 
 void GameManager::input(SDL_Event* event) {
 	
 	while (SDL_PollEvent(event) != 0) {
 		if (event->type == SDL_QUIT) {
-			engine->setQuit(true);
+			this->engine->setQuit(true);
 		}
 		else if (event->type == SDL_MOUSEWHEEL) {
 			if (event->button.x == 1) {
-				if (engine->scale < Engine::MAX_SCALE) engine->scale += 0.25f;
+				if (this->engine->scale < Engine::MAX_SCALE) this->engine->scale += 0.25f;
 			}
 			else if (event->button.x == -1) {
-				if (engine->scale > Engine::MIN_SCALE) engine->scale -= 0.25f;
+				if (this->engine->scale > Engine::MIN_SCALE) this->engine->scale -= 0.25f;
 			}
 		}
 		else if (event->type == SDL_KEYDOWN) {
 			switch (event->key.keysym.sym) {
 				case SDLK_ESCAPE:
-					engine->setQuit(true);
+					this->engine->setQuit(true);
 					break;
 				case SDLK_LEFT:
 				case SDLK_a:
-					currentLockVector->x = -SCROLL_SPEED;
+					this->currentLockVector->x = -SCROLL_SPEED;
 					break;
 				case SDLK_RIGHT:
 				case SDLK_d:
-					currentLockVector->x = SCROLL_SPEED;
+					this->currentLockVector->x = SCROLL_SPEED;
 					break;
 				case SDLK_UP:
 				case SDLK_w:
-					currentLockVector->y = -SCROLL_SPEED;
+					this->currentLockVector->y = -SCROLL_SPEED;
 					break;
 				case SDLK_DOWN:
 				case SDLK_s:
-					currentLockVector->y = SCROLL_SPEED;
+					this->currentLockVector->y = SCROLL_SPEED;
 					break;
 			}
 		}
@@ -106,25 +106,25 @@ void GameManager::input(SDL_Event* event) {
 			switch (event->key.keysym.sym) {
 				case SDLK_LEFT:
 				case SDLK_a:
-					if (currentLockVector->x < 0) {
-						currentLockVector->x = 0;
+					if (this->currentLockVector->x < 0) {
+						this->currentLockVector->x = 0;
 					}
 					break;
 				case SDLK_RIGHT:
 				case SDLK_d:
-					if (currentLockVector->x > 0) {
-						currentLockVector->x = 0;
+					if (this->currentLockVector->x > 0) {
+						this->currentLockVector->x = 0;
 					}
 					break;
 				case SDLK_UP:
 				case SDLK_w:
-					if (currentLockVector->y < 0) {
-						currentLockVector->y = 0;
+					if (this->currentLockVector->y < 0) {
+						this->currentLockVector->y = 0;
 					}
 				case SDLK_DOWN:
 				case SDLK_s:
-					if (currentLockVector->y > 0) {
-						currentLockVector->y = 0;
+					if (this->currentLockVector->y > 0) {
+						this->currentLockVector->y = 0;
 					}
 					break;
 			}
@@ -134,34 +134,35 @@ void GameManager::input(SDL_Event* event) {
 
 void GameManager::update() {
 
-	world->update(engine->scale);
+	this->world->update(this->engine->scale);
 
 	//player->update(engine->scale);
 
 
-	camera->update(engine->scale);
+	this->camera->update(this->engine->scale);
 
 }
 
 void GameManager::render() {
-	SDL_SetRenderDrawColor(engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderClear(engine->getRenderer());
+	SDL_SetRenderDrawColor(this->engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderClear(this->engine->getRenderer());
 
 	// Render start
 
 
-	world->render(engine->scale); // , -camera->vec->x, -camera->vec->y);
+	this->world->render(this->engine->scale); // , -camera->vec->x, -camera->vec->y);
 
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
-	textFont->draw("DUPA BLADA", 10, 50, 0.5f, engine->scale);
+	this->textFont->draw("DUPA BLADA", 10, 50, 0.5f, this->engine->scale);
+
 
 	// Render end
 
-	SDL_RenderPresent(engine->getRenderer());
+	SDL_RenderPresent(this->engine->getRenderer());
 }
 
 void GameManager::launch(void) {
-	engine->launchSubsystems();
-	gameLoop();
+	this->engine->launchSubsystems();
+	this->gameLoop();
 }
