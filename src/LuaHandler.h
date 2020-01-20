@@ -4,17 +4,13 @@
 
 #include <iostream>
 #include <lua535/lua.hpp>
-#include <lua535/lauxlib.h>
 
-typedef struct PL {
-	int width;
-	int height;
-} PL;
-
+#include "Player.h"
 
 class LuaHandler {
 
 public:
+
 	LuaHandler(const std::string& fileName);
 	~LuaHandler();
 
@@ -22,17 +18,19 @@ public:
 	
 	bool loadFile(const std::string fileName );
 
-	bool get(const char* name, int& value);
-	bool get(const char* name, std::string& value);
-	bool get(const char* name, PL& value);
+	bool getInt(const char* name, int& value);
+	bool getString(const char* name, std::string& value);
+	
+	Player* getPlayer(SDL_Renderer* renderer);
 
 	bool getGlobal(const char* name);
 
-	PL* pl;
 
 private:
 	lua_State* luaState;
 	
+	lua_Number getFieldInt(const char* objectName, const char* propertyName);
+
 };
 
 #endif

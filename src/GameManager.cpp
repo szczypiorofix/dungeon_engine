@@ -21,22 +21,12 @@ GameManager::~GameManager() {
 
 void GameManager::gameLoop() {
 
-	LuaHandler lh = LuaHandler("script.lua");
-	PL pl{ 0, 0 };
-	if (lh.get("player", pl)) {
-		std::cout << "Player width: " << pl.width << std::endl;
-	}
-	else {
-		std::cout << "Cannot read property." << std::endl;
-	}
-
-	
-
 	this->textFont = this->engine->createFont("vingue", true);
 
 	this->engine->loadMusic("ex-aws_cave.xm");
 	if (Mix_PlayingMusic() == 0) {
 		Mix_PlayMusic(this->engine->getMusic(), -1); // -1 play forever, 0 - no play
+		Mix_VolumeMusic(this->engine->settings.musicVolume);
 	}
 
 	GraphicAssets::getAssets()->loadAsset("characters.png", this->engine->getRenderer(), 16, 16, SpriteSheet::CHARACTERS);
@@ -44,7 +34,19 @@ void GameManager::gameLoop() {
 
 	this->world = new World(this->engine->getRenderer());
 
-	this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
+
+	LuaHandler* lua = new LuaHandler("script.lua");
+
+	if (this->player == lua->getPlayer(this->engine->getRenderer())) {
+		std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
+		std::cout << "X: " << this->player->vector->x << ", Y: " << this->player->vector->y << ", player width: " << this->player->width << ", height: " << this->player->height << std::endl;
+	}
+	else {
+		std::cout << "Cannot read object 'Player'." << std::endl;
+	}
+
+	delete lua;
+	//this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
 	
 	this->camera = new Camera();
 	//camera->lockCameraOnObject(&player->mVector->x, &player->mVector->y);

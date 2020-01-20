@@ -32,7 +32,7 @@ Player::Player(std::string name, float x, float y, int width, int height, SDL_Re
 	this->walkingAnimation[DIR_DOWN]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerDown);
 	this->walkingAnimation[DIR_LEFT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerLeft);
 
-	this->walkingAnimation[this->direction]->setCurrentFrame(1);
+	this->walkingAnimation[this->direction]->setCurrentFrame(this->direction);
 }
 
 

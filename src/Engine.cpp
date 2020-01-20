@@ -13,7 +13,7 @@ Engine::Engine() {
 		600,					// Screen height
 		Engine::MIN_SCALE,		// scale
 		0,// fullscreen
-		20 // music volume
+		10 // music volume
 		};
 	}	
 	
