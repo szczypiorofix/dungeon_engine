@@ -1,8 +1,6 @@
 #include "LuaHandler.h"
 #include "Defines.h"
-
-
-#define PLoo "PL"
+#include <cassert>
 
 
 
@@ -20,6 +18,7 @@ LuaHandler::~LuaHandler() {
 }
 
 void LuaHandler::close() {
+    std::cout << "Shutting down lua state." << std::endl;
     if (!this->luaState)
         return;
     lua_close(this->luaState);
@@ -36,7 +35,7 @@ bool LuaHandler::loadFile(const std::string fileName) {
     return false;
 }
 
-bool LuaHandler::get(const char* name, int& value) {
+bool LuaHandler::getInt(const char* name, int& value) {
     bool res = false;
     if (!this->getGlobal(name))
         return res;
@@ -50,7 +49,7 @@ bool LuaHandler::get(const char* name, int& value) {
     return res;
 }
 
-bool LuaHandler::get(const char* name, std::string& value) {
+bool LuaHandler::getString(const char* name, std::string& value) {
     if (!this->getGlobal(name))
         return false;
     if (lua_type(this->luaState, -1) != LUA_TSTRING) {
@@ -62,13 +61,27 @@ bool LuaHandler::get(const char* name, std::string& value) {
     return true;
 }
 
-bool LuaHandler::get(const char* name, PL& value)
-{
-    if (!this->getGlobal(name))
-        return false;
-    value = *(PL*)(lua_topointer(this->luaState, -1));
-    lua_pop(this->luaState, 1);
-    return true;
+Player* LuaHandler::getPlayer(SDL_Renderer* renderer) {
+    if (!this->getGlobal("Player"))
+        return nullptr;
+   
+    lua_getglobal(this->luaState, "Player");
+    lua_pushstring(this->luaState, "name");
+    lua_gettable(this->luaState, -2);
+    const char* playerName = lua_tostring(this->luaState, -1);
+    lua_Number playerX = getFieldInt("Player", "x");
+    lua_Number playerY = getFieldInt("Player", "y");
+    lua_Number playerWidth = getFieldInt("Player", "width");
+    lua_Number playerHeight = getFieldInt("Player", "height");
+    return new Player(playerName, (float)playerX, (float)playerY, (int)playerWidth, (int)playerHeight, renderer);
+}
+
+lua_Number LuaHandler::getFieldInt(const char* objectName, const char* propertyName) {
+    lua_getglobal(this->luaState, objectName);
+    lua_getfield(this->luaState, -1, propertyName);
+    lua_Number r = lua_tonumber(this->luaState, -1);
+    lua_pop(this->luaState, -1);
+    return r;
 }
 
 bool LuaHandler::getGlobal(const char* name) {
