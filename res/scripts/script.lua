@@ -7,6 +7,3 @@ Player = {
 	height = 18
 }
 
-n = "dupa"
-
-

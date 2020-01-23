@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 #pragma once
@@ -11,8 +16,7 @@
 #include "GameObject.h"
 
 
-class Player : public GameObject
-{
+class Player : public GameObject {
 
 public:
 	Player(std::string name, float x, float y, int width, int height, SDL_Renderer* renderer);

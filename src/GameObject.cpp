@@ -1,4 +1,11 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
+
 #include "GameObject.h"
+
 
 GameObject::GameObject() {
 	this->vector = new Vector2(0.0f, 0.0f);

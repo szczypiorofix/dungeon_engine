@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #include <iostream>
 #include <fstream>
 
@@ -59,63 +64,147 @@ void Engine::initTimer() {
 }
 
 void Engine::initSDL() {
+#ifdef _DEBUG 
+	std::cout << "Initializing SDL audio & video main modules... ";
+#endif
 	this->started = (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)  == 0);
 	if (!this->started) {
 		std::cout << "SDL_Init() error : " << SDL_GetError() << std::endl;
-		exit(1);
-	}
+		this->started = false;
+	} else
+		this->started = true;
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
 	atexit(SDL_Quit);
-	this->started = true;
 }
 
 void Engine::createWindow() {
+#ifdef _DEBUG 
+	std::cout << "Initializing SDL window... ";
+#endif
 	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (this->window == NULL) {
 		std::cout << "SDL_CreateWindow() error: " << SDL_GetError() << std::endl;
-		exit(1);
-	}
-	this->started = true;
+		this->started = false;
+	} else
+		this->started = true;
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
 }
 
 void Engine::createRenderer() {
-	
+#ifdef _DEBUG 
+	std::cout << "Initializing SDL renderer... ";
+#endif
 	this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (this->renderer == NULL) {
 		std::cout << "SDL_CreateRenderer() error: " << SDL_GetError() << std::endl;
-		exit(1);
+		this->started = false;
+	} else {
+		SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
+		this->started = true;
 	}
-	SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
-	this->started = true;
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
 }
 
 void Engine::initializePngImages() {
+#ifdef _DEBUG 
+	std::cout << "Initializing SDL PNG images module... ";
+#endif
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
 		std::cout << "SDL_image IMG_Init() error: " << IMG_GetError() << std::endl;
-		exit(1);
-	}
-	this->started = true;
+		this->started = false;
+	} else
+		this->started = true;
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
 }
 
 void Engine::initializeAudioSystem() {
+#ifdef _DEBUG 
+	std::cout << "Initializing SDL audio module... ";
+#endif
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
 		std::cout << "SDL_mixer Mix_OpenAudio() error: " << Mix_GetError() << std::endl;
-		exit(1);
-	}
-	this->started = true;
+		this->started = false;
+	} else
+		this->started = true;
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
+}
+
+void Engine::initializeNetworkSystem() {
+#ifdef _DEBUG 
+	std::cout << "Initializing SDL network module... ";
+#endif
+	if (SDLNet_Init() == -1) {
+		std::cout << "SDLNet_Init() error: " << SDLNet_GetError() << std::endl;
+		this->started = false;
+	} else
+		this->started = true;
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
+
+	//Uint16 port = 80;
+
+	//IPaddress ip;
+	//TCPsocket sd;
+	//int quit, len; char buffer[512];
+
+	//if (SDLNet_ResolveHost(&ip, "127.0.0.1", port) < 0) {
+	//	fprintf(stderr, "SDLNet_ResolveHost: %s\n", SDLNet_GetError()); exit(EXIT_FAILURE);
+	//}
+
+	///* Open a connection with the IP provided (listen on the host's port) */
+	//if (!(sd = SDLNet_TCP_Open(&ip))) {
+	//	fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError()); exit(EXIT_FAILURE);
+	//}
+
+	//quit = 0; while (!quit) {
+	//printf("Write something:\n>");
+	//scanf_s("%s", buffer);
+
+	//len = strlen(buffer) + 1;
+	//if (SDLNet_TCP_Send(sd, (void*)buffer, len) < len) {
+	//	fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError()); exit(EXIT_FAILURE);
+	//}
+
+	//if (strcmp(buffer, "exit") == 0)
+	//	quit = 1;
+	//if (strcmp(buffer, "quit") == 0)
+	//	quit = 1;
+	//}
+
+	//SDLNet_TCP_Close(sd);
+
+	
 }
 
 void Engine::stop(void) {
-	
+
 	writeConfigFile();
+#ifdef _DEBUG 
+	std::cout << "Shutting down SDL modules... ";
+#endif
 
 	Mix_FreeMusic(this->music);
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
 
+	//SDLNet_Quit();
 	IMG_Quit();
 	SDL_Quit();
-
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
 }
 
 void Engine::launchSubsystems(void) {
@@ -125,6 +214,7 @@ void Engine::launchSubsystems(void) {
 	createRenderer();
 	initializePngImages();
 	initializeAudioSystem();
+	initializeNetworkSystem();
 
 	if (!this->started) {
 		std::cout << "Engine could not be started." << std::endl;
@@ -168,6 +258,9 @@ TextFont* Engine::createFont(std::string fn, bool s) {
 }
 
 bool Engine::writeConfigFile() {
+#ifdef _DEBUG 
+	std::cout << "Saving config file... ";
+#endif
 	this->settings.scale = this->scale;
 
 	std::ofstream ofile(CONFIG_FILE_NAME, std::ios::binary);
@@ -177,6 +270,9 @@ bool Engine::writeConfigFile() {
 	}
 	ofile.write((const char*)&this->settings, sizeof(this->settings));
 	ofile.close();
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
 	return true;
 }
 

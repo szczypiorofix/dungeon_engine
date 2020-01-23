@@ -1,7 +1,11 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #include "LuaHandler.h"
 #include "Defines.h"
 #include <cassert>
-
 
 
 LuaHandler::LuaHandler(const std::string& fileName) {

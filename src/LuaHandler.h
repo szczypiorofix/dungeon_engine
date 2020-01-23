@@ -1,10 +1,14 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _LUAHANDLER_H_
 #define _LUAHANDLER_H_
 #pragma once
 
 #include <iostream>
 #include <lua535/lua.hpp>
-
 #include "Player.h"
 
 class LuaHandler {

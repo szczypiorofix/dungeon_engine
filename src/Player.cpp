@@ -1,3 +1,9 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
+
 #include "Player.h"
 #include "GraphicAssets.h"
 

@@ -1,46 +1,35 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _WORLD_H_
 #define _WORLD_H_
 #pragma once
 
 #include <SDL.h>
 #include "Vector2.h"
+#include "Level.h"
 
 
-class World
-{
+class World {
 
 public:
 	World(SDL_Renderer* renderer);
 	~World();
 
+	Vector2* moveVector;
+	Vector2* vector;
+
+	Level* currentLevel;
+
 	void update(float scale);
 
 	void render(float scale);
 
-	constexpr static int MAP_WIDTH = 40;
-	constexpr static int MAP_HEIGHT = 32;
-
-	Vector2* vec;
-	Vector2* moveVec;
-
-	/*
-	* BLOCKS TYPES
-	*/
-
-	const int BGRND_GRASS1 = 11;
-	const int BGRND_GRASS2 = 12;
-
-
-
-	int map[MAP_WIDTH * MAP_HEIGHT];
-
-	int currentWorldSize = MAP_WIDTH * MAP_HEIGHT;
 
 private:
 	SDL_Renderer* renderer;
-
-	void prepareBackground();
-	void randomBackground();
 
 };
 

@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 #pragma once
@@ -6,6 +11,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <SDL_net.h>
 #include <libxml/parser.h>
 
 #include "Camera.h"
@@ -97,6 +103,7 @@ private:
 	void createRenderer();
 	void initializePngImages();
 	void initializeAudioSystem();
+	void initializeNetworkSystem();
 
 };
 
