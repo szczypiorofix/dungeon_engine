@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #include "SpriteSheet.h"
 #include <SDL_image.h>
 

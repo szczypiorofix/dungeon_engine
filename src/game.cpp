@@ -1,9 +1,7 @@
-/**
-
-	Dungeon Engine
-	Copyright (C) 2019 Piotr Wróblewski <poczta@wroblewskipiotr.pl>
- 
-*/
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
 
 
 #include "GameManager.h"

@@ -1,5 +1,9 @@
-#include "GameManager.h"
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
 
+#include "GameManager.h"
 #include <SDL.h>
 #include "Animation.h"
 #include "GraphicAssets.h"
@@ -8,10 +12,11 @@
 
 GameManager::GameManager() {
 	this->engine = new Engine();
-	this->player = NULL;
-	this->camera = NULL;
-	this->world = NULL;
-	this->textFont = NULL;
+	this->player = nullptr;
+	this->camera = nullptr;
+	this->world = nullptr;
+	this->tiledMap = nullptr;
+	this->textFont = nullptr;
 	this->currentLockVector = new Vector2(0.0f, 0.0f);
 }
 
@@ -34,10 +39,12 @@ void GameManager::gameLoop() {
 
 	this->world = new World(this->engine->getRenderer());
 
+	this->tiledMap = new TiledMap("worldmap.tmx");
 
 	LuaHandler* lua = new LuaHandler("script.lua");
 
-	if (this->player == lua->getPlayer(this->engine->getRenderer())) {
+	this->player = lua->getPlayer(this->engine->getRenderer());
+	if (this->player) {
 		std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
 		std::cout << "X: " << this->player->vector->x << ", Y: " << this->player->vector->y << ", player width: " << this->player->width << ", height: " << this->player->height << std::endl;
 	}
@@ -51,7 +58,7 @@ void GameManager::gameLoop() {
 	this->camera = new Camera();
 	//camera->lockCameraOnObject(&player->mVector->x, &player->mVector->y);
 
-	this->currentLockVector = this->world->moveVec;
+	this->currentLockVector = this->world->moveVector;
 	this->camera->lockCameraOnObject(this->currentLockVector);
 
 	SDL_Event event;

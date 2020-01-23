@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _GAMEMANAGER_H_
 #define _GAMEMANAGER_H_
 #pragma once
@@ -25,6 +30,7 @@ private:
 	Engine* engine;
 	Player* player;
 	World* world;
+	TiledMap* tiledMap;
 	Camera* camera;
 	Vector2* currentLockVector;
 	TextFont* textFont;

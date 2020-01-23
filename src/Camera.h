@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 #pragma once

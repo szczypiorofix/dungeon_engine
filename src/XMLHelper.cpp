@@ -1,3 +1,9 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
+
 #include "XMLHelper.h"
 
 int XMLHelper::xmlCharToInt(const xmlChar* a) {

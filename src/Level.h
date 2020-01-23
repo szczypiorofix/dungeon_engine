@@ -1,38 +1,13 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _LEVEL_H_
 #define _LEVEL_H_
 #pragma once
 
-#include <iostream>
-
-typedef struct ObjectGroup {
-	int id;
-	std::string name;
-} ObjectGroup;
-
-typedef struct TileSet {
-	int firstId;
-	std::string source;
-} TileSet;
-
-typedef struct Layer {
-	int id;
-	std::string name;
-	int width;
-	int height;
-	int** data;
-	int dataSize;
-} Layer;
-
-typedef struct Map {
-	
-	int width;
-	int height;
-	int tileWidth;
-	int tileHeight;
-	int nextLayerId;
-	int nextObjectId;
-
-} Map;
+#include <string>
 
 
 class Level {
@@ -42,7 +17,12 @@ public:
 	~Level();
 
 private:
-
+	const std::string base64_chars =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		"abcdefghijklmnopqrstuvwxyz"
+		"0123456789+/";
+	inline bool is_base64(unsigned char c);
+	std::string base64_decode(std::string const& encoded_string);
 
 };
 
