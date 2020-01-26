@@ -42,18 +42,16 @@ void GameManager::gameLoop() {
 	this->tiledMap = new TiledMap("worldmap.tmx");
 
 	LuaHandler* lua = new LuaHandler("script.lua");
-
-	this->player = lua->getPlayer(this->engine->getRenderer());
+	//this->player = lua->getPlayer(this->engine->getRenderer());
 	if (this->player) {
 		std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
 		std::cout << "X: " << this->player->vector->x << ", Y: " << this->player->vector->y << ", player width: " << this->player->width << ", height: " << this->player->height << std::endl;
-	}
-	else {
+	} else {
 		std::cout << "Cannot read object 'Player'." << std::endl;
 	}
-
 	delete lua;
-	//this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
+
+	this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
 	
 	this->camera = new Camera();
 	//camera->lockCameraOnObject(&player->mVector->x, &player->mVector->y);
@@ -160,6 +158,29 @@ void GameManager::render() {
 
 
 	this->world->render(this->engine->scale); // , -camera->vec->x, -camera->vec->y);
+
+	
+	for (int l = 0; l < this->tiledMap->map.layerCounter; l++) {
+		for (int i = 0; i < this->tiledMap->map.width * this->tiledMap->map.height; i++) {
+			int id = (this->tiledMap->map.layers[l]->data.arr[i]) - 1;
+			int col = this->tiledMap->map.tileSets[0]->source->columns; // tilesets -> columns
+			if (id > 0) {
+				SDL_Rect tempClip = {
+				((id % col) * this->tiledMap->map.tileWidth),
+				((id / col) * this->tiledMap->map.tileHeight),
+				this->tiledMap->map.tileWidth,
+				this->tiledMap->map.tileHeight
+				};
+				GraphicAssets::getAssets()->spriteSheets[SpriteSheet::BASICTILES]->draw(
+					this->engine->getRenderer(),
+					&tempClip,
+					(i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth,
+					(i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight,
+					this->engine->scale);
+			}			
+		}
+	}
+
 
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 

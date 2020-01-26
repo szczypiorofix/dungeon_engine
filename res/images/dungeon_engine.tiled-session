@@ -2,11 +2,11 @@
     "activeFile": "worldmap.tmx",
     "fileStates": {
         "worldmap.tmx": {
-            "scale": 2,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 145.5,
-                "y": 118.75
+                "x": 281,
+                "y": 195.5
             }
         }
     },
