@@ -14,7 +14,6 @@ GameManager::GameManager() {
 	this->engine = new Engine();
 	this->player = nullptr;
 	this->camera = nullptr;
-	this->world = nullptr;
 	this->tiledMap = nullptr;
 	this->textFont = nullptr;
 	this->currentLockVector = new Vector2(0.0f, 0.0f);
@@ -34,15 +33,13 @@ void GameManager::gameLoop() {
 		Mix_VolumeMusic(this->engine->settings.musicVolume);
 	}
 
-	GraphicAssets::getAssets()->loadAsset("characters.png", this->engine->getRenderer(), 16, 16, SpriteSheet::CHARACTERS);
-	GraphicAssets::getAssets()->loadAsset("basictiles.png", this->engine->getRenderer(), 16, 16, SpriteSheet::BASICTILES);
-
-	this->world = new World(this->engine->getRenderer());
+	GraphicAssets::getAssets()->loadAsset("dg_humans32.png", this->engine->getRenderer(), 32, 32, SpriteSheet::CHARACTERS);
+	GraphicAssets::getAssets()->loadAsset("dg_grounds32.png", this->engine->getRenderer(), 32, 32, SpriteSheet::BASICTILES);
 
 	this->tiledMap = new TiledMap("worldmap.tmx");
 
 	LuaHandler* lua = new LuaHandler("script.lua");
-	//this->player = lua->getPlayer(this->engine->getRenderer());
+	this->player = lua->getPlayer(this->engine->getRenderer());
 	if (this->player) {
 		std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
 		std::cout << "X: " << this->player->vector->x << ", Y: " << this->player->vector->y << ", player width: " << this->player->width << ", height: " << this->player->height << std::endl;
@@ -51,12 +48,12 @@ void GameManager::gameLoop() {
 	}
 	delete lua;
 
-	this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
+	//this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
 	
 	this->camera = new Camera();
 	//camera->lockCameraOnObject(&player->mVector->x, &player->mVector->y);
 
-	this->currentLockVector = this->world->moveVector;
+	this->currentLockVector = this->player->vector;
 	this->camera->lockCameraOnObject(this->currentLockVector);
 
 	SDL_Event event;
@@ -141,9 +138,8 @@ void GameManager::input(SDL_Event* event) {
 
 void GameManager::update() {
 
-	this->world->update(this->engine->scale);
 
-	//player->update(engine->scale);
+	player->update(engine->scale);
 
 
 	this->camera->update(this->engine->scale);
@@ -155,9 +151,6 @@ void GameManager::render() {
 	SDL_RenderClear(this->engine->getRenderer());
 
 	// Render start
-
-
-	this->world->render(this->engine->scale); // , -camera->vec->x, -camera->vec->y);
 
 	
 	for (int l = 0; l < this->tiledMap->map.layerCounter; l++) {
@@ -174,15 +167,15 @@ void GameManager::render() {
 				GraphicAssets::getAssets()->spriteSheets[SpriteSheet::BASICTILES]->draw(
 					this->engine->getRenderer(),
 					&tempClip,
-					(i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth,
-					(i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight,
+					this->currentLockVector->x + ( (i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth ),
+					this->currentLockVector->y + ( (i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight ),
 					this->engine->scale);
 			}			
 		}
 	}
 
 
-	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
+	player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
 	this->textFont->draw("DUPA BLADA", 10, 50, 0.5f, this->engine->scale);
 

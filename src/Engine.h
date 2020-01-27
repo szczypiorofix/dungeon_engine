@@ -56,6 +56,7 @@ public:
 	bool isQuit();
 	void setQuit(bool quit);
 
+	SDL_Cursor* cursor;
 	SDL_Renderer* getRenderer();
 	SDL_Window* getWindow();
 

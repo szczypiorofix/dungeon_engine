@@ -216,6 +216,18 @@ void Engine::launchSubsystems(void) {
 	initializeAudioSystem();
 	initializeNetworkSystem();
 
+	std::string cursorFileName = DIR_RES_IMAGES + "mouse_cursor.png";
+	
+	SDL_Surface* cursorIcon = IMG_Load(cursorFileName.c_str());
+	if (cursorIcon == NULL) {
+		std::cout << "Unable to load image " << cursorFileName << ". SDL_image error: " << IMG_GetError() << std::endl;
+		exit(1);
+	}
+	else {
+	}
+
+	this->cursor = SDL_CreateColorCursor(cursorIcon, 28, 32);
+
 	if (!this->started) {
 		std::cout << "Engine could not be started." << std::endl;
 		exit(1);

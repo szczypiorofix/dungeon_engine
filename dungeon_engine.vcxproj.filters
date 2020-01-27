@@ -37,12 +37,6 @@
     <Filter Include="Source Files\level">
       <UniqueIdentifier>{6c2ba1f9-13f4-496b-a1db-4bea2be90577}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\images">
-      <UniqueIdentifier>{d39ca75b-20d5-4967-9366-e6317e9ad5ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\maps">
-      <UniqueIdentifier>{e37cd8a9-b9ed-47c0-aa54-8032d3ea45b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\scripts">
       <UniqueIdentifier>{c049f3c1-b34b-4701-b258-8021ad91581b}</UniqueIdentifier>
     </Filter>
@@ -51,6 +45,24 @@
     </Filter>
     <Filter Include="Resource Files\music">
       <UniqueIdentifier>{cee022a1-b654-47c4-bc85-f11ec4d003e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled">
+      <UniqueIdentifier>{5950c417-6eb3-4736-9195-01df363fc32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\tilesets">
+      <UniqueIdentifier>{a0e5098b-3fb6-42bb-a795-2c709434deec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\images">
+      <UniqueIdentifier>{d39ca75b-20d5-4967-9366-e6317e9ad5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{3cd8adf5-04c2-4d95-9d40-6722f551f19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\maps">
+      <UniqueIdentifier>{e37cd8a9-b9ed-47c0-aa54-8032d3ea45b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\templates">
+      <UniqueIdentifier>{2a25f002-c50d-4922-9a91-2bb6e5abe325}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +96,6 @@
     <ClInclude Include="src\TextFont.h">
       <Filter>Header Files\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\World.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -112,46 +121,76 @@
     <None Include="LICENSE" />
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
-    <None Include="res\images\animals1.tsx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
-    <None Include="res\images\basictiles.tsx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
-    <None Include="res\images\characters.tsx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
     <None Include="res\images\worldmap.tmx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
-    <None Include="res\images\npc.tx">
-      <Filter>Resource Files\maps</Filter>
+      <Filter>Resource Files\tiled\maps</Filter>
     </None>
     <None Include="res\music\ex-aws_cave.xm">
       <Filter>Resource Files\music</Filter>
     </None>
+    <None Include="res\images\dg_features32.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\dg_grounds32.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\dg_humans32.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\dg_town332.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\npc.tx">
+      <Filter>Resource Files\tiled\templates</Filter>
+    </None>
     <None Include="res\images\dungeon_engine.tiled-project">
-      <Filter>Resource Files\maps</Filter>
+      <Filter>Resource Files\tiled</Filter>
     </None>
     <None Include="res\images\dungeon_engine.tiled-session">
-      <Filter>Resource Files\maps</Filter>
+      <Filter>Resource Files\tiled</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\dg.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\animals1.png">
-      <Filter>Resource Files\images</Filter>
-    </Image>
-    <Image Include="res\images\basictiles.png">
-      <Filter>Resource Files\images</Filter>
-    </Image>
-    <Image Include="res\images\characters.png">
-      <Filter>Resource Files\images</Filter>
-    </Image>
     <Image Include="res\fonts\vingue.png">
       <Filter>Resource Files\fonts</Filter>
+    </Image>
+    <Image Include="res\images\dg_armor32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_extra132.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_classm32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_features32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_people32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_weapons32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_town332.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_food32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_grounds32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_humans32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_misc32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\dg.ico">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\mouse_cursor.png">
+      <Filter>Resource Files\images</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -174,9 +213,6 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Vector2.cpp">

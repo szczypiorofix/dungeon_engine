@@ -11,7 +11,6 @@
 #include "Engine.h"
 #include "SpriteSheet.h"
 #include "Player.h"
-#include "World.h"
 #include "TiledMap.h"
 #include "Vector2.h"
 #include "TextFont.h"
@@ -29,13 +28,12 @@ private:
 
 	Engine* engine;
 	Player* player;
-	World* world;
 	TiledMap* tiledMap;
 	Camera* camera;
 	Vector2* currentLockVector;
 	TextFont* textFont;
 
-	const float SCROLL_SPEED = 2.0f;
+	const float SCROLL_SPEED = 32.0f;
 
 	void gameLoop();
 	void input(SDL_Event* event);

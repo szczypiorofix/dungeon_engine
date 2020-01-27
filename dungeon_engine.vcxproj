@@ -108,16 +108,24 @@
     <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\TextFont.h" />
     <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="src\World.h" />
     <ClInclude Include="src\TiledMap.h" />
     <ClInclude Include="src\XMLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\dg.ico" />
     <Image Include="res\fonts\vingue.png" />
-    <Image Include="res\images\animals1.png" />
-    <Image Include="res\images\basictiles.png" />
-    <Image Include="res\images\characters.png" />
+    <Image Include="res\images\dg_armor32.png" />
+    <Image Include="res\images\dg_classm32.png" />
+    <Image Include="res\images\dg_extra132.png" />
+    <Image Include="res\images\dg_features32.png" />
+    <Image Include="res\images\dg_food32.png" />
+    <Image Include="res\images\dg_grounds32.png" />
+    <Image Include="res\images\dg_humans32.png" />
+    <Image Include="res\images\dg_misc32.png" />
+    <Image Include="res\images\dg_people32.png" />
+    <Image Include="res\images\dg_town332.png" />
+    <Image Include="res\images\dg_weapons32.png" />
+    <Image Include="res\images\mouse_cursor.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
@@ -125,9 +133,10 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\dungeon_engine.aps" />
-    <None Include="res\images\animals1.tsx" />
-    <None Include="res\images\basictiles.tsx" />
-    <None Include="res\images\characters.tsx" />
+    <None Include="res\images\dg_features32.tsx" />
+    <None Include="res\images\dg_grounds32.tsx" />
+    <None Include="res\images\dg_humans32.tsx" />
+    <None Include="res\images\dg_town332.tsx" />
     <None Include="res\images\dungeon_engine.tiled-project" />
     <None Include="res\images\dungeon_engine.tiled-session" />
     <None Include="res\images\npc.tx" />
@@ -155,7 +164,6 @@
     <ClCompile Include="src\SpriteSheet.cpp" />
     <ClCompile Include="src\TextFont.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="src\World.cpp" />
     <ClCompile Include="src\TiledMap.cpp" />
     <ClCompile Include="src\XMLHelper.cpp" />
   </ItemGroup>
