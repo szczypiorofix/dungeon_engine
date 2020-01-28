@@ -3,15 +3,15 @@
  * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
  */
 
-#include "GameManager.h"
+#include "DungeonGame.h"
 #include <SDL.h>
-#include "Animation.h"
-#include "GraphicAssets.h"
-#include "LuaHandler.h"
+#include "../dng_engine/Animation.h"
+#include "../dng_engine/GraphicAssets.h"
+#include "../dng_engine/LuaHandler.h"
 
 
-GameManager::GameManager() {
-	this->engine = new Engine();
+DungeonGame::DungeonGame() {
+	this->engine = new DungeonEngine();
 	this->player = nullptr;
 	this->camera = nullptr;
 	this->tiledMap = nullptr;
@@ -19,11 +19,11 @@ GameManager::GameManager() {
 	this->currentLockVector = new Vector2(0.0f, 0.0f);
 }
 
-GameManager::~GameManager() {
+DungeonGame::~DungeonGame() {
 }
 
 
-void GameManager::gameLoop() {
+void DungeonGame::gameLoop() {
 
 	this->textFont = this->engine->createFont("vingue", true);
 
@@ -69,7 +69,7 @@ void GameManager::gameLoop() {
 	this->engine->stop();
 }
 
-void GameManager::input(SDL_Event* event) {
+void DungeonGame::input(SDL_Event* event) {
 	
 	while (SDL_PollEvent(event) != 0) {
 		if (event->type == SDL_QUIT) {
@@ -77,10 +77,10 @@ void GameManager::input(SDL_Event* event) {
 		}
 		else if (event->type == SDL_MOUSEWHEEL) {
 			if (event->button.x == 1) {
-				if (this->engine->scale < Engine::MAX_SCALE) this->engine->scale += 0.25f;
+				if (this->engine->scale < DungeonEngine::MAX_SCALE) this->engine->scale += 0.25f;
 			}
 			else if (event->button.x == -1) {
-				if (this->engine->scale > Engine::MIN_SCALE) this->engine->scale -= 0.25f;
+				if (this->engine->scale > DungeonEngine::MIN_SCALE) this->engine->scale -= 0.25f;
 			}
 		}
 		else if (event->type == SDL_KEYDOWN) {
@@ -136,7 +136,7 @@ void GameManager::input(SDL_Event* event) {
 	}
 }
 
-void GameManager::update() {
+void DungeonGame::update() {
 
 
 	player->update(engine->scale);
@@ -146,7 +146,7 @@ void GameManager::update() {
 
 }
 
-void GameManager::render() {
+void DungeonGame::render() {
 	SDL_SetRenderDrawColor(this->engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(this->engine->getRenderer());
 
@@ -167,8 +167,8 @@ void GameManager::render() {
 				GraphicAssets::getAssets()->spriteSheets[SpriteSheet::BASICTILES]->draw(
 					this->engine->getRenderer(),
 					&tempClip,
-					this->currentLockVector->x + ( (i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth ),
-					this->currentLockVector->y + ( (i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight ),
+					(int) this->currentLockVector->x + ( (i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth ),
+					(int) this->currentLockVector->y + ( (i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight ),
 					this->engine->scale);
 			}			
 		}
@@ -185,7 +185,7 @@ void GameManager::render() {
 	SDL_RenderPresent(this->engine->getRenderer());
 }
 
-void GameManager::launch(void) {
+void DungeonGame::launch(void) {
 	this->engine->launchSubsystems();
 	this->gameLoop();
 }

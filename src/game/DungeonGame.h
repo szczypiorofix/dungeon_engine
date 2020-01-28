@@ -3,30 +3,29 @@
  * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
  */
 
-#ifndef _GAMEMANAGER_H_
-#define _GAMEMANAGER_H_
+#ifndef _DUNGEONGAME_H_
+#define _DUNGEONGAME_H_
 #pragma once
 
 #include <iostream>
-#include "Engine.h"
-#include "SpriteSheet.h"
+#include "../dng_engine/DungeonEngine.h"
+#include "../dng_engine/SpriteSheet.h"
+#include "../dng_engine/TiledMap.h"
+#include "../dng_engine/Vector2.h"
+#include "../dng_engine/TextFont.h"
 #include "Player.h"
-#include "TiledMap.h"
-#include "Vector2.h"
-#include "TextFont.h"
 
 
-class GameManager
-{
+class DungeonGame : public DungeonEngine {
 
 public:
-	GameManager();
-	~GameManager();
+	DungeonGame();
+	~DungeonGame();
 	void launch(void);
 
 private:
 
-	Engine* engine;
+	DungeonEngine* engine;
 	Player* player;
 	TiledMap* tiledMap;
 	Camera* camera;

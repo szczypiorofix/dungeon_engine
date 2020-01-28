@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <lua535/lua.hpp>
-#include "Player.h"
+#include "../game/Player.h"
 
 class LuaHandler {
 

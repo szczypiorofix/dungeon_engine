@@ -3,8 +3,8 @@
  * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
  */
 
-#ifndef _ENGINE_H_
-#define _ENGINE_H_
+#ifndef _DUNGEONENGINE_H_
+#define _DUNGEONENGINE_H_
 #pragma once
 
 #include <string>
@@ -33,11 +33,11 @@ typedef struct Settings {
 } Settings;
 
 
-class Engine
-{
+class DungeonEngine {
+
 public:
-	Engine();
-	~Engine();
+	DungeonEngine();
+	~DungeonEngine();
 
 	static const int SCREEN_WIDTH = 800;
 	static const int SCREEN_HEIGHT = 600;
@@ -67,11 +67,7 @@ public:
 	bool loadMusic(const std::string musicFile);
 	Mix_Music* getMusic();
 
-private:
-	bool started;
-	bool quit;
-	int tilesOnScreenFromCenterX;
-	int tilesOnScreenFromCenterY;
+protected:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	Mix_Music* music;
@@ -80,6 +76,13 @@ private:
 	Vector2* scrollVector;
 
 	ViewLockedOn viewLockedOn;
+
+private:
+	bool started;
+	bool quit;
+	int tilesOnScreenFromCenterX;
+	int tilesOnScreenFromCenterY;
+
 	long lastTime;
 	double delta;
 	long timer;

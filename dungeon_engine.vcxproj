@@ -94,22 +94,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\LuaHandler.h" />
-    <ClInclude Include="src\Level.h" />
+    <ClInclude Include="src\dng_engine\Animation.h" />
+    <ClInclude Include="src\dng_engine\Camera.h" />
+    <ClInclude Include="src\dng_engine\Defines.h" />
+    <ClInclude Include="src\dng_engine\DungeonEngine.h" />
+    <ClInclude Include="src\dng_engine\GraphicAssets.h" />
+    <ClInclude Include="src\dng_engine\LuaHandler.h" />
+    <ClInclude Include="src\dng_engine\SpriteSheet.h" />
+    <ClInclude Include="src\dng_engine\TextFont.h" />
+    <ClInclude Include="src\dng_engine\TiledMap.h" />
+    <ClInclude Include="src\dng_engine\Vector2.h" />
+    <ClInclude Include="src\dng_engine\XMLHelper.h" />
+    <ClInclude Include="src\game\DungeonGame.h" />
+    <ClInclude Include="src\game\GameObject.h" />
+    <ClInclude Include="src\game\Level.h" />
+    <ClInclude Include="src\game\Player.h" />
     <ClInclude Include="src\resource.h" />
-    <ClInclude Include="src\GraphicAssets.h" />
-    <ClInclude Include="src\GameObject.h" />
-    <ClInclude Include="src\Player.h" />
-    <ClInclude Include="src\Animation.h" />
-    <ClInclude Include="src\SpriteSheet.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\Defines.h" />
-    <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\GameManager.h" />
-    <ClInclude Include="src\TextFont.h" />
-    <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="src\TiledMap.h" />
-    <ClInclude Include="src\XMLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\dg.ico" />
@@ -150,22 +150,22 @@
     <Xml Include="res\fonts\vingue.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\LuaHandler.cpp" />
-    <ClCompile Include="src\Level.cpp" />
-    <ClCompile Include="src\Animation.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Defines.cpp" />
-    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\dng_engine\Animation.cpp" />
+    <ClCompile Include="src\dng_engine\Camera.cpp" />
+    <ClCompile Include="src\dng_engine\Defines.cpp" />
+    <ClCompile Include="src\dng_engine\DungeonEngine.cpp" />
+    <ClCompile Include="src\dng_engine\GraphicAssets.cpp" />
+    <ClCompile Include="src\dng_engine\LuaHandler.cpp" />
+    <ClCompile Include="src\dng_engine\SpriteSheet.cpp" />
+    <ClCompile Include="src\dng_engine\TextFont.cpp" />
+    <ClCompile Include="src\dng_engine\TiledMap.cpp" />
+    <ClCompile Include="src\dng_engine\Vector2.cpp" />
+    <ClCompile Include="src\dng_engine\XMLHelper.cpp" />
+    <ClCompile Include="src\game\DungeonGame.cpp" />
+    <ClCompile Include="src\game\GameObject.cpp" />
+    <ClCompile Include="src\game\Level.cpp" />
+    <ClCompile Include="src\game\Player.cpp" />
     <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\GameManager.cpp" />
-    <ClCompile Include="src\GameObject.cpp" />
-    <ClCompile Include="src\GraphicAssets.cpp" />
-    <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\SpriteSheet.cpp" />
-    <ClCompile Include="src\TextFont.cpp" />
-    <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="src\TiledMap.cpp" />
-    <ClCompile Include="src\XMLHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\dungeon_engine.rc" />

@@ -5,7 +5,7 @@
 
 
 #include "Player.h"
-#include "GraphicAssets.h"
+#include "../dng_engine/GraphicAssets.h"
 
 
 Player::Player(std::string name, float x, float y, int width, int height, SDL_Renderer* renderer) {

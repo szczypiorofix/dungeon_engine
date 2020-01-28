@@ -19,8 +19,11 @@ public:
 
 	Vector2 operator+(Vector2 v);
 
+	Vector2 operator-(Vector2 v);
+
 	Vector2& operator+=(Vector2& v);
 
+	Vector2& operator-=(Vector2& v);
 };
 
 #endif
