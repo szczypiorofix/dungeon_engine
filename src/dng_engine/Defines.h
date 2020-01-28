@@ -34,4 +34,15 @@ extern const char* DIR_FONTS;
 extern const char* DIR_SCRIPTS;
 
 
+typedef struct DG_ArrayInt {
+    unsigned int size;
+    int* arr;
+} DG_ArrayInt;
+
+
+int stringToInt(const char* a);
+std::string charArrayToString(char* a);
+DG_ArrayInt* stringToArrayOfInt(std::string s);
+
+
 #endif

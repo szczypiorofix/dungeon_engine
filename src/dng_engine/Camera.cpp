@@ -4,7 +4,7 @@
  */
 
 #include "Camera.h"
-#include "Engine.h"
+#include "DungeonEngine.h"
 
 
 Camera::Camera() {
@@ -26,8 +26,8 @@ Camera::Camera(Vector2 vec) {
 }
 
 void Camera::update(float scale) {
-	this->vec->x = (*this->lockCameraOnObjectX * scale) - (Engine::SCREEN_WIDTH / 2);
-	this->vec->y = (*this->lockCameraOnObjectY * scale) - (Engine::SCREEN_HEIGHT / 2);
+	this->vec->x = (*this->lockCameraOnObjectX * scale) - (DungeonEngine::SCREEN_WIDTH / 2);
+	this->vec->y = (*this->lockCameraOnObjectY * scale) - (DungeonEngine::SCREEN_HEIGHT / 2);
 }
 
 Camera::~Camera() {

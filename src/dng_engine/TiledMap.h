@@ -12,6 +12,9 @@
 #include <libxml/xinclude.h>
 #include <libxml/tree.h>
 
+#include "Defines.h"
+
+
 typedef struct TileSetSource {
 	char* name;
 	int tileWidth;
@@ -41,7 +44,7 @@ typedef struct ObjectGroup {
 	int id;
 	char* name;
 	int objectsCount;
-	TiledObject* objects;
+	TiledObject** objects;
 } ObjectGroup;
 
 typedef struct TiledTemplate {
@@ -62,7 +65,7 @@ typedef struct Layer {
 	char* name;
 	int width;
 	int height;
-	int** data;
+	DG_ArrayInt data;
 	int dataSize;
 } Layer;
 
@@ -92,8 +95,8 @@ public:
 private:
 
 	TileSetSource* getTileSetSource(std::string tsxFileName);
-	int* parseData(xmlDocPtr doc, xmlNodePtr cur);
-	int stringToInt(const char* a);
+	DG_ArrayInt parseData(xmlDocPtr doc, xmlNodePtr cur);
+	TiledObject** getObjects(xmlNodePtr cur, int objectCount);
 };
 
 

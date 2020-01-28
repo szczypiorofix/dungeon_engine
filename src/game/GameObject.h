@@ -7,7 +7,7 @@
 #define _GAMEOBJECT_H_
 #pragma once
 
-#include "Vector2.h"
+#include "../dng_engine/Vector2.h"
 
 
 class GameObject {

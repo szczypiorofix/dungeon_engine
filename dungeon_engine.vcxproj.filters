@@ -13,36 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\objects">
-      <UniqueIdentifier>{c0a10f6c-a157-471f-a7b2-012cd3017e6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\graphics">
-      <UniqueIdentifier>{b94e7ada-dc55-4c48-a98e-4b3c48db2265}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\engine">
-      <UniqueIdentifier>{f9699157-de3e-4626-a6f6-58bde765618b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\graphics">
-      <UniqueIdentifier>{49a14660-ff25-4510-87b6-de1e6ca51719}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\engine">
-      <UniqueIdentifier>{7766b749-4db6-407f-9d8e-7683f3a3ed5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\objects">
-      <UniqueIdentifier>{1cb4ddb5-0d06-48b7-ae95-b347737c42f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\level">
-      <UniqueIdentifier>{9fdf7e9b-7f5f-4d41-b319-a952ec369fc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\level">
-      <UniqueIdentifier>{6c2ba1f9-13f4-496b-a1db-4bea2be90577}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\images">
-      <UniqueIdentifier>{d39ca75b-20d5-4967-9366-e6317e9ad5ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\maps">
-      <UniqueIdentifier>{e37cd8a9-b9ed-47c0-aa54-8032d3ea45b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\scripts">
       <UniqueIdentifier>{c049f3c1-b34b-4701-b258-8021ad91581b}</UniqueIdentifier>
     </Filter>
@@ -52,57 +22,75 @@
     <Filter Include="Resource Files\music">
       <UniqueIdentifier>{cee022a1-b654-47c4-bc85-f11ec4d003e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\tiled">
+      <UniqueIdentifier>{5950c417-6eb3-4736-9195-01df363fc32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\tilesets">
+      <UniqueIdentifier>{a0e5098b-3fb6-42bb-a795-2c709434deec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\images">
+      <UniqueIdentifier>{d39ca75b-20d5-4967-9366-e6317e9ad5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{3cd8adf5-04c2-4d95-9d40-6722f551f19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\maps">
+      <UniqueIdentifier>{e37cd8a9-b9ed-47c0-aa54-8032d3ea45b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\tiled\templates">
+      <UniqueIdentifier>{2a25f002-c50d-4922-9a91-2bb6e5abe325}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Animation.h">
-      <Filter>Header Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Camera.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Defines.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameManager.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObject.h">
-      <Filter>Header Files\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GraphicAssets.h">
-      <Filter>Header Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SpriteSheet.h">
-      <Filter>Header Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vector2.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TextFont.h">
-      <Filter>Header Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TiledMap.h">
-      <Filter>Header Files\level</Filter>
+    <ClInclude Include="src\game\Level.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Level.h">
-      <Filter>Header Files\level</Filter>
+    <ClInclude Include="src\game\DungeonGame.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\XMLHelper.h">
-      <Filter>Header Files\engine</Filter>
+    <ClInclude Include="src\game\GameObject.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\LuaHandler.h">
-      <Filter>Header Files\engine</Filter>
+    <ClInclude Include="src\game\Player.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Player.h">
+    <ClInclude Include="src\dng_engine\XMLHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\DungeonEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\GraphicAssets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\LuaHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\TiledMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\TextFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\SpriteSheet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -112,99 +100,129 @@
     <None Include="LICENSE" />
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
-    <None Include="res\images\animals1.tsx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
-    <None Include="res\images\basictiles.tsx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
-    <None Include="res\images\characters.tsx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
     <None Include="res\images\worldmap.tmx">
-      <Filter>Resource Files\maps</Filter>
-    </None>
-    <None Include="res\images\npc.tx">
-      <Filter>Resource Files\maps</Filter>
+      <Filter>Resource Files\tiled\maps</Filter>
     </None>
     <None Include="res\music\ex-aws_cave.xm">
       <Filter>Resource Files\music</Filter>
     </None>
+    <None Include="res\images\dg_features32.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\dg_grounds32.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\dg_humans32.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\dg_town332.tsx">
+      <Filter>Resource Files\tiled\tilesets</Filter>
+    </None>
+    <None Include="res\images\npc.tx">
+      <Filter>Resource Files\tiled\templates</Filter>
+    </None>
     <None Include="res\images\dungeon_engine.tiled-project">
-      <Filter>Resource Files\maps</Filter>
+      <Filter>Resource Files\tiled</Filter>
     </None>
     <None Include="res\images\dungeon_engine.tiled-session">
-      <Filter>Resource Files\maps</Filter>
+      <Filter>Resource Files\tiled</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\dg.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\animals1.png">
-      <Filter>Resource Files\images</Filter>
-    </Image>
-    <Image Include="res\images\basictiles.png">
-      <Filter>Resource Files\images</Filter>
-    </Image>
-    <Image Include="res\images\characters.png">
-      <Filter>Resource Files\images</Filter>
-    </Image>
     <Image Include="res\fonts\vingue.png">
       <Filter>Resource Files\fonts</Filter>
     </Image>
+    <Image Include="res\images\dg_armor32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_extra132.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_classm32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_features32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_people32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_weapons32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_town332.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_food32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_grounds32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_humans32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\images\dg_misc32.png">
+      <Filter>Resource Files\tiled\images</Filter>
+    </Image>
+    <Image Include="res\dg.ico">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\mouse_cursor.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game.cpp">
+    <ClCompile Include="src\game\DungeonGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GraphicAssets.cpp">
-      <Filter>Source Files\graphics</Filter>
+    <ClCompile Include="src\game\GameObject.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SpriteSheet.cpp">
-      <Filter>Source Files\graphics</Filter>
+    <ClCompile Include="src\game\Player.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TextFont.cpp">
-      <Filter>Source Files\graphics</Filter>
+    <ClCompile Include="src\game\Level.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Animation.cpp">
-      <Filter>Source Files\graphics</Filter>
+    <ClCompile Include="src\dng_engine\XMLHelper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Defines.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\Animation.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\Camera.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\World.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\Defines.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vector2.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\DungeonEngine.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameManager.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\GraphicAssets.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject.cpp">
-      <Filter>Source Files\objects</Filter>
+    <ClCompile Include="src\dng_engine\LuaHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files\objects</Filter>
+    <ClCompile Include="src\dng_engine\Vector2.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\TiledMap.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TiledMap.cpp">
-      <Filter>Source Files\level</Filter>
+    <ClCompile Include="src\dng_engine\TextFont.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Level.cpp">
-      <Filter>Source Files\level</Filter>
+    <ClCompile Include="src\dng_engine\SpriteSheet.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\XMLHelper.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\dng_engine\Game.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\LuaHandler.cpp">
-      <Filter>Source Files\engine</Filter>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

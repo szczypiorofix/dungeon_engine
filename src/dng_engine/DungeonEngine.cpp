@@ -6,17 +6,17 @@
 #include <iostream>
 #include <fstream>
 
-#include "Engine.h"
+#include "DungeonEngine.h"
 #include "Defines.h"
 
 
-Engine::Engine() {
+DungeonEngine::DungeonEngine() {
 	
 	if (!readConfigFile()) {
 		settings = {
 		800,					// Screen width
 		600,					// Screen height
-		Engine::MIN_SCALE,		// scale
+		DungeonEngine::MIN_SCALE,		// scale
 		0,// fullscreen
 		10 // music volume
 		};
@@ -55,15 +55,15 @@ Engine::Engine() {
 
 }
 
-Engine::~Engine() {
+DungeonEngine::~DungeonEngine() {
 }
 
-void Engine::initTimer() {
+void DungeonEngine::initTimer() {
 	this->lastTime = SDL_GetTicks();
 	this->timer = SDL_GetTicks();
 }
 
-void Engine::initSDL() {
+void DungeonEngine::initSDL() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio & video main modules... ";
 #endif
@@ -79,7 +79,7 @@ void Engine::initSDL() {
 	atexit(SDL_Quit);
 }
 
-void Engine::createWindow() {
+void DungeonEngine::createWindow() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL window... ";
 #endif
@@ -94,7 +94,7 @@ void Engine::createWindow() {
 #endif
 }
 
-void Engine::createRenderer() {
+void DungeonEngine::createRenderer() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL renderer... ";
 #endif
@@ -111,7 +111,7 @@ void Engine::createRenderer() {
 #endif
 }
 
-void Engine::initializePngImages() {
+void DungeonEngine::initializePngImages() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL PNG images module... ";
 #endif
@@ -126,7 +126,7 @@ void Engine::initializePngImages() {
 #endif
 }
 
-void Engine::initializeAudioSystem() {
+void DungeonEngine::initializeAudioSystem() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio module... ";
 #endif
@@ -140,7 +140,7 @@ void Engine::initializeAudioSystem() {
 #endif
 }
 
-void Engine::initializeNetworkSystem() {
+void DungeonEngine::initializeNetworkSystem() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL network module... ";
 #endif
@@ -188,7 +188,7 @@ void Engine::initializeNetworkSystem() {
 	
 }
 
-void Engine::stop(void) {
+void DungeonEngine::stop(void) {
 
 	writeConfigFile();
 #ifdef _DEBUG 
@@ -207,7 +207,7 @@ void Engine::stop(void) {
 #endif
 }
 
-void Engine::launchSubsystems(void) {
+void DungeonEngine::launchSubsystems(void) {
 
 	initSDL();
 	createWindow();
@@ -216,6 +216,23 @@ void Engine::launchSubsystems(void) {
 	initializeAudioSystem();
 	initializeNetworkSystem();
 
+	std::string cursorFileName = DIR_RES_IMAGES;
+	cursorFileName.append("mouse_cursor.png");
+	
+	SDL_Surface* cursorIcon = IMG_Load(cursorFileName.c_str());
+	if (cursorIcon == NULL) {
+		std::cout << "Unable to load image " << cursorFileName << ". SDL_image error: " << IMG_GetError() << std::endl;
+		exit(1);
+	} else {
+		this->cursor = SDL_CreateColorCursor(cursorIcon, 0, 0);
+		if (this->cursor == NULL) {
+			std::cout << "Unable to create a mouse cursor !" << std::endl;
+			exit(1);
+		} else {
+			SDL_SetCursor(this->cursor);
+		}
+	}
+
 	if (!this->started) {
 		std::cout << "Engine could not be started." << std::endl;
 		exit(1);
@@ -223,7 +240,7 @@ void Engine::launchSubsystems(void) {
 
 }
 
-bool Engine::loadMusic(const std::string musicFile) {
+bool DungeonEngine::loadMusic(const std::string musicFile) {
 	std::string musicFileName = DIR_RES_MUSIC + musicFile;
 	this->music = Mix_LoadMUS(musicFileName.c_str());
 	if (this->music == NULL) {
@@ -233,31 +250,31 @@ bool Engine::loadMusic(const std::string musicFile) {
 	return true;
 }
 
-Mix_Music* Engine::getMusic() {
+Mix_Music* DungeonEngine::getMusic() {
 	return this->music;
 }
 
-bool Engine::isQuit() {
+bool DungeonEngine::isQuit() {
 	return this->quit;
 }
 
-void Engine::setQuit(bool q) {
+void DungeonEngine::setQuit(bool q) {
 	this->quit = q;
 }
 
-SDL_Renderer* Engine::getRenderer() {
+SDL_Renderer* DungeonEngine::getRenderer() {
 	return this->renderer;
 }
 
-SDL_Window* Engine::getWindow() {
+SDL_Window* DungeonEngine::getWindow() {
 	return this->window;
 }
 
-TextFont* Engine::createFont(std::string fn, bool s) {
+TextFont* DungeonEngine::createFont(std::string fn, bool s) {
 	return new TextFont(this->renderer, fn, s);
 }
 
-bool Engine::writeConfigFile() {
+bool DungeonEngine::writeConfigFile() {
 #ifdef _DEBUG 
 	std::cout << "Saving config file... ";
 #endif
@@ -276,7 +293,7 @@ bool Engine::writeConfigFile() {
 	return true;
 }
 
-bool Engine::readConfigFile() {
+bool DungeonEngine::readConfigFile() {
 	std::ifstream ifile(CONFIG_FILE_NAME, std::ios::binary);
 	if (!ifile.good()) {
 		std::cout << "Cannot open settings file for reading!" << std::endl;

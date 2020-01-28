@@ -2,19 +2,27 @@
     "activeFile": "worldmap.tmx",
     "fileStates": {
         "worldmap.tmx": {
-            "scale": 2,
-            "selectedLayer": 0,
+            "scale": 0.75,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 145.5,
-                "y": 118.75
+                "x": 457.33333333333337,
+                "y": 493.99999999999994
             }
         }
     },
     "openFiles": [
-        "worldmap.tmx"
+        "worldmap.tmx",
+        "dg_grounds32.tsx",
+        "dg_humans32.tsx",
+        "dg_town332.tsx"
     ],
     "project": "dungeon_engine.tiled-project",
     "recentFiles": [
-        "worldmap.tmx"
+        "worldmap.tmx",
+        "dg_town332.tsx",
+        "dg_features32.tsx",
+        "dg_humans32.tsx",
+        "dg_grounds32.tsx",
+        "animals1.tsx"
     ]
 }

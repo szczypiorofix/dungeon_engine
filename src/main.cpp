@@ -4,7 +4,7 @@
  */
 
 
-#include "GameManager.h"
+#include "game/DungeonGame.h"
 
 
 int main(int argc, char* argv[]) {
@@ -16,8 +16,8 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	GameManager* gameManager = new GameManager();
-	gameManager->launch();
+	DungeonGame* game = new DungeonGame();
+	game->launch();
 	
 	return 0;
 

@@ -10,9 +10,9 @@
 #include <iostream>
 #include <SDL.h>
 
-#include "Defines.h"
-#include "Vector2.h"
-#include "Animation.h"
+#include "../dng_engine/Defines.h"
+#include "../dng_engine/Vector2.h"
+#include "../dng_engine/Animation.h"
 #include "GameObject.h"
 
 
