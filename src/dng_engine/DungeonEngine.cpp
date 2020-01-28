@@ -233,8 +233,6 @@ void DungeonEngine::launchSubsystems(void) {
 		}
 	}
 
-	
-
 	if (!this->started) {
 		std::cout << "Engine could not be started." << std::endl;
 		exit(1);

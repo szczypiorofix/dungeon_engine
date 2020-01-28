@@ -94,6 +94,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\dng_engine\Game.h" />
     <ClInclude Include="src\dng_engine\Animation.h" />
     <ClInclude Include="src\dng_engine\Camera.h" />
     <ClInclude Include="src\dng_engine\Defines.h" />
@@ -150,6 +151,7 @@
     <Xml Include="res\fonts\vingue.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\dng_engine\Game.cpp" />
     <ClCompile Include="src\dng_engine\Animation.cpp" />
     <ClCompile Include="src\dng_engine\Camera.cpp" />
     <ClCompile Include="src\dng_engine\Defines.cpp" />
@@ -165,7 +167,7 @@
     <ClCompile Include="src\game\GameObject.cpp" />
     <ClCompile Include="src\game\Level.cpp" />
     <ClCompile Include="src\game\Player.cpp" />
-    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\dungeon_engine.rc" />

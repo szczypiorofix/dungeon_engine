@@ -8,36 +8,33 @@
 #pragma once
 
 #include <iostream>
-#include "../dng_engine/DungeonEngine.h"
-#include "../dng_engine/SpriteSheet.h"
-#include "../dng_engine/TiledMap.h"
-#include "../dng_engine/Vector2.h"
-#include "../dng_engine/TextFont.h"
+#include "../dng_engine/Game.h"
 #include "Player.h"
 
 
-class DungeonGame : public DungeonEngine {
+class DungeonGame : public Game {
 
 public:
 	DungeonGame();
 	~DungeonGame();
+
 	void launch(void);
 
-private:
+	virtual void input();
+	virtual void update();
+	virtual void render();
 
-	DungeonEngine* engine;
+private:
+	
+	
 	Player* player;
-	TiledMap* tiledMap;
-	Camera* camera;
+	//TiledMap* tiledMap;
+	
 	Vector2* currentLockVector;
 	TextFont* textFont;
 
 	const float SCROLL_SPEED = 32.0f;
 
-	void gameLoop();
-	void input(SDL_Event* event);
-	void update();
-	void render();
 
 };
 
