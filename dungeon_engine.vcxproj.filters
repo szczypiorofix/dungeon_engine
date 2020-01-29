@@ -143,6 +143,7 @@
     <None Include="appveyor.yml">
       <Filter>config</Filter>
     </None>
+    <None Include=".github\workflows\ccpp.yml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">
