@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: greetings
-      run: Hello CI !
+      run: printf "%s\n" "Hello, World!"
