@@ -10,10 +10,11 @@
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_mixer.h>
 #include <SDL_net.h>
 #include <libxml/parser.h>
 
+#include "Music.h"
+#include "GraphicAssets.h"
 #include "Camera.h"
 #include "Vector2.h"
 #include "TextFont.h"
@@ -61,16 +62,19 @@ public:
 	SDL_Window* getWindow();
 
 	TextFont* createFont(std::string, bool s);
+	
+	void loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum);
+	void drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y);
 
 	void initTimer();
 
-	bool loadMusic(const std::string musicFile);
-	Mix_Music* getMusic();
+	bool loadMusic(std::string musicFile);
+	bool playMusic(bool loop, int volume);
 
 protected:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	Mix_Music* music;
+
 	Camera* camera;
 
 	Vector2* scrollVector;
@@ -78,6 +82,9 @@ protected:
 	ViewLockedOn viewLockedOn;
 
 private:
+
+	Music* currentMusic;
+
 	bool started;
 	bool quit;
 	int tilesOnScreenFromCenterX;

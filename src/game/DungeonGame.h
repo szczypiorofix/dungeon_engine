@@ -20,7 +20,7 @@ public:
 
 	void launch(void);
 
-	virtual void input();
+	virtual void input(SDL_Event* event);
 	virtual void update();
 	virtual void render();
 
@@ -28,7 +28,6 @@ private:
 	
 	
 	Player* player;
-	//TiledMap* tiledMap;
 	
 	Vector2* currentLockVector;
 	TextFont* textFont;

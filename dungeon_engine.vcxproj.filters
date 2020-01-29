@@ -93,6 +93,9 @@
     <ClInclude Include="src\dng_engine\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\dng_engine\Music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\dungeon_engine.aps" />
@@ -127,6 +130,7 @@
     <None Include="res\images\dungeon_engine.tiled-session">
       <Filter>Resource Files\tiled</Filter>
     </None>
+    <None Include="appveyor.yml" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">
@@ -222,6 +226,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dng_engine\Music.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
