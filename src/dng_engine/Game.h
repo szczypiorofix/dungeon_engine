@@ -9,6 +9,7 @@
 
 #include "../dng_engine/DungeonEngine.h"
 #include "../dng_engine/Camera.h"
+#include "../dng_engine/TiledMap.h"
 
 
 class Game {
@@ -22,12 +23,14 @@ public:
 protected:
     DungeonEngine* engine;
     Camera* camera;
+    TiledMap* tiledMap;
 
-    virtual void input() = 0;
+    virtual void input(SDL_Event* event) = 0;
     virtual void update() = 0;
     virtual void render() = 0;
     
     void gameLoop();
+    
 
 private:
 

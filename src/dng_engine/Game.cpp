@@ -26,11 +26,12 @@ void Game::gameLoop() {
 	this->DE_GameLoop();
 }
 
+
 void Game::DE_GameLoop() {
 	
 	SDL_Event event;
-
 	this->engine->initTimer();
+
 	while (!this->engine->isQuit()) {
 
 		this->DE_Input(&event);
@@ -43,22 +44,13 @@ void Game::DE_GameLoop() {
 }
 
 void Game::DE_Input(SDL_Event* event) {
-
 	while (SDL_PollEvent(event) != 0) {
 		if (event->type == SDL_QUIT) {
 			this->engine->setQuit(true);
-		}
-		else if (event->type == SDL_KEYDOWN) {
-			switch (event->key.keysym.sym) {
-			case SDLK_ESCAPE:
-				this->engine->setQuit(true);
-				break;
-			}
-		}
-			
+		} else {
+			this->input(event);
+		}	
 	}
-
-	this->input();
 }
 
 void Game::DE_Update() {
@@ -77,6 +69,4 @@ void Game::DE_Render() {
 
 	SDL_RenderPresent(this->engine->getRenderer());
 }
-
-
 

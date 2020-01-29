@@ -26,7 +26,7 @@ DungeonEngine::DungeonEngine() {
 	this->quit = false;
 	this->window = NULL;
 	this->renderer = NULL;
-	this->music = NULL;
+	this->currentMusic = NULL;
 	this->camera = NULL;
 	this->tilesOnScreenFromCenterX = 0;
 	this->tilesOnScreenFromCenterY = 0;
@@ -195,7 +195,7 @@ void DungeonEngine::stop(void) {
 	std::cout << "Shutting down SDL modules... ";
 #endif
 
-	Mix_FreeMusic(this->music);
+	delete this->currentMusic;
 	SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
 
@@ -240,18 +240,14 @@ void DungeonEngine::launchSubsystems(void) {
 
 }
 
-bool DungeonEngine::loadMusic(const std::string musicFile) {
-	std::string musicFileName = DIR_RES_MUSIC + musicFile;
-	this->music = Mix_LoadMUS(musicFileName.c_str());
-	if (this->music == NULL) {
-		std::cout << "Failed to load beat music! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		return false;
-	}
+bool DungeonEngine::loadMusic(std::string musicFile) {
+	currentMusic = new Music(musicFile);
 	return true;
 }
 
-Mix_Music* DungeonEngine::getMusic() {
-	return this->music;
+bool DungeonEngine::playMusic(bool loop, int volume) {
+	this->currentMusic->playMusic(loop, volume);
+	return true;
 }
 
 bool DungeonEngine::isQuit() {
@@ -303,5 +299,18 @@ bool DungeonEngine::readConfigFile() {
 	ifile.read((char*)&this->settings, sizeof(this->settings));
 	ifile.close();
 	return true;
+}
+
+void DungeonEngine::loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum) {
+	GraphicAssets::getAssets()->loadAsset(fileName, this->renderer, spriteWidth, spriteHeight, imagesEnum);
+}
+
+void DungeonEngine::drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y) {
+	GraphicAssets::getAssets()->spriteSheets[SpriteSheetNo]->draw(
+		this->renderer,
+		&clip,
+		x,
+		y,
+		this->scale);
 }
 

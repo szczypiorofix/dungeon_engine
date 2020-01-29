@@ -13,8 +13,8 @@
 constexpr int MAX_SPRITESHEETS = 2;
 
 
-class GraphicAssets
-{
+class GraphicAssets {
+
 public:
 
 	static GraphicAssets* getAssets();
