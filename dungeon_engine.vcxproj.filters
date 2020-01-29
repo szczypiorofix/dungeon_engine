@@ -40,6 +40,12 @@
     <Filter Include="Resource Files\tiled\templates">
       <UniqueIdentifier>{2a25f002-c50d-4922-9a91-2bb6e5abe325}</UniqueIdentifier>
     </Filter>
+    <Filter Include="docs">
+      <UniqueIdentifier>{a4cb96a1-6510-4e02-9862-e799834cf009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{1de5e5cf-800a-4d6d-b69c-db309883781d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\resource.h">
@@ -99,8 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\dungeon_engine.aps" />
-    <None Include="README.md" />
-    <None Include="LICENSE" />
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
     <None Include="res\images\worldmap.tmx">
@@ -130,7 +134,15 @@
     <None Include="res\images\dungeon_engine.tiled-session">
       <Filter>Resource Files\tiled</Filter>
     </None>
-    <None Include="appveyor.yml" />
+    <None Include="LICENSE">
+      <Filter>docs</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>docs</Filter>
+    </None>
+    <None Include="appveyor.yml">
+      <Filter>config</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">
