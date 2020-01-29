@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #include <iostream>
 #include "Music.h"
 #include "Defines.h"
@@ -13,6 +18,7 @@ Music::Music(const std::string musicFile) {
 	}
 }
 
+
 Music::Music(const std::string musicFile, int volume) {
 	this->volume = volume;
 	this->loop = false;
@@ -24,13 +30,22 @@ Music::Music(const std::string musicFile, int volume) {
 	}
 }
 
+
 Music::~Music() {
+#ifdef _DEBUG 
+	std::cout << "Releasing music... ";
+#endif
 	Mix_FreeMusic(this->music);
+#ifdef _DEBUG 
+	std::cout << "done." << std::endl;
+#endif
 }
+
 
 Mix_Music* Music::getMusic() {
 	return this->music;
 }
+
 
 bool Music::playMusic() {
 	if (Mix_PlayingMusic() == 0) {
@@ -46,11 +61,13 @@ bool Music::playMusic() {
 	return true;
 }
 
+
 bool Music::playMusic(bool _loop) {
 	this->loop = _loop;
 	this->playMusic();
 	return true;
 }
+
 
 bool Music::playMusic(int _volume) {
 	this->volume = _volume;
@@ -58,6 +75,7 @@ bool Music::playMusic(int _volume) {
 	this->playMusic();
 	return true;
 }
+
 
 bool Music::playMusic(bool _loop, int _volume) {
 	this->volume = _volume;

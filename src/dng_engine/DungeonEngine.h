@@ -25,6 +25,7 @@ enum class ViewLockedOn {
 	MOUSE
 };
 
+
 typedef struct Settings {
 	int screenWidth;
 	int screenHeight;

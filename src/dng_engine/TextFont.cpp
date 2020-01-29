@@ -22,9 +22,11 @@ TextFont::TextFont(SDL_Renderer* r, std::string fn) {
 	parseXML(fontName);
 }
 
+
 TextFont::TextFont(SDL_Renderer* r, std::string fn, bool s): TextFont(r, fn) {
 	scallable = s;
 }
+
 
 void TextFont::prepareImage(SDL_Renderer* r, std::string f) {
 	std::string fileName = DIR_FONTS + f + ".png";
@@ -48,9 +50,9 @@ void TextFont::prepareImage(SDL_Renderer* r, std::string f) {
 	}
 }
 
+
 TextFont::~TextFont() {
 }
-
 
 
 void TextFont::parseXML(std::string xmlFileName) {
@@ -124,6 +126,7 @@ void TextFont::parseXML(std::string xmlFileName) {
 
 }
 
+
 float TextFont::getStringFontWidth(const char* text) {
 	float c = 0.0f;
 	for (int i = 0; text[i] != 0; i++) {
@@ -136,6 +139,7 @@ float TextFont::getStringFontWidth(const char* text) {
 	std::cout << c << std::endl;
 	return c;
 }
+
 
 void TextFont::draw(const char* text, int x, int y, float size, float scale) {
 	SDL_Rect renderQuad = { 0, 0, 0, 0 };
@@ -157,4 +161,3 @@ void TextFont::draw(const char* text, int x, int y, float size, float scale) {
 	}
 	
 }
-

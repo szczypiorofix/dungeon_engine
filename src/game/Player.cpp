@@ -45,6 +45,7 @@ Player::Player(std::string name, float x, float y, int width, int height, SDL_Re
 Player::~Player() {
 }
 
+
 void Player::draw(float scale, float x, float y) {
 	SDL_Rect drawRect = { 0, 0, 16, 16 };
 	Animation* curAnim = this->walkingAnimation[this->direction];
@@ -56,6 +57,7 @@ void Player::draw(float scale, float x, float y) {
 		(int) ( this->vector->y + y ),
 		scale);
 }
+
 
 void Player::update(float scale) {
 	

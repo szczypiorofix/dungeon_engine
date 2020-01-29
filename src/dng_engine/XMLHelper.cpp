@@ -27,6 +27,7 @@ int XMLHelper::xmlCharToInt(const xmlChar* a) {
 	return n;
 }
 
+
 short XMLHelper::xmlCharToShort(const xmlChar* a) {
 	short c = 0, sign = 0, offset = 0, n = 0;
 	if (a[0] == '-') {
@@ -48,6 +49,7 @@ short XMLHelper::xmlCharToShort(const xmlChar* a) {
 	return n;
 }
 
+
 int XMLHelper::readPropInt(xmlNodePtr node, const xmlChar* prop) {
 	xmlChar* c = xmlGetProp(node, prop);
 	int s = 0;
@@ -58,6 +60,7 @@ int XMLHelper::readPropInt(xmlNodePtr node, const xmlChar* prop) {
 	return s;
 }
 
+
 short XMLHelper::readPropShort(xmlNodePtr node, const xmlChar* prop) {
 	xmlChar* c = xmlGetProp(node, prop);
 	short s = 0;
@@ -67,4 +70,3 @@ short XMLHelper::readPropShort(xmlNodePtr node, const xmlChar* prop) {
 	}
 	return s;
 }
-

@@ -11,8 +11,8 @@
 #include <SDL.h>
 
 
-class SpriteSheet
-{
+class SpriteSheet {
+
 public:
 		
 	static const int CHARACTERS = 0;

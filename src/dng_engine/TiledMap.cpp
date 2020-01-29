@@ -117,8 +117,10 @@ TiledObject** TiledMap::getObjects(xmlNodePtr cur, int objectCount) {
 	int c = 0;
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar*)"object"))) {
+			
 			objects[c] = new TiledObject();
-			objects[c]->id = XMLHelper::readPropInt(cur, (const xmlChar*)"id");
+
+			objects[c]->id = (int) XMLHelper::readPropInt(cur, (const xmlChar*)"id");
 			objects[c]->name = (char*)xmlGetProp(cur, (const xmlChar*)"name");
 			objects[c]->type = (char*)xmlGetProp(cur, (const xmlChar*)"type");
 			objects[c]->templateFile = (char*)xmlGetProp(cur, (const xmlChar*)"template");
@@ -201,6 +203,7 @@ DG_ArrayInt TiledMap::parseData(xmlDocPtr doc, xmlNodePtr cur) {
 	return arr;
 }
 
+
 TileSetSource* TiledMap::getTileSetSource(std::string tsxFileName) {
 	TileSetSource* tss = new TileSetSource();
 
@@ -251,8 +254,6 @@ TileSetSource* TiledMap::getTileSetSource(std::string tsxFileName) {
 	xmlFreeDoc(tsxDoc);
 	return tss;
 }
-
-
 
 TiledMap::~TiledMap() {
 

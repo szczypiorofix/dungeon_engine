@@ -17,9 +17,11 @@ LuaHandler::LuaHandler(const std::string& fileName) {
     }
 }
 
+
 LuaHandler::~LuaHandler() {
     close();
 }
+
 
 void LuaHandler::close() {
     std::cout << "Shutting down lua state." << std::endl;
@@ -28,6 +30,7 @@ void LuaHandler::close() {
     lua_close(this->luaState);
     this->luaState = nullptr;
 }
+
 
 bool LuaHandler::loadFile(const std::string fileName) {
     if (this->luaState && (fileName.length() > 0)) {
@@ -38,6 +41,7 @@ bool LuaHandler::loadFile(const std::string fileName) {
     std::cout << lua_tostring(this->luaState, -1) << std::endl;
     return false;
 }
+
 
 bool LuaHandler::getInt(const char* name, int& value) {
     bool res = false;
@@ -53,6 +57,7 @@ bool LuaHandler::getInt(const char* name, int& value) {
     return res;
 }
 
+
 bool LuaHandler::getString(const char* name, std::string& value) {
     if (!this->getGlobal(name))
         return false;
@@ -64,6 +69,7 @@ bool LuaHandler::getString(const char* name, std::string& value) {
     lua_pop(this->luaState, 1);
     return true;
 }
+
 
 Player* LuaHandler::getPlayer(SDL_Renderer* renderer) {
     if (!this->getGlobal("Player"))
@@ -80,6 +86,7 @@ Player* LuaHandler::getPlayer(SDL_Renderer* renderer) {
     return new Player(playerName, (float)playerX, (float)playerY, (int)playerWidth, (int)playerHeight, renderer);
 }
 
+
 lua_Number LuaHandler::getFieldInt(const char* objectName, const char* propertyName) {
     lua_getglobal(this->luaState, objectName);
     lua_getfield(this->luaState, -1, propertyName);
@@ -87,6 +94,7 @@ lua_Number LuaHandler::getFieldInt(const char* objectName, const char* propertyN
     lua_pop(this->luaState, -1);
     return r;
 }
+
 
 bool LuaHandler::getGlobal(const char* name) {
     if ((!this->luaState) || (!name))

@@ -35,6 +35,7 @@ SpriteSheet::SpriteSheet(std::string name, SDL_Renderer* renderer, int spriteWid
 	this->tileHeight = spriteHeight;
 }
 
+
 void SpriteSheet::draw(SDL_Renderer* renderer, SDL_Rect* clip, int x, int y, float scale) {
 	if (clip == NULL) return;
 	SDL_Rect renderQuad = { x, y, (int) (this->tileWidth * scale), (int) (this->tileHeight * scale) };
@@ -45,29 +46,36 @@ void SpriteSheet::draw(SDL_Renderer* renderer, SDL_Rect* clip, int x, int y, flo
 	SDL_RenderCopy(renderer, this->texture, clip, &renderQuad);
 }
 
-SpriteSheet::~SpriteSheet() {
 
+SpriteSheet::~SpriteSheet() {
+	SDL_DestroyTexture(this->texture);
 }
+
 
 int SpriteSheet::getWidth() {
 	return this->width;
 }
 
+
 int SpriteSheet::getHeight() {
 	return this->height;
 }
+
 
 int SpriteSheet::getTileWidth() {
 	return this->tileWidth;
 }
 
+
 int SpriteSheet::getTileHeight() {
 	return this->tileHeight;
 }
 
+
 SDL_Texture* SpriteSheet::getTexture() {
 	return this->texture;
 }
+
 
 int SpriteSheet::getColumns() {
 	return this->width / this->tileWidth;

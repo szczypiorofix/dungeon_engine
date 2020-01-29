@@ -23,6 +23,7 @@ Animation::Animation(SpriteSheet* spriteSheet, unsigned short speed, unsigned in
 	}
 }
 
+
 int Animation::nextFrame() {
 	this->counter++;
 	if (this->counter > this->speed) {
@@ -34,19 +35,22 @@ int Animation::nextFrame() {
 	return this->curFrame;
 }
 
+
 SDL_Rect Animation::getFrame(int index) {
 	return this->frames[index];
 }
+
 
 int Animation::getCurFrame() {
 	return this->curFrame;
 }
 
+
 void Animation::setCurrentFrame(int cf) {
 	this->curFrame = cf;
 }
 
+
 Animation::~Animation() {
 
 }
-

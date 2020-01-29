@@ -39,8 +39,7 @@ int stringToInt(const char* a) {
     }
     if (sign == -1) {
         offset = 1;
-    }
-    else {
+    } else {
         offset = 0;
     }
     n = 0;
@@ -55,7 +54,7 @@ int stringToInt(const char* a) {
 
 DG_ArrayInt* stringToArrayOfInt(std::string s) {
     int str_length = s.length();
-    int* arr { new int[str_length] { 0 } };
+    int* arr { new int[str_length + 1] { 0 } };
     int i = 0, j = 0;
     while (s[i] != '\0') {
         if ((s[i] != 13 && s[i] != 32 && s[i] != 10)) {
