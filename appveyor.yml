@@ -1,1 +1,5 @@
-image: Windows
+image:
+	- Visual Studio 2017
+
+init:
+- cmd: echo Hey, I'm displayed on Windows only!
