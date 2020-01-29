@@ -27,8 +27,8 @@ typedef struct FontItem {
 
 } FontItem;
 
-class TextFont
-{
+class TextFont {
+
 public:
 	TextFont(SDL_Renderer* r, std::string fn);
 	TextFont(SDL_Renderer* r, std::string fn, bool s);

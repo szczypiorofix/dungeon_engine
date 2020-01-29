@@ -55,13 +55,16 @@ DungeonEngine::DungeonEngine() {
 
 }
 
+
 DungeonEngine::~DungeonEngine() {
 }
+
 
 void DungeonEngine::initTimer() {
 	this->lastTime = SDL_GetTicks();
 	this->timer = SDL_GetTicks();
 }
+
 
 void DungeonEngine::initSDL() {
 #ifdef _DEBUG 
@@ -79,6 +82,7 @@ void DungeonEngine::initSDL() {
 	atexit(SDL_Quit);
 }
 
+
 void DungeonEngine::createWindow() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL window... ";
@@ -93,6 +97,7 @@ void DungeonEngine::createWindow() {
 	std::cout << "done." << std::endl;
 #endif
 }
+
 
 void DungeonEngine::createRenderer() {
 #ifdef _DEBUG 
@@ -111,6 +116,7 @@ void DungeonEngine::createRenderer() {
 #endif
 }
 
+
 void DungeonEngine::initializePngImages() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL PNG images module... ";
@@ -126,6 +132,7 @@ void DungeonEngine::initializePngImages() {
 #endif
 }
 
+
 void DungeonEngine::initializeAudioSystem() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio module... ";
@@ -139,6 +146,7 @@ void DungeonEngine::initializeAudioSystem() {
 	std::cout << "done." << std::endl;
 #endif
 }
+
 
 void DungeonEngine::initializeNetworkSystem() {
 #ifdef _DEBUG 
@@ -188,12 +196,15 @@ void DungeonEngine::initializeNetworkSystem() {
 	
 }
 
+
 void DungeonEngine::stop(void) {
 
 	writeConfigFile();
 #ifdef _DEBUG 
-	std::cout << "Shutting down SDL modules... ";
+	std::cout << "Shutting down SDL modules..." << std::endl;
 #endif
+
+	GraphicAssets::releaseAssets();
 
 	delete this->currentMusic;
 	SDL_DestroyRenderer(this->renderer);
@@ -202,10 +213,12 @@ void DungeonEngine::stop(void) {
 	//SDLNet_Quit();
 	IMG_Quit();
 	SDL_Quit();
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
+
+#ifdef _DEBUG 
+	std::cout << "All systems clear." << std::endl;
 #endif
 }
+
 
 void DungeonEngine::launchSubsystems(void) {
 
@@ -240,35 +253,43 @@ void DungeonEngine::launchSubsystems(void) {
 
 }
 
+
 bool DungeonEngine::loadMusic(std::string musicFile) {
 	currentMusic = new Music(musicFile);
 	return true;
 }
+
 
 bool DungeonEngine::playMusic(bool loop, int volume) {
 	this->currentMusic->playMusic(loop, volume);
 	return true;
 }
 
+
 bool DungeonEngine::isQuit() {
 	return this->quit;
 }
+
 
 void DungeonEngine::setQuit(bool q) {
 	this->quit = q;
 }
 
+
 SDL_Renderer* DungeonEngine::getRenderer() {
 	return this->renderer;
 }
+
 
 SDL_Window* DungeonEngine::getWindow() {
 	return this->window;
 }
 
+
 TextFont* DungeonEngine::createFont(std::string fn, bool s) {
 	return new TextFont(this->renderer, fn, s);
 }
+
 
 bool DungeonEngine::writeConfigFile() {
 #ifdef _DEBUG 
@@ -289,6 +310,7 @@ bool DungeonEngine::writeConfigFile() {
 	return true;
 }
 
+
 bool DungeonEngine::readConfigFile() {
 	std::ifstream ifile(CONFIG_FILE_NAME, std::ios::binary);
 	if (!ifile.good()) {
@@ -301,9 +323,11 @@ bool DungeonEngine::readConfigFile() {
 	return true;
 }
 
+
 void DungeonEngine::loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum) {
 	GraphicAssets::getAssets()->loadAsset(fileName, this->renderer, spriteWidth, spriteHeight, imagesEnum);
 }
+
 
 void DungeonEngine::drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y) {
 	GraphicAssets::getAssets()->spriteSheets[SpriteSheetNo]->draw(
@@ -313,4 +337,3 @@ void DungeonEngine::drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int
 		y,
 		this->scale);
 }
-

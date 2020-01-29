@@ -8,11 +8,16 @@
 
 
 DungeonGame::DungeonGame() {
+	this->currentLockVector = nullptr;
+	this->player = nullptr;
+	this->textFont = nullptr;
 	std::cout << "DungeonGame::constructor" << std::endl;
 }
 
+
 DungeonGame::~DungeonGame() {
 }
+
 
 void DungeonGame::input(SDL_Event* event) {
 	if (event->type == SDL_MOUSEWHEEL) {
@@ -76,11 +81,13 @@ void DungeonGame::input(SDL_Event* event) {
 
 }
 
+
 void DungeonGame::update() {
 
 	player->update(engine->scale);
 	this->camera->update(this->engine->scale);
 }
+
 
 void DungeonGame::render() {
 	for (int l = 0; l < this->tiledMap->map.layerCounter; l++) {

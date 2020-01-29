@@ -7,16 +7,16 @@
 
 
 Level::Level() {
-
 }
 
 Level::~Level() {
-
 }
+
 
 inline bool Level::is_base64(unsigned char c) {
     return (isalnum(c) || (c == '+') || (c == '/'));
 }
+
 
 std::string Level::base64_decode(std::string const& encoded_string) {
     int in_len = encoded_string.size();
@@ -58,4 +58,3 @@ std::string Level::base64_decode(std::string const& encoded_string) {
 
     return ret;
 }
-

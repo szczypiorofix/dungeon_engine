@@ -5,15 +5,13 @@
 
 #ifndef _ANIMATION_H_
 #define _ANIMATION_H_
-
 #pragma once
 
 #include <SDL.h>
 #include "Spritesheet.h"
 
 
-class Animation
-{
+class Animation {
 
 public:
 	Animation(SpriteSheet* spriteSheet, unsigned short speed, unsigned int sw, unsigned int sh, const unsigned short size, const unsigned int* frames);

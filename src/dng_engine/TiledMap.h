@@ -7,7 +7,7 @@
 #define _TILED_MAP_H_
 #pragma once
 
-#include <string>
+#include <iostream>
 #include <libxml/xmlIO.h>
 #include <libxml/xinclude.h>
 #include <libxml/tree.h>

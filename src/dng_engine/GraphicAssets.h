@@ -19,6 +19,8 @@ public:
 
 	static GraphicAssets* getAssets();
 	static void loadAsset(std::string fileName, SDL_Renderer* renderer, int spriteWidth, int spriteHeight, int imagesEnum);
+	static void releaseAssets();
+
 	SpriteSheet* spriteSheets[MAX_SPRITESHEETS];
 
 private:

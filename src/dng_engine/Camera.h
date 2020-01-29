@@ -9,8 +9,8 @@
 
 #include "Vector2.h"
 
-class Camera
-{
+class Camera {
+
 public:
 	Camera();
 	Camera(float x, float y);

@@ -7,7 +7,8 @@
 #define _DEFINES_H_
 #pragma once
 
-#include <iostream>
+#include <string>
+
 
 
 extern const int SCREEN_WIDTH;

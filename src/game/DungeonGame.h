@@ -26,9 +26,7 @@ public:
 
 private:
 	
-	
 	Player* player;
-	
 	Vector2* currentLockVector;
 	TextFont* textFont;
 

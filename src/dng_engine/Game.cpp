@@ -7,19 +7,16 @@
 
 
 Game::Game() {
-    
 	std::cout << "Game::constructor" << std::endl;
-
+	this->tiledMap = nullptr;
     this->camera = nullptr;
     this->engine = new DungeonEngine();
 	this->engine->launchSubsystems();
-
 }
+
 
 Game::~Game() {
-	
 }
-
 
 
 void Game::gameLoop() {
@@ -43,6 +40,7 @@ void Game::DE_GameLoop() {
 	this->engine->stop();
 }
 
+
 void Game::DE_Input(SDL_Event* event) {
 	while (SDL_PollEvent(event) != 0) {
 		if (event->type == SDL_QUIT) {
@@ -53,20 +51,21 @@ void Game::DE_Input(SDL_Event* event) {
 	}
 }
 
+
 void Game::DE_Update() {
 	this->update();
 }
+
 
 void Game::DE_Render() {
 	SDL_SetRenderDrawColor(this->engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(this->engine->getRenderer());
 
-	// Render start
+	// --------------------------- Render start ---------------------------
 
 	this->render();
 
-	// Render end
+	// ---------------------------- Render end ----------------------------
 
 	SDL_RenderPresent(this->engine->getRenderer());
 }
-
