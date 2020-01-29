@@ -6,7 +6,9 @@
 
 #include "game/DungeonGame.h"
 
-
+/**
+* Entry point
+*/
 int main(int argc, char* argv[]) {
 	
 	if (argc > 1) {
