@@ -126,14 +126,6 @@ void DungeonGame::launch(void) {
 	std::cout << "Dungeon game launch" << std::endl;
 	
 	this->textFont = this->engine->createFont("vingue", true);
-	
-
-	// TODO: Zrobiæ to ³adniej !!!
-	//this->engine->loadMusic("ex-aws_cave.xm");
-	//if (Mix_PlayingMusic() == 0) {
-	//	Mix_PlayMusic(this->engine->getMusic(), -1); // -1 play forever, 0 - no play
-	//	Mix_VolumeMusic(this->engine->settings.musicVolume);
-	//}
 
 	engine->loadMusic("ex-aws_cave.xm");
 	engine->playMusic(true, 25);
