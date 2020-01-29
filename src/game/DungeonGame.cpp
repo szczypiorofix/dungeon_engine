@@ -16,6 +16,9 @@ DungeonGame::DungeonGame() {
 
 
 DungeonGame::~DungeonGame() {
+	delete this->currentLockVector;
+	delete this->player;
+	delete this->textFont;
 }
 
 
