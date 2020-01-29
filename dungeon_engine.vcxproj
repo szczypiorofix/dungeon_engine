@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
+    <None Include=".github\workflows\ccpp.yml" />
     <None Include=".gitignore" />
     <None Include="appveyor.yml" />
     <None Include="LICENSE" />
