@@ -89,6 +89,7 @@ void DungeonGame::update() {
 
 	player->update(engine->scale);
 	this->camera->update(this->engine->scale);
+
 }
 
 
@@ -134,6 +135,7 @@ void DungeonGame::launch(void) {
 	engine->loadImageToAssets("dg_grounds32.png", 32, 32, SpriteSheet::BASICTILES);
 	
 	this->tiledMap = new TiledMap("worldmap.tmx");
+
 
 	//LuaHandler* lua = new LuaHandler("script.lua");
 	//this->player = lua->getPlayer(this->engine->getRenderer());

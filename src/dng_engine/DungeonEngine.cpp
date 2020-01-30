@@ -204,6 +204,8 @@ void DungeonEngine::stop(void) {
 	std::cout << "Shutting down SDL modules..." << std::endl;
 #endif
 
+	SDL_FreeCursor(this->cursor);
+
 	GraphicAssets::releaseAssets();
 
 	delete this->currentMusic;
@@ -232,6 +234,15 @@ void DungeonEngine::launchSubsystems(void) {
 	std::string cursorFileName = DIR_RES_IMAGES;
 	cursorFileName.append("mouse_cursor.png");
 	
+	int m = SDL_SetRelativeMouseMode(SDL_FALSE); // Trap mouse on window
+	if (m == -1) {
+		std::cout << "Error while locking mouse pointer to the window." << std::endl;
+		exit(1);
+	}
+	SDL_ShowCursor(SDL_ENABLE);
+	SDL_WarpMouseInWindow(this->window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+
 	SDL_Surface* cursorIcon = IMG_Load(cursorFileName.c_str());
 	if (cursorIcon == NULL) {
 		std::cout << "Unable to load image " << cursorFileName << ". SDL_image error: " << IMG_GetError() << std::endl;

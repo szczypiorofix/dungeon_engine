@@ -144,6 +144,9 @@
       <Filter>config</Filter>
     </None>
     <None Include=".github\workflows\ccpp.yml" />
+    <None Include="CHANGELOG.MD" />
+    <None Include="CODE_OF_CONDUCT.md" />
+    <None Include="CONTRIBUTING.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">

@@ -134,6 +134,9 @@
     <None Include=".github\workflows\ccpp.yml" />
     <None Include=".gitignore" />
     <None Include="appveyor.yml" />
+    <None Include="CHANGELOG.MD" />
+    <None Include="CODE_OF_CONDUCT.md" />
+    <None Include="CONTRIBUTING.md" />
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\dungeon_engine.aps" />
