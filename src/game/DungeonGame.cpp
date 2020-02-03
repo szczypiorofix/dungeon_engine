@@ -4,26 +4,41 @@
  */
 
 #include "DungeonGame.h"
-#include <SDL.h>
+
+
 
 
 DungeonGame::DungeonGame() {
-	this->currentLockVector = nullptr;
-	this->player = nullptr;
 	this->textFont = nullptr;
+	
+	this->mainMenuState = nullptr;
+	this->state = State::MAIN_MENU; // Splash screen
+
 	std::cout << "DungeonGame::constructor" << std::endl;
 }
 
 
 DungeonGame::~DungeonGame() {
-	delete this->currentLockVector;
-	delete this->player;
 	delete this->textFont;
 }
 
 
 void DungeonGame::input(SDL_Event* event) {
-	if (event->type == SDL_MOUSEWHEEL) {
+
+	switch (this->state) {
+	
+	case State::SPLASH_SCREEN:
+
+		break;
+	case State::MAIN_MENU:
+		this->mainMenuState->input(event);
+		break;
+	default:
+		exit(1);
+		break;
+	}
+
+	/*if (event->type == SDL_MOUSEWHEEL) {
 			if (event->button.x == 1) {
 				if (this->engine->scale < DungeonEngine::MAX_SCALE) this->engine->scale += 0.25f;
 			}
@@ -80,43 +95,43 @@ void DungeonGame::input(SDL_Event* event) {
 					}
 					break;
 			}
-		}
+		}*/
 
 }
 
 
 void DungeonGame::update() {
 
-	player->update(engine->scale);
-	this->camera->update(this->engine->scale);
+	/*player->update(engine->scale);
+	this->camera->update(this->engine->scale);*/
 
 }
 
 
 void DungeonGame::render() {
-	for (int l = 0; l < this->tiledMap->map.layerCounter; l++) {
-		for (int i = 0; i < this->tiledMap->map.width * this->tiledMap->map.height; i++) {
-			int id = (this->tiledMap->map.layers[l]->data.arr[i]) - 1;
-			int col = this->tiledMap->map.tileSets[0]->source->columns; // tilesets -> columns
-			if (id > 0) {
-				SDL_Rect tempClip = {
-				((id % col) * this->tiledMap->map.tileWidth),
-				((id / col) * this->tiledMap->map.tileHeight),
-				this->tiledMap->map.tileWidth,
-				this->tiledMap->map.tileHeight
-				};
+	//for (int l = 0; l < this->tiledMap->map.layerCounter; l++) {
+	//	for (int i = 0; i < this->tiledMap->map.width * this->tiledMap->map.height; i++) {
+	//		int id = (this->tiledMap->map.layers[l]->data.arr[i]) - 1;
+	//		int col = this->tiledMap->map.tileSets[0]->source->columns; // tilesets -> columns
+	//		if (id > 0) {
+	//			SDL_Rect tempClip = {
+	//			((id % col) * this->tiledMap->map.tileWidth),
+	//			((id / col) * this->tiledMap->map.tileHeight),
+	//			this->tiledMap->map.tileWidth,
+	//			this->tiledMap->map.tileHeight
+	//			};
 
-				engine->drawImage(
-					SpriteSheet::BASICTILES,
-					tempClip,
-					(int)this->currentLockVector->x + ((i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth),
-					(int)this->currentLockVector->y + ((i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight)
-				);
-			}			
-		}
-	}
+	//			engine->drawImage(
+	//				SpriteSheet::BASICTILES,
+	//				tempClip,
+	//				(int)this->currentLockVector->x + ((i % this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileWidth),
+	//				(int)this->currentLockVector->y + ((i / this->tiledMap->map.layers[l]->width) * this->tiledMap->map.tileHeight)
+	//			);
+	//		}			
+	//	}
+	//}
 
-	player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
+	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
 	this->textFont->draw("DUPA BLADA", 10, 50, 0.5f, this->engine->scale);
 
@@ -128,7 +143,8 @@ void DungeonGame::launch(void) {
 	
 	this->textFont = this->engine->createFont("vingue", true);
 
-	engine->loadMusic("ex-aws_cave.xm");
+	// engine->loadMusic("ex-aws_cave.xm");
+	engine->loadMusic("menu-music.ogg");
 	engine->playMusic(true, 25);
 
 	engine->loadImageToAssets("dg_humans32.png", 32, 32, SpriteSheet::CHARACTERS);
@@ -148,12 +164,12 @@ void DungeonGame::launch(void) {
 	//delete lua;
 
 
-	this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
+	//this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
 	this->camera = new Camera();
 
-	this->currentLockVector = this->player->vector;
+	//this->currentLockVector = this->player->vector;
 
-	camera->lockCameraOnObject(&player->moveVector->x, &player->moveVector->y);
+	//camera->lockCameraOnObject(&player->moveVector->x, &player->moveVector->y);
 
 	this->gameLoop();
 }

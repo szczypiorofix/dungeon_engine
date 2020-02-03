@@ -9,8 +9,14 @@
 
 #include <iostream>
 #include "../dng_engine/Game.h"
-#include "Player.h"
+#include "MainMenuState.h"
 
+enum class State {
+	SPLASH_SCREEN,
+	MAIN_MENU,
+	OPTIONS,
+	MAIN_GAME
+};
 
 class DungeonGame : public Game {
 
@@ -24,10 +30,11 @@ public:
 	virtual void update();
 	virtual void render();
 
+	State state;
+	MainMenuState* mainMenuState;
+
 private:
 	
-	Player* player;
-	Vector2* currentLockVector;
 	TextFont* textFont;
 
 	const float SCROLL_SPEED = 32.0f;

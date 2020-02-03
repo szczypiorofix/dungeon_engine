@@ -94,6 +94,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\MainGameState.h" />
+    <ClInclude Include="src\game\MainMenuState.h" />
+    <ClInclude Include="res\resource.h" />
+    <ClInclude Include="src\dng_engine\GameState.h" />
     <ClInclude Include="src\dng_engine\Music.h" />
     <ClInclude Include="src\dng_engine\Game.h" />
     <ClInclude Include="src\dng_engine\Animation.h" />
@@ -114,8 +118,10 @@
     <ClInclude Include="src\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\dg.ico" />
     <Image Include="res\fonts\vingue.png" />
+    <Image Include="res\gui\mm-gui-button.png" />
+    <Image Include="res\gui\mm-gui-controlls.png" />
+    <Image Include="res\icon.ico" />
     <Image Include="res\images\dg_armor32.png" />
     <Image Include="res\images\dg_classm32.png" />
     <Image Include="res\images\dg_extra132.png" />
@@ -140,6 +146,8 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\dungeon_engine.aps" />
+    <None Include="res\gui\mm-gui-button.pyxel" />
+    <None Include="res\gui\mm-gui-controlls.pyxel" />
     <None Include="res\images\dg_features32.tsx" />
     <None Include="res\images\dg_grounds32.tsx" />
     <None Include="res\images\dg_humans32.tsx" />
@@ -157,6 +165,9 @@
     <Xml Include="res\fonts\vingue.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\MainGameState.cpp" />
+    <ClCompile Include="src\game\MainMenuState.cpp" />
+    <ClCompile Include="src\dng_engine\GameState.cpp" />
     <ClCompile Include="src\dng_engine\Music.cpp" />
     <ClCompile Include="src\dng_engine\Game.cpp" />
     <ClCompile Include="src\dng_engine\Animation.cpp" />
