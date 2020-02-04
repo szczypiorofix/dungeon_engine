@@ -149,12 +149,14 @@ void TextFont::draw(const char* text, int x, int y, float size, float scale) {
 			if (text[c] == fontItems[i]->ascii) {
 				
 				renderQuad.x = x + fontItems[i]->trailing + fontItems[i]->leading + (int)(c * fontWidth * size);
-				renderQuad.y = y + fontHeight + fontItems[i]->top;
+				renderQuad.y = y;// +fontItems[i]->top;
 				renderQuad.w = (int) (fontWidth * scale * size);
 				renderQuad.h = (int) (fontHeight * scale * size);
 				
 				SDL_Rect clip = { fontItems[i]->x, fontItems[i]->y, fontItems[i]->width, fontItems[i]->height };
 				SDL_RenderCopy(renderer, fontImage, &clip, &renderQuad);
+
+				//SDL_RenderDrawRect(this->renderer, &renderQuad);
 			}
 		}
 		c++;

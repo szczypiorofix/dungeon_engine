@@ -14,20 +14,23 @@
 class MainMenuButton : public GUIElement {
 
 public:
-    MainMenuButton(DungeonEngine* engine, int x, int y, std::string text);
+    MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text);
     ~MainMenuButton();
 
     virtual void input(SDL_Event* event);
     virtual void update();
     virtual void render();
 
+
 private:
+
+
     bool focus;
-    bool press;
-    int x;
-    int y;
+    bool mouseClicked;
+
     TextFont* textFont;
     std::string text;
+
 
 };
 

@@ -6,9 +6,37 @@
 #include "MainMenuState.h"
 
 
+void mr() {
+    std::cout << "ON MOUSE RIGHT" << std::endl;
+}
+
+void ml() {
+    std::cout << "ON MOUSE LEFT" << std::endl;
+}
+
+void fl() {
+    std::cout << "ON FOCUS LOST" << std::endl;
+}
+
+void f() {
+    std::cout << "ON FOCUS" << std::endl;
+}
+
 MainMenuState::MainMenuState(DungeonEngine* engine) {
     this->engine = engine;
-    this->button1 = new MainMenuButton(engine, 60, 180, "NEW GAME");
+
+    void (*oml)() = &ml;
+    void (*omr)() = &mr;
+    void (*of)() = &f;
+    void (*ofl)() = &fl;
+
+    this->button1 = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME");
+    
+    this->button1->addListener(of, DNG_Events::ON_FOCUS);
+    this->button1->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
+    this->button1->addListener(oml, DNG_Events::ON_MOUSE_CLICKED_LEFT);
+    this->button1->addListener(omr, DNG_Events::ON_MOUSE_CLICKED_RIGHT);
+
     this->textFont = this->engine->createFont("vingue", true);
     this->engine->loadImageToAssets("world_map_wallpaper.jpg", 32, 32, SpriteSheet::WALLPAPER);
     this->engine->loadImageToAssets("logo-title.png", 32, 32, SpriteSheet::LOGO);
