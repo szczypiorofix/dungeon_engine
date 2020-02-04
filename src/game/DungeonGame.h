@@ -10,6 +10,7 @@
 #include <iostream>
 #include "../dng_engine/Game.h"
 #include "MainMenuState.h"
+#include "MainGameState.h"
 
 enum class State {
 	SPLASH_SCREEN,
@@ -32,10 +33,11 @@ public:
 
 	State state;
 	MainMenuState* mainMenuState;
+	MainGameState* mainGameState;
 
 private:
 	
-	TextFont* textFont;
+	
 
 	const float SCROLL_SPEED = 32.0f;
 

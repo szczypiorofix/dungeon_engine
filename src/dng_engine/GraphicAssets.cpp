@@ -9,8 +9,13 @@
 
 GraphicAssets::GraphicAssets() {
 	std::cout << "Creating new assets..." << std::endl;
-	spriteSheets[0] = NULL;
-	spriteSheets[1] = NULL;
+	spriteSheets[SpriteSheet::BASICTILES] = NULL;
+	spriteSheets[SpriteSheet::CHARACTERS] = NULL;
+	spriteSheets[SpriteSheet::WALLPAPER] = NULL;
+	spriteSheets[SpriteSheet::LOGO] = NULL;
+	spriteSheets[SpriteSheet::MAINMENUSHADE] = NULL;
+	spriteSheets[SpriteSheet::GUI_BUTTON] = NULL;
+	spriteSheets[SpriteSheet::GUI_CONTROLLS] = NULL;
 }
 
 

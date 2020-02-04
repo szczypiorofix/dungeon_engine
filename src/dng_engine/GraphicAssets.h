@@ -10,7 +10,7 @@
 #include <iostream>
 #include "SpriteSheet.h"
 
-constexpr int MAX_SPRITESHEETS = 2;
+constexpr int MAX_SPRITESHEETS = 7;
 
 
 class GraphicAssets {

@@ -63,12 +63,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="res\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\dng_engine\Animation.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -127,6 +121,18 @@
       <Filter>Header Files\game</Filter>
     </ClInclude>
     <ClInclude Include="src\game\MainGameState.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="res\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\GUIElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\MainMenuButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -194,6 +200,8 @@
     <None Include="res\gui\mm-gui-controlls.pyxel">
       <Filter>Resource Files\gui</Filter>
     </None>
+    <None Include="res\images\mm-gui-button.pyxel" />
+    <None Include="res\images\mm-gui-controlls.pyxel" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">
@@ -243,6 +251,24 @@
     </Image>
     <Image Include="res\gui\mm-gui-controlls.png">
       <Filter>Resource Files\gui</Filter>
+    </Image>
+    <Image Include="res\images\logo-title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\world_map_wallpaper.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\world_map_wallpaper.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\mm-background-shade.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\mm-gui-button.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\mm-gui-controlls.png">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +333,12 @@
       <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\game\MainGameState.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dng_engine\GUIElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\MainMenuButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,13 +8,15 @@
 #pragma once
 
 #include "../dng_engine/GameState.h"
-#include <iostream>
+#include "MainMenuButton.h"
+
+
 
 class MainMenuState : public GameState {
 
 public:
 
-	MainMenuState();
+	MainMenuState(DungeonEngine* engine);
 	~MainMenuState();
 
 	virtual void input(SDL_Event* event);
@@ -23,7 +25,8 @@ public:
 
 
 private:
-
+	TextFont* textFont;
+	MainMenuButton* button1;
 
 };
 
