@@ -8,7 +8,7 @@
 #pragma once
 
 #include "../dng_engine/GameState.h"
-
+#include <iostream>
 
 class MainMenuState : public GameState {
 
@@ -17,8 +17,8 @@ public:
 	MainMenuState();
 	~MainMenuState();
 
-	virtual void update();
 	virtual void input(SDL_Event* event);
+	virtual void update();
 	virtual void render();
 
 

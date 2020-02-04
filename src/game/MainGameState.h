@@ -13,6 +13,7 @@
 class MainGameState : public GameState {
 
 public:
+
 	MainGameState();
 	~MainGameState();
 

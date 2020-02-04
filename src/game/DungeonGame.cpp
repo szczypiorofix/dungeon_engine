@@ -141,6 +141,9 @@ void DungeonGame::render() {
 void DungeonGame::launch(void) {
 	std::cout << "Dungeon game launch" << std::endl;
 	
+	this->mainMenuState = new MainMenuState();
+
+
 	this->textFont = this->engine->createFont("vingue", true);
 
 	// engine->loadMusic("ex-aws_cave.xm");
