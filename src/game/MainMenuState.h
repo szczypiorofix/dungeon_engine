@@ -23,11 +23,14 @@ public:
 	virtual void update();
 	virtual void render();
 
+	void f();
+	void fl();
 
 private:
 	TextFont* textFont;
-	MainMenuButton* button1;
-
+	MainMenuButton* newGameButton;
+	MainMenuButton* exitButton;
+		
 };
 
 

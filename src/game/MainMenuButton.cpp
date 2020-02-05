@@ -6,7 +6,7 @@
 #include "MainMenuButton.h"
 
 
-MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text) {
+MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text) : GUIElement() {
     this->engine = engine;
     this->text = text;
     this->x = x;
@@ -14,10 +14,10 @@ MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, i
     this->width = width;
     this->height = height;
 
-
-
-    this->focus = false;
-    this->mouseClicked = false;
+    this->listeners.onFocus = {false, false, NULL};
+    this->listeners.onFocusLost = { false, false, NULL };
+    this->listeners.onMouseButtonClickedLeft = { false, false, NULL };
+    this->listeners.onMouseButtonClickedRight = { false, false, NULL };
     
     this->textFont = new TextFont(engine->getRenderer(), "vingue");
 }
@@ -31,37 +31,36 @@ MainMenuButton::~MainMenuButton() {
 void MainMenuButton::input(SDL_Event* event) {
     if (event->type == SDL_MOUSEMOTION) {
         if (event->motion.x > this->x && event->motion.x < this->x + this->width && event->motion.y > this->y && event->motion.y < this->y + this->height) {
-            
-            if (this->focusListenerSet && !this->focus) {
-                (*this->focusCallback) ();
+            if (this->listeners.onFocus.set && !this->listeners.onFocus.active) {
+                (this->*listeners.onFocus.callback) ();
             }
-
-            this->focus = true;
+            this->listeners.onFocus.active = true;
         } else {
             
-            if (this->focusLostListenerSet && this->focus) {
-                (*this->focusLostCallback) ();
+            if (this->listeners.onFocusLost.set && this->listeners.onFocus.active) {
+                (this->*listeners.onFocusLost.callback) ();
             }
-
-            this->focus = false;
+            this->listeners.onFocus.active = false;
         }
     }
-    if (this->focus) {
+    if (this->listeners.onFocus.active) {
         if (event->button.type == SDL_MOUSEBUTTONDOWN) {
             if (event->button.button == SDL_BUTTON_LEFT) {
-                this->mouseClicked = true;
-                if (this->mouseClickedLeftListenerSet) {
-                    (*this->mouseClickedLeftCallback) ();
+                this->listeners.onMouseButtonClickedLeft.active = true;
+                if (this->listeners.onMouseButtonClickedLeft.set) {
+                    (this->*listeners.onMouseButtonClickedLeft.callback) ();
                 }
             }
             else if (event->button.button == SDL_BUTTON_RIGHT) {
-                if (this->mouseClickedRightListenerSet) {
-                    (*this->mouseClickedRightCallback) ();
+                this->listeners.onMouseButtonClickedRight.active = true;
+                if (this->listeners.onMouseButtonClickedRight.set) {
+                    (this->*listeners.onMouseButtonClickedRight.callback) ();
                 }
             }
         }
         else if (event->button.type == SDL_MOUSEBUTTONUP) {
-            this->mouseClicked = false;
+            this->listeners.onMouseButtonClickedLeft.active = false;
+            this->listeners.onMouseButtonClickedRight.active = false;
         }
     }
 }
@@ -75,9 +74,9 @@ void MainMenuButton::update() {
 void MainMenuButton::render() {
     int yOffset = 0; // offset to Y when is focus on button or/and button is pressed
     SDL_Rect tempClip;
-    if (this->focus) {
+    if (this->listeners.onFocus.active) {
         tempClip = { 0, 32, 168, 32 };
-        if (this->mouseClicked) {
+        if (this->listeners.onMouseButtonClickedLeft.active) {
             tempClip = { 0, 64, 168, 32 };
             yOffset = 3;
         }
@@ -90,8 +89,51 @@ void MainMenuButton::render() {
     }
     
     engine->drawImage(SpriteSheet::GUI_BUTTON, tempClip, this->x, this->y);
+
     this->textFont->draw(this->text.c_str(), this->x + 28, this->y + 8 + yOffset, 0.25f, 1.0f);
     
 }
 
+
+void MainMenuButton::addListener(void (MainMenuButton::*funcCallback)(), DNG_Events eventType) {
+    switch (eventType) {
+    case DNG_Events::ON_FOCUS:
+        this->listeners.onFocus.set = true;
+        this->listeners.onFocus.callback = funcCallback;
+        break;
+    case DNG_Events::ON_FOCUS_LOST:
+        this->listeners.onFocusLost.set = true;
+        this->listeners.onFocusLost.callback = funcCallback;
+        break;
+    case DNG_Events::ON_MOUSE_CLICKED_LEFT:
+        this->listeners.onMouseButtonClickedLeft.set = true;
+        this->listeners.onMouseButtonClickedLeft.callback = funcCallback;
+        break;
+    case DNG_Events::ON_MOUSE_CLICKED_RIGHT:
+        this->listeners.onMouseButtonClickedRight.set = true;
+        this->listeners.onMouseButtonClickedRight.callback = funcCallback;
+        break;
+    }
+}
+
+
+void MainMenuButton::fl() {
+    std::cout << "ON FOCUS LOST" << std::endl;
+}
+
+void MainMenuButton::f() {
+    std::cout << "ON FOCUS" << std::endl;
+}
+
+void MainMenuButton::ml() {
+    std::cout << "ON MOUSE CLICKED LEFT" << std::endl;
+}
+
+void MainMenuButton::mr() {
+    std::cout << "ON MOUSE CLICKED RIGHT" << std::endl;
+}
+
+void MainMenuButton::quit() {
+    this->engine->setQuit(true);
+}
 

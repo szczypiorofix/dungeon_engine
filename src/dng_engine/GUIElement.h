@@ -11,12 +11,14 @@
 #include "DungeonEngine.h"
 
 
+
 enum class DNG_Events {
 	ON_FOCUS,
 	ON_FOCUS_LOST,
 	ON_MOUSE_CLICKED_LEFT,
 	ON_MOUSE_CLICKED_RIGHT
 };
+
 
 
 class GUIElement {
@@ -30,7 +32,6 @@ public:
 	virtual void update() = 0;
 	virtual void render() = 0;
 
-	void addListener(void (*funcCallback)(), DNG_Events eventType);
 
 protected:
 	DungeonEngine* engine;
@@ -39,20 +40,6 @@ protected:
 	int y;
 	int width;
 	int height;
-
-	// listeners
-	
-	bool focusListenerSet;
-	void (*focusCallback)();
-
-	bool focusLostListenerSet;
-	void (*focusLostCallback)();
-
-	bool mouseClickedLeftListenerSet;
-	void (*mouseClickedLeftCallback)();
-
-	bool mouseClickedRightListenerSet;
-	void (*mouseClickedRightCallback)();
 
 };
 

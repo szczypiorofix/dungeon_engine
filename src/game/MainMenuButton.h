@@ -7,7 +7,7 @@
 #define _MAINMENUBUTTON_H_
 #pragma once
 
-#include "../dng_engine//GUIElement.h"
+#include "../dng_engine/GUIElement.h"
 
 
 
@@ -17,20 +17,36 @@ public:
     MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text);
     ~MainMenuButton();
 
+    typedef struct Listener {
+        bool set, active;
+        void (MainMenuButton::* callback)();
+    } Listener;
+
+    typedef struct Listeners {
+        Listener onFocus;
+        Listener onFocusLost;
+        Listener onMouseButtonClickedLeft;
+        Listener onMouseButtonClickedRight;
+    } Listeners;
+
     virtual void input(SDL_Event* event);
     virtual void update();
     virtual void render();
 
+    void addListener(void (MainMenuButton::*funcCallback)(), DNG_Events eventType);
+
+    void fl();
+    void f();
+    void ml();
+    void mr();
+    void quit();
 
 private:
-
-
-    bool focus;
-    bool mouseClicked;
 
     TextFont* textFont;
     std::string text;
 
+    Listeners listeners;
 
 };
 

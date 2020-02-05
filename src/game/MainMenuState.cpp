@@ -6,36 +6,28 @@
 #include "MainMenuState.h"
 
 
-void mr() {
-    std::cout << "ON MOUSE RIGHT" << std::endl;
-}
-
-void ml() {
-    std::cout << "ON MOUSE LEFT" << std::endl;
-}
-
-void fl() {
-    std::cout << "ON FOCUS LOST" << std::endl;
-}
-
-void f() {
-    std::cout << "ON FOCUS" << std::endl;
-}
 
 MainMenuState::MainMenuState(DungeonEngine* engine) {
     this->engine = engine;
 
-    void (*oml)() = &ml;
-    void (*omr)() = &mr;
-    void (*of)() = &f;
-    void (*ofl)() = &fl;
-
-    this->button1 = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME");
+    void (MainMenuButton::*of)() = &MainMenuButton::f;
+    void (MainMenuButton::*ofl)() = &MainMenuButton::fl;
+    void (MainMenuButton::*oml)() = &MainMenuButton::ml;
+    void (MainMenuButton::*omr)() = &MainMenuButton::mr;
+    void (MainMenuButton::*qt)() = &MainMenuButton::quit;
     
-    this->button1->addListener(of, DNG_Events::ON_FOCUS);
-    this->button1->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
-    this->button1->addListener(oml, DNG_Events::ON_MOUSE_CLICKED_LEFT);
-    this->button1->addListener(omr, DNG_Events::ON_MOUSE_CLICKED_RIGHT);
+    this->newGameButton = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME");
+    
+    this->newGameButton->addListener(of, DNG_Events::ON_FOCUS);
+    this->newGameButton->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
+    this->newGameButton->addListener(oml, DNG_Events::ON_MOUSE_CLICKED_LEFT);
+    this->newGameButton->addListener(omr, DNG_Events::ON_MOUSE_CLICKED_RIGHT);
+
+
+    this->exitButton = new MainMenuButton(this->engine, 270, 300, 168, 34, "QUIT GAME");
+    this->exitButton->addListener(qt, DNG_Events::ON_MOUSE_CLICKED_LEFT);
+    this->exitButton->addListener(of, DNG_Events::ON_FOCUS);
+    this->exitButton->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
 
     this->textFont = this->engine->createFont("vingue", true);
     this->engine->loadImageToAssets("world_map_wallpaper.jpg", 32, 32, SpriteSheet::WALLPAPER);
@@ -54,7 +46,8 @@ MainMenuState::~MainMenuState() {
 
 
 void MainMenuState::update() {
-    this->button1->update();
+    this->newGameButton->update();
+    this->exitButton->update();
 }
 
 
@@ -78,22 +71,24 @@ void MainMenuState::input(SDL_Event* event) {
         }
     }
 
-    this->button1->input(event);
+    this->newGameButton->input(event);
+    this->exitButton->input(event);
 
 }
 
 
 void MainMenuState::render() {
     SDL_Rect tempClip = { 0, 0, 800, 600 };
-    engine->drawImage(SpriteSheet::WALLPAPER, tempClip, 0, 0);
+    this->engine->drawImage(SpriteSheet::WALLPAPER, tempClip, 0, 0);
 
     tempClip = { 0, 0, 800, 600 };
-    engine->drawImage(SpriteSheet::MAINMENUSHADE, tempClip, 0, 0);
+    this->engine->drawImage(SpriteSheet::MAINMENUSHADE, tempClip, 0, 0);
 
     tempClip = { 0, 0, 335, 201 };
-    engine->drawImage(SpriteSheet::LOGO, tempClip, 210, 15);
+    this->engine->drawImage(SpriteSheet::LOGO, tempClip, 210, 15);
 
-    button1->render();
+    this->newGameButton->render();
+    this->exitButton->render();
 
     //this->textFont->draw("MAIN MENU", 10, 10, .5f, this->engine->scale);
 }
