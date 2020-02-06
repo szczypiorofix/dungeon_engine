@@ -8,6 +8,7 @@
 #pragma once
 
 #include "../dng_engine/GameState.h"
+#include "../dng_engine/Actions.h"
 #include "MainMenuButton.h"
 
 

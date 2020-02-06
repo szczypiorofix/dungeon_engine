@@ -17,20 +17,22 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* state) {
     void (MainMenuButton::*omr)() = &MainMenuButton::mr;
     //void (MainMenuButton::*qt)() = &MainMenuButton::quitAction;
     
+    ActionsMemFn a = &Actions::doNewGame;
+
     
     
     this->newGameButton = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME", this->state);
-    this->newGameButton->addListener(of, DNG_Events::ON_FOCUS);
-    this->newGameButton->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
-    this->newGameButton->addListener(&MainMenuButton::newGameAction, DNG_Events::ON_MOUSE_CLICKED_LEFT);
-    this->newGameButton->addListener(omr, DNG_Events::ON_MOUSE_CLICKED_RIGHT);
+    this->newGameButton->addListener(a, DNG_Events::ON_MOUSE_CLICKED_LEFT);
+    //this->newGameButton->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
+    //this->newGameButton->addListener(&MainMenuButton::newGameAction, DNG_Events::ON_MOUSE_CLICKED_LEFT);
+    //this->newGameButton->addListener(omr, DNG_Events::ON_MOUSE_CLICKED_RIGHT);
 
     
 
     this->exitButton = new MainMenuButton(this->engine, 270, 300, 168, 34, "QUIT GAME", this->state);
-    this->exitButton->addListener(&MainMenuButton::quitAction, DNG_Events::ON_MOUSE_CLICKED_LEFT);
-    this->exitButton->addListener(of, DNG_Events::ON_FOCUS);
-    this->exitButton->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
+    //this->exitButton->addListener(&MainMenuButton::quitAction, DNG_Events::ON_MOUSE_CLICKED_LEFT);
+    //this->exitButton->addListener(of, DNG_Events::ON_FOCUS);
+    //this->exitButton->addListener(ofl, DNG_Events::ON_FOCUS_LOST);
 
 
     this->textFont = this->engine->createFont("vingue", true);

@@ -34,37 +34,37 @@ void MainMenuButton::input(SDL_Event* event) {
     if (event->type == SDL_MOUSEMOTION) {
         if (event->motion.x > this->x && event->motion.x < this->x + this->width && event->motion.y > this->y && event->motion.y < this->y + this->height) {
             if (this->listeners.onFocus.set && !this->listeners.onFocus.active) {
-                (this->*listeners.onFocus.callback) ();
+                std::invoke(this->listeners.onFocus.callback);
             }
             this->listeners.onFocus.active = true;
         } else {
             
-            if (this->listeners.onFocusLost.set && this->listeners.onFocus.active) {
+            /*if (this->listeners.onFocusLost.set && this->listeners.onFocus.active) {
                 (this->*listeners.onFocusLost.callback) ();
-            }
+            }*/
             this->listeners.onFocus.active = false;
         }
     }
-    if (this->listeners.onFocus.active) {
-        if (event->button.type == SDL_MOUSEBUTTONDOWN) {
-            if (event->button.button == SDL_BUTTON_LEFT) {
-                this->listeners.onMouseButtonClickedLeft.active = true;
-                if (this->listeners.onMouseButtonClickedLeft.set) {
-                    (this->*listeners.onMouseButtonClickedLeft.callback) ();
-                }
-            }
-            else if (event->button.button == SDL_BUTTON_RIGHT) {
-                this->listeners.onMouseButtonClickedRight.active = true;
-                if (this->listeners.onMouseButtonClickedRight.set) {
-                    (this->*listeners.onMouseButtonClickedRight.callback) ();
-                }
-            }
-        }
-        else if (event->button.type == SDL_MOUSEBUTTONUP) {
-            this->listeners.onMouseButtonClickedLeft.active = false;
-            this->listeners.onMouseButtonClickedRight.active = false;
-        }
-    }
+    //if (this->listeners.onFocus.active) {
+    //    if (event->button.type == SDL_MOUSEBUTTONDOWN) {
+    //        if (event->button.button == SDL_BUTTON_LEFT) {
+    //            this->listeners.onMouseButtonClickedLeft.active = true;
+    //            if (this->listeners.onMouseButtonClickedLeft.set) {
+    //                (this->*listeners.onMouseButtonClickedLeft.callback) ();
+    //            }
+    //        }
+    //        else if (event->button.button == SDL_BUTTON_RIGHT) {
+    //            this->listeners.onMouseButtonClickedRight.active = true;
+    //            if (this->listeners.onMouseButtonClickedRight.set) {
+    //                (this->*listeners.onMouseButtonClickedRight.callback) ();
+    //            }
+    //        }
+    //    }
+    //    else if (event->button.type == SDL_MOUSEBUTTONUP) {
+    //        this->listeners.onMouseButtonClickedLeft.active = false;
+    //        this->listeners.onMouseButtonClickedRight.active = false;
+    //    }
+    //}
 }
 
 
@@ -97,7 +97,7 @@ void MainMenuButton::render() {
 }
 
 
-void MainMenuButton::addListener(void (MainMenuButton::*funcCallback)(), DNG_Events eventType) {
+void MainMenuButton::addListener(ActionsMemFn funcCallback, DNG_Events eventType) {
     switch (eventType) {
     case DNG_Events::ON_FOCUS:
         this->listeners.onFocus.set = true;

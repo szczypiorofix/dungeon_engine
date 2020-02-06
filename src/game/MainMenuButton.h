@@ -9,6 +9,7 @@
 
 #include "../dng_engine/GUIElement.h"
 #include "../dng_engine/GameState.h"
+#include "../dng_engine/Actions.h"
 
 
 class MainMenuButton : public GUIElement {
@@ -19,7 +20,7 @@ public:
 
     typedef struct Listener {
         bool set, active;
-        void (MainMenuButton::* callback)();
+        ActionsMemFn callback;
     } Listener;
 
     typedef struct Listeners {
@@ -33,7 +34,7 @@ public:
     virtual void update();
     virtual void render();
 
-    void addListener(void (MainMenuButton::*funcCallback)(), DNG_Events eventType);
+    void addListener(ActionsMemFn funcCallback, DNG_Events eventType);
 
 
     // ACTIONS

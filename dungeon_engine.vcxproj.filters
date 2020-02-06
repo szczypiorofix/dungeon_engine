@@ -135,6 +135,9 @@
     <ClInclude Include="src\game\MainMenuButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\dng_engine\Actions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\images\worldmap.tmx">
@@ -339,6 +342,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\MainMenuButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dng_engine\Actions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
