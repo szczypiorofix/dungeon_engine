@@ -12,12 +12,6 @@
 #include "MainMenuState.h"
 #include "MainGameState.h"
 
-enum class State {
-	SPLASH_SCREEN,
-	MAIN_MENU,
-	OPTIONS,
-	MAIN_GAME
-};
 
 class DungeonGame : public Game {
 
@@ -31,9 +25,10 @@ public:
 	virtual void update();
 	virtual void render();
 
-	State state;
 	MainMenuState* mainMenuState;
 	MainGameState* mainGameState;
+
+	GameState* currentState;
 
 private:
 	

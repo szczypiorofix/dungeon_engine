@@ -12,8 +12,9 @@ DungeonGame::DungeonGame() {
 
 	this->mainMenuState = nullptr;
 	this->mainGameState = nullptr;
+	this->currentState = nullptr;
 
-	this->state = State::MAIN_MENU; // Splash screen
+	this->state = State::MAIN_MENU;
 
 	std::cout << "DungeonGame::constructor" << std::endl;
 
@@ -186,9 +187,10 @@ void DungeonGame::render() {
 void DungeonGame::launch(void) {
 	std::cout << "Dungeon game launch" << std::endl;
 	
-	this->mainMenuState = new MainMenuState(this->engine);
-	this->mainGameState = new MainGameState(this->engine);
-
+	this->mainMenuState = new MainMenuState(this->engine, &this->state);
+	this->mainGameState = new MainGameState(this->engine, &this->state);
+	
+	this->currentState = this->mainMenuState;
 
 	
 

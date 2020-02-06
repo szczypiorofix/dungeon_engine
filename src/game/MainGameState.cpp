@@ -7,8 +7,9 @@
 
 
 
-MainGameState::MainGameState(DungeonEngine* engine) {
+MainGameState::MainGameState(DungeonEngine* engine, State* state) {
     this->engine = engine;
+    this->state = state;
     this->textFont = this->engine->createFont("vingue", true);
 }
 

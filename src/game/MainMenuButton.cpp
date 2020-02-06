@@ -4,15 +4,17 @@
  */
 
 #include "MainMenuButton.h"
+#include "../dng_engine/GameState.h"
 
 
-MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text) : GUIElement() {
+MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text, State* state) {
     this->engine = engine;
     this->text = text;
     this->x = x;
     this->y = y;
     this->width = width;
     this->height = height;
+    this->state = state;
 
     this->listeners.onFocus = {false, false, NULL};
     this->listeners.onFocusLost = { false, false, NULL };
@@ -67,7 +69,7 @@ void MainMenuButton::input(SDL_Event* event) {
 
 
 void MainMenuButton::update() {
-
+    
 }
 
 
@@ -133,7 +135,12 @@ void MainMenuButton::mr() {
     std::cout << "ON MOUSE CLICKED RIGHT" << std::endl;
 }
 
-void MainMenuButton::quit() {
+void MainMenuButton::quitAction() {
     this->engine->setQuit(true);
 }
 
+void MainMenuButton::newGameAction() {
+    State s = State::MAIN_GAME;
+    this->state = &s;
+    std::cout << "NEW GAME" << std::endl;
+}

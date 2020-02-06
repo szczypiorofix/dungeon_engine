@@ -14,7 +14,7 @@ class MainGameState : public GameState {
 
 public:
 
-	MainGameState(DungeonEngine* engine);
+	MainGameState(DungeonEngine* engine, State* state);
 	~MainGameState();
 
 	virtual void input(SDL_Event* event);

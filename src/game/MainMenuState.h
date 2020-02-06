@@ -16,15 +16,13 @@ class MainMenuState : public GameState {
 
 public:
 
-	MainMenuState(DungeonEngine* engine);
+	MainMenuState(DungeonEngine* engine, State* state);
 	~MainMenuState();
 
 	virtual void input(SDL_Event* event);
 	virtual void update();
 	virtual void render();
 
-	void f();
-	void fl();
 
 private:
 	TextFont* textFont;

@@ -8,13 +8,13 @@
 #pragma once
 
 #include "../dng_engine/GUIElement.h"
-
+#include "../dng_engine/GameState.h"
 
 
 class MainMenuButton : public GUIElement {
 
 public:
-    MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text);
+    MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text, State* state);
     ~MainMenuButton();
 
     typedef struct Listener {
@@ -35,17 +35,22 @@ public:
 
     void addListener(void (MainMenuButton::*funcCallback)(), DNG_Events eventType);
 
+
+    // ACTIONS
+
     void fl();
     void f();
     void ml();
     void mr();
-    void quit();
+
+    void newGameAction();
+    void quitAction();
 
 private:
 
     TextFont* textFont;
     std::string text;
-
+    State* state;
     Listeners listeners;
 
 };

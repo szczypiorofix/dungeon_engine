@@ -10,6 +10,13 @@
 #include <SDL.h>
 #include "DungeonEngine.h"
 
+enum class State {
+	SPLASH_SCREEN,
+	MAIN_MENU,
+	OPTIONS,
+	MAIN_GAME
+};
+
 class GameState {
 
 public:
@@ -25,7 +32,7 @@ public:
 protected:
 
 	DungeonEngine* engine;
-
+	State* state;
 
 };
 
