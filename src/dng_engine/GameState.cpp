@@ -5,8 +5,14 @@
 
 #include "GameState.h"
 
-GameState::GameState() {
 
+GameState::GameState() {
+    this->engine = nullptr;
+}
+
+
+GameState::GameState(DungeonEngine* engine) {
+    this->engine = engine;
 }
 
 

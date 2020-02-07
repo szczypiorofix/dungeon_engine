@@ -17,6 +17,11 @@ public:
 		
 	static const int CHARACTERS = 0;
 	static const int BASICTILES = 1;
+	static const int WALLPAPER  = 2;
+	static const int LOGO = 3;
+	static const int MAINMENUSHADE = 4;
+	static const int GUI_BUTTON = 5;
+	static const int GUI_CONTROLLS = 6;
 
 	SpriteSheet(std::string name, SDL_Renderer* renderer, int spriteWidth, int spriteHeight, int imagesEnum);
 	~SpriteSheet();

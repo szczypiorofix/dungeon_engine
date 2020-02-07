@@ -8,21 +8,24 @@
 #pragma once
 
 #include <SDL.h>
+#include "DungeonEngine.h"
+
 
 class GameState {
 
 public:
 
 	GameState();
+	GameState(DungeonEngine* engine);
 	~GameState();
 
-	virtual void update(SDL_Event* event) = 0;
-	virtual void input() = 0;
+	virtual void input(SDL_Event* event) = 0;
+	virtual void update() = 0;
 	virtual void render() = 0;
 
-private:
+protected:
 
-
+	DungeonEngine* engine;
 
 };
 

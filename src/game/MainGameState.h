@@ -8,17 +8,26 @@
 #pragma once
 
 #include "../dng_engine/GameState.h"
+#include "MainMenuButton.h"
 
 
 class MainGameState : public GameState {
 
 public:
-	MainGameState();
+
+	MainGameState(DungeonEngine* engine, int* s);
 	~MainGameState();
 
 	virtual void input(SDL_Event* event);
 	virtual void update();
 	virtual void render();
+
+private:
+	TextFont* textFont;
+	
+	MainMenuButton* backToMenuButton;
+
+	int* state;
 };
 
 #endif

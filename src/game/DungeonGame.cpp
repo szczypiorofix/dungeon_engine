@@ -9,33 +9,48 @@
 
 
 DungeonGame::DungeonGame() {
-	this->textFont = nullptr;
-	
+
 	this->mainMenuState = nullptr;
-	this->state = State::MAIN_MENU; // Splash screen
+	this->mainGameState = nullptr;
+	this->currentState = nullptr;
+
+	this->state = 0;
 
 	std::cout << "DungeonGame::constructor" << std::endl;
+
 }
 
 
 DungeonGame::~DungeonGame() {
-	delete this->textFont;
+	
 }
 
 
 void DungeonGame::input(SDL_Event* event) {
 
-	switch (this->state) {
-	
-	case State::SPLASH_SCREEN:
+	if (event->type == SDL_KEYDOWN) {
+		switch (event->key.keysym.sym) {
+			case SDLK_1:
+				std::cout << "switching to main menu state" << std::endl;
+				this->state = 0;
+				break;
+			case SDLK_2:
+				std::cout << "switching to main game state" << std::endl;
+				this->state = 1;
+				break;
+		}
+	}
 
-		break;
-	case State::MAIN_MENU:
-		this->mainMenuState->input(event);
-		break;
-	default:
-		exit(1);
-		break;
+	switch (this->state) {
+		case 1:
+			this->mainGameState->input(event);
+			break;
+		case 0:
+			this->mainMenuState->input(event);
+			break;
+		default:
+			exit(1);
+			break;
 	}
 
 	/*if (event->type == SDL_MOUSEWHEEL) {
@@ -105,6 +120,18 @@ void DungeonGame::update() {
 	/*player->update(engine->scale);
 	this->camera->update(this->engine->scale);*/
 
+	switch (this->state) {
+		case 1:
+			this->mainGameState->update();
+			break;
+		case 0:
+			this->mainMenuState->update();
+			break;
+		default:
+			exit(1);
+			break;
+	}
+
 }
 
 
@@ -133,7 +160,20 @@ void DungeonGame::render() {
 
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
-	this->textFont->draw("DUPA BLADA", 10, 50, 0.5f, this->engine->scale);
+	switch (this->state) {
+		case 1:
+			this->mainGameState->render();
+			break;
+		case 0:
+			this->mainMenuState->render();
+			break;
+		default:
+			exit(1);
+			break;
+	}
+
+
+	
 
 }
 
@@ -141,16 +181,21 @@ void DungeonGame::render() {
 void DungeonGame::launch(void) {
 	std::cout << "Dungeon game launch" << std::endl;
 	
-	this->textFont = this->engine->createFont("vingue", true);
+	this->mainMenuState = new MainMenuState(this->engine, &this->state);
+	this->mainGameState = new MainGameState(this->engine, &this->state);
+	
+	this->currentState = this->mainMenuState;
+
+	
 
 	// engine->loadMusic("ex-aws_cave.xm");
 	engine->loadMusic("menu-music.ogg");
 	engine->playMusic(true, 25);
 
-	engine->loadImageToAssets("dg_humans32.png", 32, 32, SpriteSheet::CHARACTERS);
+	/*engine->loadImageToAssets("dg_humans32.png", 32, 32, SpriteSheet::CHARACTERS);
 	engine->loadImageToAssets("dg_grounds32.png", 32, 32, SpriteSheet::BASICTILES);
 	
-	this->tiledMap = new TiledMap("worldmap.tmx");
+	this->tiledMap = new TiledMap("worldmap.tmx");*/
 
 
 	//LuaHandler* lua = new LuaHandler("script.lua");
@@ -165,7 +210,7 @@ void DungeonGame::launch(void) {
 
 
 	//this->player = new Player("Player", 0.0f, 0.0f, 16, 16, this->engine->getRenderer());
-	this->camera = new Camera();
+	//this->camera = new Camera();
 
 	//this->currentLockVector = this->player->vector;
 
