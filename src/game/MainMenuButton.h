@@ -17,17 +17,6 @@ public:
     MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text);
     ~MainMenuButton();
 
-    typedef struct Listener {
-        bool active;
-    } Listener;
-
-    typedef struct Listeners {
-        Listener onFocus;
-        Listener onFocusLost;
-        Listener onMouseButtonClickedLeft;
-        Listener onMouseButtonClickedRight;
-    } Listeners;
-
     virtual void input(SDL_Event* event);
     virtual void update();
     virtual void render();

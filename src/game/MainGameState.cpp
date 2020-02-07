@@ -7,7 +7,7 @@
 
 
 
-MainGameState::MainGameState(DungeonEngine* engine, int* s) {
+MainGameState::MainGameState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
@@ -39,12 +39,14 @@ void MainGameState::input(SDL_Event* event) {
 
 
 void MainGameState::update() {
-    this->backToMenuButton->update();
-
-    if (this->backToMenuButton->listeners.onMouseButtonClickedLeft.active) {
-        *this->state = 0;
+    
+    if (this->backToMenuButton->listeners.onMouseButtonLeftClicked) {
+        *this->state = State::MAIN_MENU;
     }
 
+
+    // !IMPORTANT TO CLEAR THE MOUSE CLICKED FLAG AFTER ANY AOTHER ACTIONS
+    this->backToMenuButton->update();
 }
 
 

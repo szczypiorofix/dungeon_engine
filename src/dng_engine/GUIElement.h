@@ -11,16 +11,6 @@
 #include "DungeonEngine.h"
 
 
-
-enum class DNG_Events {
-	ON_FOCUS,
-	ON_FOCUS_LOST,
-	ON_MOUSE_CLICKED_LEFT,
-	ON_MOUSE_CLICKED_RIGHT
-};
-
-
-
 class GUIElement {
 
 public:
@@ -32,6 +22,16 @@ public:
 	virtual void update() = 0;
 	virtual void render() = 0;
 
+	typedef struct Listeners {
+		bool onFocus;
+		bool onFocusLost;
+		bool onMouseButtonLeftDown;
+		bool onMouseButtonLeftUp;
+		bool onMouseButtonLeftClicked;
+		bool onMouseButtonRightDown;
+		bool onMouseButtonRightUp;
+		bool onMouseButtonRightClicked;
+	} Listeners;
 
 protected:
 	DungeonEngine* engine;

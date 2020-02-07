@@ -7,10 +7,10 @@
 #define _ENGINE_H_
 #pragma once
 
-#include "../dng_engine/DungeonEngine.h"
-#include "../dng_engine/Camera.h"
-#include "../dng_engine/TiledMap.h"
-
+#include "DungeonEngine.h"
+#include "Camera.h"
+#include "TiledMap.h"
+#include "GameState.h"
 
 
 
@@ -33,6 +33,7 @@ protected:
     
     void gameLoop();
     
+    State state;
 
 private:
 

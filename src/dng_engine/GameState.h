@@ -11,6 +11,12 @@
 #include "DungeonEngine.h"
 
 
+enum class State {
+	MAIN_MENU,
+	MAIN_GAME
+};
+
+
 class GameState {
 
 public:
