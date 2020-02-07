@@ -14,7 +14,7 @@ DungeonGame::DungeonGame() {
 	this->mainGameState = nullptr;
 	this->currentState = nullptr;
 
-	this->state = State::MAIN_MENU;
+	this->state = 0;
 
 	std::cout << "DungeonGame::constructor" << std::endl;
 
@@ -32,22 +32,20 @@ void DungeonGame::input(SDL_Event* event) {
 		switch (event->key.keysym.sym) {
 			case SDLK_1:
 				std::cout << "switching to main menu state" << std::endl;
-				this->state = State::MAIN_MENU;
+				this->state = 0;
 				break;
 			case SDLK_2:
 				std::cout << "switching to main game state" << std::endl;
-				this->state = State::MAIN_GAME;
+				this->state = 1;
 				break;
 		}
 	}
 
 	switch (this->state) {
-		case State::SPLASH_SCREEN:
-			break;
-		case State::MAIN_GAME:
+		case 1:
 			this->mainGameState->input(event);
 			break;
-		case State::MAIN_MENU:
+		case 0:
 			this->mainMenuState->input(event);
 			break;
 		default:
@@ -123,12 +121,10 @@ void DungeonGame::update() {
 	this->camera->update(this->engine->scale);*/
 
 	switch (this->state) {
-		case State::SPLASH_SCREEN:
-			break;
-		case State::MAIN_GAME:
+		case 1:
 			this->mainGameState->update();
 			break;
-		case State::MAIN_MENU:
+		case 0:
 			this->mainMenuState->update();
 			break;
 		default:
@@ -165,12 +161,10 @@ void DungeonGame::render() {
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
 	switch (this->state) {
-		case State::SPLASH_SCREEN:
-			break;
-		case State::MAIN_GAME:
+		case 1:
 			this->mainGameState->render();
 			break;
-		case State::MAIN_MENU:
+		case 0:
 			this->mainMenuState->render();
 			break;
 		default:

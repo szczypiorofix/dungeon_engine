@@ -9,18 +9,16 @@
 
 #include "../dng_engine/GUIElement.h"
 #include "../dng_engine/GameState.h"
-#include "../dng_engine/Actions.h"
 
 
 class MainMenuButton : public GUIElement {
 
 public:
-    MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text, State* state);
+    MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text);
     ~MainMenuButton();
 
     typedef struct Listener {
-        bool set, active;
-        ActionsMemFn callback;
+        bool active;
     } Listener;
 
     typedef struct Listeners {
@@ -34,26 +32,13 @@ public:
     virtual void update();
     virtual void render();
 
-    void addListener(ActionsMemFn funcCallback, DNG_Events eventType);
-
-
-    // ACTIONS
-
-    void fl();
-    void f();
-    void ml();
-    void mr();
-
-    void newGameAction();
-    void quitAction();
+    Listeners listeners;
 
 private:
 
     TextFont* textFont;
     std::string text;
-    State* state;
-    Listeners listeners;
-
+    
 };
 
 

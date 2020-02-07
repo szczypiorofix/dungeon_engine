@@ -7,7 +7,7 @@
 
 
 GameState::GameState() {
-    this->engine = NULL;
+    this->engine = nullptr;
 }
 
 

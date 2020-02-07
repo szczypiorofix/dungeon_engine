@@ -12,8 +12,6 @@ Game::Game() {
     this->camera = nullptr;
     this->engine = new DungeonEngine();
 	this->engine->launchSubsystems();
-	
-	this->state = State::MAIN_MENU;
 }
 
 

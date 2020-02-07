@@ -3,3 +3,15 @@ image:
 
 init:
 - cmd: echo Hey, I'm displayed on Windows only!
+
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      PLATFORM: x86
+      TOOLS: "MSVC"
+
+
+configuration:
+  - Debug
+  - Release
+

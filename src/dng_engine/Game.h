@@ -10,7 +10,6 @@
 #include "../dng_engine/DungeonEngine.h"
 #include "../dng_engine/Camera.h"
 #include "../dng_engine/TiledMap.h"
-#include "GameState.h"
 
 
 
@@ -27,8 +26,6 @@ protected:
     DungeonEngine* engine;
     Camera* camera;
     TiledMap* tiledMap;
-
-    State state;
 
     virtual void input(SDL_Event* event) = 0;
     virtual void update() = 0;
