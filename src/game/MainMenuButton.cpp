@@ -17,6 +17,7 @@ MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, i
     this->height = height;    
     this->textFont = new TextFont(engine->getRenderer(), "vingue");
     this->listeners = {false};
+    this->selected = false;
 }
 
 
@@ -35,21 +36,17 @@ void MainMenuButton::input(SDL_Event* event) {
         if (event->button.type == SDL_MOUSEBUTTONDOWN) {
             if (event->button.button == SDL_BUTTON_LEFT) {
                 this->listeners.onMouseButtonLeftDown = true;
-                this->listeners.onMouseButtonLeftUp = false;
             }
             else if (event->button.button == SDL_BUTTON_RIGHT) {
                 this->listeners.onMouseButtonRightDown = true;
-                this->listeners.onMouseButtonRightUp = false;
             }
         }
         else if (event->button.type == SDL_MOUSEBUTTONUP) {
             if (event->button.button == SDL_BUTTON_LEFT) {
-                this->listeners.onMouseButtonLeftUp = true;
                 this->listeners.onMouseButtonLeftDown = false;
                 this->listeners.onMouseButtonLeftClicked = true;
             }
             else if (event->button.button == SDL_BUTTON_RIGHT) {
-                this->listeners.onMouseButtonRightUp = true;
                 this->listeners.onMouseButtonRightDown = false;
                 this->listeners.onMouseButtonRightClicked = true;
             }
@@ -83,6 +80,17 @@ void MainMenuButton::render() {
     
     engine->drawImage(SpriteSheet::GUI_BUTTON, tempClip, this->x, this->y);
 
+    if (this->selected) {
+        tempClip = { 0, 96, 168, 32 };
+        engine->drawImage(SpriteSheet::GUI_BUTTON, tempClip, this->x, this->y);
+    }
+
     this->textFont->draw(this->text.c_str(), this->x + 28, this->y + 8 + yOffset, 0.25f, 1.0f);
     
 }
+
+
+void MainMenuButton::setSelected(bool s) {
+    this->selected = s;
+}
+

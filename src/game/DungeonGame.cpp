@@ -24,18 +24,13 @@ DungeonGame::~DungeonGame() {}
 
 void DungeonGame::input(SDL_Event* event) {
 
-	if (event->type == SDL_KEYDOWN) {
-		switch (event->key.keysym.sym) {
-			case SDLK_1:
-				std::cout << "switching to main menu state" << std::endl;
-				this->state = State::MAIN_MENU;
-				break;
-			case SDLK_2:
-				std::cout << "switching to main game state" << std::endl;
-				this->state = State::MAIN_GAME;
-				break;
-		}
-	}
+	//if (event->type == SDL_KEYDOWN) {
+	//	switch (event->key.keysym.sym) {
+	//		
+	//		// ready for some inputs here
+
+	//	}
+	//}
 
 	switch (this->state) {
 		case State::MAIN_GAME:
@@ -180,7 +175,7 @@ void DungeonGame::launch(void) {
 
 	// engine->loadMusic("ex-aws_cave.xm");
 	engine->loadMusic("menu-music.ogg");
-	engine->playMusic(true, 25);
+	engine->playMusic(true, 5);
 
 	/*engine->loadImageToAssets("dg_humans32.png", 32, 32, SpriteSheet::CHARACTERS);
 	engine->loadImageToAssets("dg_grounds32.png", 32, 32, SpriteSheet::BASICTILES);

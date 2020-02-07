@@ -11,11 +11,14 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
+    this->buttons = new MainMenuButton*[MAX_BUTTONS];
 
-    this->newGameButton = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME");
+    this->buttons[NEWGAME_BUTTON] = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME");
+    this->buttons[OPTIONS_BUTTON] = new MainMenuButton(this->engine, 270, 300, 160, 34, "OPTIONS");
+    this->buttons[EXIT_BUTTON] = new MainMenuButton(this->engine, 270, 340, 168, 34, "QUIT GAME");
 
-    this->exitButton = new MainMenuButton(this->engine, 270, 300, 168, 34, "QUIT GAME");
-
+    this->selectedButton = 0;
+    this->buttons[NEWGAME_BUTTON]->setSelected(true);
 
     this->textFont = this->engine->createFont("vingue", true);
     this->engine->loadImageToAssets("world_map_wallpaper.jpg", 32, 32, SpriteSheet::WALLPAPER);
@@ -27,38 +30,29 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
 
 
 MainMenuState::~MainMenuState() {
-
     delete this->textFont;
-
 }
 
 
 void MainMenuState::update() {
     
-    if (this->exitButton->listeners.onMouseButtonLeftClicked) {
-        this->engine->setQuit(true);
-    }
-
-    if (this->newGameButton->listeners.onMouseButtonLeftClicked) {
+    if (this->buttons[NEWGAME_BUTTON]->listeners.onMouseButtonLeftClicked) {
         *this->state = State::MAIN_GAME;
     }
 
+    if (this->buttons[EXIT_BUTTON]->listeners.onMouseButtonLeftClicked) {
+        this->engine->setQuit(true);
+    }
 
     // !IMPORTANT TO CLEAR THE MOUSE CLICKED FLAG AFTER ANY AOTHER ACTIONS
-    this->newGameButton->update();
-    this->exitButton->update();
+    for (int i = 0; i < MAX_BUTTONS; i++) {
+        this->buttons[i]->update();
+    }
+    
 }
 
 
 void MainMenuState::input(SDL_Event* event) {
-    //if (event->type == SDL_MOUSEWHEEL) {
-    //    if (event->button.x == 1) {
-    //        if (this->engine->scale < DungeonEngine::MAX_SCALE) this->engine->scale += 0.25f;
-    //    }
-    //    else if (event->button.x == -1) {
-    //        if (this->engine->scale > DungeonEngine::MIN_SCALE) this->engine->scale -= 0.25f;
-    //    }
-    //}
     if (event->type == SDL_KEYDOWN) {
         switch (event->key.keysym.sym) {
         case SDLK_ESCAPE:
@@ -67,11 +61,28 @@ void MainMenuState::input(SDL_Event* event) {
         case SDLK_SPACE:
             std::cout << "THIS IS MAIN MENU STATE" << std::endl;
             break;
+        case SDLK_UP:
+            this->buttons[this->selectedButton]->setSelected(false);
+            this->selectedButton--;
+            if (this->selectedButton < 0) {
+                this->selectedButton = MAX_BUTTONS - 1;
+            }
+            this->buttons[this->selectedButton]->setSelected(true);
+            break;
+        case SDLK_DOWN:
+            this->buttons[this->selectedButton]->setSelected(false);
+            this->selectedButton++;
+            if (this->selectedButton >= MAX_BUTTONS) {
+                this->selectedButton = 0;
+            }
+            this->buttons[this->selectedButton]->setSelected(true);
+            break;
         }
     }
 
-    this->newGameButton->input(event);
-    this->exitButton->input(event);
+    for (int i = 0; i < MAX_BUTTONS; i++) {
+        this->buttons[i]->input(event);
+    }
 
 }
 
@@ -86,8 +97,9 @@ void MainMenuState::render() {
     tempClip = { 0, 0, 335, 201 };
     this->engine->drawImage(SpriteSheet::LOGO, tempClip, 210, 15);
 
-    this->newGameButton->render();
-    this->exitButton->render();
+    for (int i = 0; i < MAX_BUTTONS; i++) {
+        this->buttons[i]->render();
+    }
 
     //this->textFont->draw("MAIN MENU", 10, 10, .5f, this->engine->scale);
 }
