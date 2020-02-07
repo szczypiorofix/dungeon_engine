@@ -33,7 +33,6 @@ public:
 private:
 	
 	
-	int state;  // 0 - main menu, 1 - main game
 	const float SCROLL_SPEED = 32.0f;
 
 

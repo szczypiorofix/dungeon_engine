@@ -7,7 +7,7 @@
 
 
 
-MainMenuState::MainMenuState(DungeonEngine* engine, int* s) {
+MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
@@ -34,16 +34,19 @@ MainMenuState::~MainMenuState() {
 
 
 void MainMenuState::update() {
-    this->newGameButton->update();
-    this->exitButton->update();
-
-    if (this->exitButton->listeners.onMouseButtonClickedLeft.active) {
+    
+    if (this->exitButton->listeners.onMouseButtonLeftClicked) {
         this->engine->setQuit(true);
     }
 
-    if (this->newGameButton->listeners.onMouseButtonClickedLeft.active) {
-        *this->state = 1;
+    if (this->newGameButton->listeners.onMouseButtonLeftClicked) {
+        *this->state = State::MAIN_GAME;
     }
+
+
+    // !IMPORTANT TO CLEAR THE MOUSE CLICKED FLAG AFTER ANY AOTHER ACTIONS
+    this->newGameButton->update();
+    this->exitButton->update();
 }
 
 

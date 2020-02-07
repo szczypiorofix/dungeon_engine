@@ -16,6 +16,7 @@ MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, i
     this->width = width;
     this->height = height;    
     this->textFont = new TextFont(engine->getRenderer(), "vingue");
+    this->listeners = {false};
 }
 
 
@@ -25,38 +26,50 @@ MainMenuButton::~MainMenuButton() {}
 void MainMenuButton::input(SDL_Event* event) {
     if (event->type == SDL_MOUSEMOTION) {
         if (event->motion.x > this->x && event->motion.x < this->x + this->width && event->motion.y > this->y && event->motion.y < this->y + this->height) {
-            this->listeners.onFocus.active = true;
+            this->listeners.onFocus = true;
         } else {
-            this->listeners.onFocus.active = false;
+            this->listeners.onFocus = false;
         }
     }
-    if (this->listeners.onFocus.active) {
+    if (this->listeners.onFocus) {
         if (event->button.type == SDL_MOUSEBUTTONDOWN) {
             if (event->button.button == SDL_BUTTON_LEFT) {
-                this->listeners.onMouseButtonClickedLeft.active = true;
+                this->listeners.onMouseButtonLeftDown = true;
+                this->listeners.onMouseButtonLeftUp = false;
             }
             else if (event->button.button == SDL_BUTTON_RIGHT) {
-                this->listeners.onMouseButtonClickedRight.active = true;
+                this->listeners.onMouseButtonRightDown = true;
+                this->listeners.onMouseButtonRightUp = false;
             }
         }
         else if (event->button.type == SDL_MOUSEBUTTONUP) {
-            this->listeners.onMouseButtonClickedLeft.active = false;
-            this->listeners.onMouseButtonClickedRight.active = false;
+            if (event->button.button == SDL_BUTTON_LEFT) {
+                this->listeners.onMouseButtonLeftUp = true;
+                this->listeners.onMouseButtonLeftDown = false;
+                this->listeners.onMouseButtonLeftClicked = true;
+            }
+            else if (event->button.button == SDL_BUTTON_RIGHT) {
+                this->listeners.onMouseButtonRightUp = true;
+                this->listeners.onMouseButtonRightDown = false;
+                this->listeners.onMouseButtonRightClicked = true;
+            }
         }
     }
 }
 
 
 void MainMenuButton::update() {
+    this->listeners.onMouseButtonLeftClicked = false;
+    this->listeners.onMouseButtonRightClicked = false;
 }
 
 
 void MainMenuButton::render() {
     int yOffset = 0; // offset to Y when is focus on button or/and button is pressed
     SDL_Rect tempClip;
-    if (this->listeners.onFocus.active) {
+    if (this->listeners.onFocus) {
         tempClip = { 0, 32, 168, 32 };
-        if (this->listeners.onMouseButtonClickedLeft.active) {
+        if (this->listeners.onMouseButtonLeftDown) {
             tempClip = { 0, 64, 168, 32 };
             yOffset = 3;
         }

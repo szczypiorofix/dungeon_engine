@@ -16,7 +16,7 @@ class MainMenuState : public GameState {
 
 public:
 
-	MainMenuState(DungeonEngine* engine, int* s);
+	MainMenuState(DungeonEngine* engine, State* s);
 	~MainMenuState();
 
 	virtual void input(SDL_Event* event);
@@ -29,7 +29,7 @@ private:
 	MainMenuButton* newGameButton;
 	MainMenuButton* exitButton;
 	
-	int* state;
+	State* state;
 };
 
 
