@@ -31,26 +31,26 @@ DungeonEngine::DungeonEngine() {
 	this->camera = NULL;
 	this->tilesOnScreenFromCenterX = 0;
 	this->tilesOnScreenFromCenterY = 0;
-	this->coordinatesText[0] = ' ';
+	//this->coordinatesText[0] = ' ';
 
-	this->mouseRightButtonPressed = false;
+	//this->mouseRightButtonPressed = false;
 
 	this->viewLockedOn = ViewLockedOn::PLAYER;
 
 	this->scale = settings.scale;
 
-	this->fpsCap = true;
-	this->lastTime = 0L;
-	this->timer = 0L;
-	this->delta = 0.0f;
-	this->updates = 0;
-	this->frames = 0;
-	this->now = 0L;
-	this->amountOfTicks = 60.0f;
-	this->fpsCount = 0;
-	this->ticksCount = 0;
-	this->ns = 0;
-	this->displayMode = 0;
+	//this->fpsCap = true;
+	//this->lastTime = 0L;
+	//this->timer = 0L;
+	//this->delta = 0.0f;
+	//this->updates = 0;
+	//this->frames = 0;
+	//this->now = 0L;
+	//this->amountOfTicks = 60.0f;
+	//this->fpsCount = 0;
+	//this->ticksCount = 0;
+	//this->ns = 0;
+	//this->displayMode = 0;
 
 	this->scrollVector = NULL;
 
@@ -62,8 +62,8 @@ DungeonEngine::~DungeonEngine() {
 
 
 void DungeonEngine::initTimer() {
-	this->lastTime = SDL_GetTicks();
-	this->timer = SDL_GetTicks();
+	//this->lastTime = SDL_GetTicks();
+	//this->timer = SDL_GetTicks();
 }
 
 
@@ -104,7 +104,7 @@ void DungeonEngine::createRenderer() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL renderer... ";
 #endif
-	this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED); // | SDL_RENDERER_PRESENTVSYNC);
 	if (this->renderer == NULL) {
 		std::cout << "SDL_CreateRenderer() error: " << SDL_GetError() << std::endl;
 		this->started = false;

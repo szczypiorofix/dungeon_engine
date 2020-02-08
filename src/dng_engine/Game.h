@@ -35,6 +35,10 @@ protected:
     
     State state;
 
+    bool fpsCap;
+    int ticks;
+    int fps;
+
 private:
 
     void DE_GameLoop();
