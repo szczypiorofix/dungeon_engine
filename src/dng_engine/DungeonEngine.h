@@ -91,22 +91,6 @@ private:
 	int tilesOnScreenFromCenterX;
 	int tilesOnScreenFromCenterY;
 
-	long lastTime;
-	double delta;
-	long timer;
-	int updates;
-	int frames;
-	long now;
-	float amountOfTicks;
-	int fpsCount;
-	int ticksCount;
-	double ns;
-	bool fpsCap;
-	int displayMode;
-	char coordinatesText[80];
-	bool mouseRightButtonPressed;
-
-
 	bool writeConfigFile();
 	bool readConfigFile();
 

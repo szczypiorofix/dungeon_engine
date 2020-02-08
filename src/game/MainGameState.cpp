@@ -44,7 +44,6 @@ void MainGameState::update() {
         *this->state = State::MAIN_MENU;
     }
 
-
     // !IMPORTANT TO CLEAR THE MOUSE CLICKED FLAG AFTER ANY AOTHER ACTIONS
     this->backToMenuButton->update();
 }

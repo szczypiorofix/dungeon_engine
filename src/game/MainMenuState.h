@@ -23,11 +23,18 @@ public:
 	virtual void update();
 	virtual void render();
 
+	// Buttons
+	constexpr static int NEWGAME_BUTTON = 0;
+	constexpr static int OPTIONS_BUTTON = 1;
+	constexpr static int EXIT_BUTTON = 2;
+
+	constexpr static int MAX_BUTTONS = 3;
 
 private:
 	TextFont* textFont;
-	MainMenuButton* newGameButton;
-	MainMenuButton* exitButton;
+	MainMenuButton** buttons;
+
+	int selectedButton;
 	
 	State* state;
 };

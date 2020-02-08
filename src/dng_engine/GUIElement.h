@@ -26,10 +26,8 @@ public:
 		bool onFocus;
 		bool onFocusLost;
 		bool onMouseButtonLeftDown;
-		bool onMouseButtonLeftUp;
 		bool onMouseButtonLeftClicked;
 		bool onMouseButtonRightDown;
-		bool onMouseButtonRightUp;
 		bool onMouseButtonRightClicked;
 	} Listeners;
 

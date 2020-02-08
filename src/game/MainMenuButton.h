@@ -23,10 +23,13 @@ public:
 
     Listeners listeners;
 
+    void setSelected(bool s);
+
 private:
 
     TextFont* textFont;
     std::string text;
+    bool selected;
     
 };
 
