@@ -1,11 +1,11 @@
 # Dungeon Engine
-Simple 2D game engine made with SDL2
+Simple 2D game engine made with SDL2 and OGL
 
 
 ## Latest build status
 
 ![C/C++ CI](https://github.com/szczypiorofix/dungeon_engine/workflows/C/C++%20CI/badge.svg)
-![Version](https://img.shields.io/badge/version-0.1.01-blue.svg "Version icon")
+![Version](https://img.shields.io/badge/version-0.2.01-blue.svg "Version icon")
 
 ## Example screenshots
 ![alt text](/doc/dungeon_engine_1.0.01.png "Screenshot 1.0.01")

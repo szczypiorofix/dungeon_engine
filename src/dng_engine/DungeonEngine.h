@@ -9,9 +9,9 @@
 
 #include <string>
 #include <SDL.h>
+#include <SDL_opengl.h>
 #include <SDL_image.h>
 #include <SDL_net.h>
-#include <libxml/parser.h>
 
 #include "Music.h"
 #include "GraphicAssets.h"
@@ -72,9 +72,12 @@ public:
 	bool loadMusic(std::string musicFile);
 	bool playMusic(bool loop, int volume);
 
+	GLuint loadTexture(const std::string& fileName);
+
 protected:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	SDL_GLContext glContext;
 
 	Camera* camera;
 
@@ -97,6 +100,7 @@ private:
 	void initSDL();
 	void createWindow();
 	void createRenderer();
+	void initOGL();
 	void initializePngImages();
 	void initializeAudioSystem();
 	void initializeNetworkSystem();

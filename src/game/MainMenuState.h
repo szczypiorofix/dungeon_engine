@@ -7,6 +7,7 @@
 #define _MAINMENUSTATE_H_
 #pragma once
 
+#include <SDL_opengl.h>
 #include "../dng_engine/GameState.h"
 #include "MainMenuButton.h"
 
@@ -36,6 +37,8 @@ private:
 
 	int selectedButton;
 	
+	GLuint backgroundImageTexture;
+
 	State* state;
 };
 
