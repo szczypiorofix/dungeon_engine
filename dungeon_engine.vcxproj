@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClInclude Include="src\dng_engine\GUIElement.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="src\dng_engine\Texture.h" />
     <ClInclude Include="src\game\MainGameState.h" />
     <ClInclude Include="src\game\MainMenuButton.h" />
     <ClInclude Include="src\game\MainMenuState.h" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dng_engine\GUIElement.cpp" />
+    <ClCompile Include="src\dng_engine\Texture.cpp" />
     <ClCompile Include="src\game\MainGameState.cpp" />
     <ClCompile Include="src\game\MainMenuButton.cpp" />
     <ClCompile Include="src\game\MainMenuState.cpp" />

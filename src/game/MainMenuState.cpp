@@ -11,7 +11,9 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
-    this->backgroundImageTexture = engine->loadTexture("background.png");
+    this->backgroundTexture = new Texture("background.png");
+    this->logoTexture = new Texture("logo-title.png");
+    this->testTexture = new Texture("dg_people32.png", 32, 32);
 
     //this->buttons = new MainMenuButton*[MAX_BUTTONS];
 
@@ -90,54 +92,47 @@ void MainMenuState::input(SDL_Event* event) {
 
 
 void MainMenuState::render() {
-    //SDL_Rect tempClip = { 0, 0, 800, 600 };
-    //this->engine->drawImage(SpriteSheet::WALLPAPER, tempClip, 0, 0);
 
-    //tempClip = { 0, 0, 800, 600 };
-    //this->engine->drawImage(SpriteSheet::MAINMENUSHADE, tempClip, 0, 0);
+    TextureRect s = {
+        0,
+        0,
+        928,
+        792
+    };
+    TextureRect d = {
+        0,
+        0,
+        800,
+        600
+    };
+    this->backgroundTexture->draw(s, d);
 
-    //tempClip = { 0, 0, 335, 201 };
-    //this->engine->drawImage(SpriteSheet::LOGO, tempClip, 210, 15);
 
-    //for (int i = 0; i < MAX_BUTTONS; i++) {
-    //    this->buttons[i]->render();
-    //}
+    s = {
+        0,
+        0,
+        335,
+        201
+    };
+    d = {
+        280,
+        55,
+        250,
+        150
+    };
+    this->logoTexture->draw(s, d);
 
-    //this->textFont->draw("MAIN MENU", 10, 10, .5f, this->engine->scale);
 
-
-
-    // Texture
-    glColor4ub(255, 255, 255, 255);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, this->backgroundImageTexture);
-
-    glBegin(GL_QUADS); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
-
-        glTexCoord2i(0, 0);
-        glVertex2f(0, 0);
-
-        glTexCoord2i(1, 0);
-        glVertex2f(800, 0);
-
-        glTexCoord2i(1, 1);
-        glVertex2f(800, 600);
-
-        glTexCoord2i(0, 1);
-        glVertex2f(0, 600);
-
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
+    this->testTexture->drawTile(7, 100, 100);
 
     //// Hello World Triangle
-    glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
-        glColor3ub(255, 0, 0);
-        glVertex2f(400, 200);
-        glColor3ub(0, 255, 0);
-        glVertex2f(600, 400);
-        glColor3ub(0, 0, 255);
-        glVertex2f(200, 400);
-    glEnd();
+    //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
+    //    glColor3ub(255, 0, 0);
+    //    glVertex2f(400, 200);
+    //    glColor3ub(0, 255, 0);
+    //    glVertex2f(600, 400);
+    //    glColor3ub(0, 0, 255);
+    //    glVertex2f(200, 400);
+    //glEnd();
 
 }
-

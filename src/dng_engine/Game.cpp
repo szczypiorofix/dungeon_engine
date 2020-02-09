@@ -119,37 +119,19 @@ void Game::DE_Update() {
 
 void Game::DE_Render() {
 
-	// ------------------------- OLD -------------------------
-	//SDL_SetRenderDrawColor(this->engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
-	//SDL_RenderClear(this->engine->getRenderer());
-	//// --------------------------- Render start ---------------------------
-	//this->render();
-	//// ---------------------------- Render end ----------------------------
-	//SDL_RenderPresent(this->engine->getRenderer());
-
-
-
 	// ######################## OPENGL ########################
-	// ------------------------- NEW -------------------------
 
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	//// --------------------------- Render start ---------------------------
-
-	glPushMatrix(); // Star faze for rendering
-
+	glPushMatrix();
 	glOrtho(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1); // Set the matrix
 
-
-
+	// ================================= Render Start =================================
+	
 	this->render();
 
+	// ================================== Render End ==================================
 
-	glPopMatrix(); // End faze for rendering
-
-
-	//// ---------------------------- Render end ----------------------------
-
+	glPopMatrix();
 	SDL_GL_SwapWindow(this->engine->getWindow());
 
 }
