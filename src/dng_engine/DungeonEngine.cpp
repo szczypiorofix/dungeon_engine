@@ -26,7 +26,7 @@ DungeonEngine::DungeonEngine() {
 	this->started = false;
 	this->quit = false;
 	this->window = NULL;
-	this->renderer = NULL;
+	this->glContext = NULL;
 	this->currentMusic = NULL;
 	this->camera = NULL;
 	this->tilesOnScreenFromCenterX = 0;
@@ -51,11 +51,11 @@ void DungeonEngine::initTimer() {
 }
 
 
-void DungeonEngine::initSDL() {
+void DungeonEngine::initSDL(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio & video main modules... ";
 #endif
-	this->started = (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)  == 0);
+	this->started = (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0);
 	if (!this->started) {
 		std::cout << "SDL_Init() error : " << SDL_GetError() << std::endl;
 		this->started = false;
@@ -68,11 +68,11 @@ void DungeonEngine::initSDL() {
 }
 
 
-void DungeonEngine::createWindow() {
+void DungeonEngine::createWindow(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL window... ";
 #endif
-	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
 	if (this->window == NULL) {
 		std::cout << "SDL_CreateWindow() error: " << SDL_GetError() << std::endl;
 		this->started = false;
@@ -84,30 +84,16 @@ void DungeonEngine::createWindow() {
 }
 
 
-void DungeonEngine::createRenderer() {
-#ifdef _DEBUG 
-	std::cout << "Initializing SDL renderer... ";
-#endif
-	this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED); // | SDL_RENDERER_PRESENTVSYNC);
-	if (this->renderer == NULL) {
-		std::cout << "SDL_CreateRenderer() error: " << SDL_GetError() << std::endl;
-		this->started = false;
-	} else {
-		SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
-		this->started = true;
-	}
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
-}
-
-
-void DungeonEngine::initOGL() {
+void DungeonEngine::initOGL(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing OpenGL ... ";
 #endif
 
 	this->glContext = SDL_GL_CreateContext(this->window);
+	if (this->glContext == NULL) {
+		std::cout << "SDL_GL_CreateContext() error: " << SDL_GetError() << std::endl;
+		this->started = false;
+	}
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -119,8 +105,13 @@ void DungeonEngine::initOGL() {
 
 	SDL_GL_SetSwapInterval(1); // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3); // OpenGL 2.1 version
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// Spacify clear color
 	glClearColor(0, 0, 0, 1);
 
@@ -128,7 +119,7 @@ void DungeonEngine::initOGL() {
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	// Shader model
-	glShadeModel(GL_SMOOTH);
+	glShadeModel(GL_SMOOTH); // GL_SMOOTH or GL_FLAT
 
 	// 2D rendering
 	glMatrixMode(GL_PROJECTION);
@@ -146,7 +137,7 @@ void DungeonEngine::initOGL() {
 }
 
 
-void DungeonEngine::initializePngImages() {
+void DungeonEngine::initializePngImages(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL PNG images module... ";
 #endif
@@ -162,7 +153,7 @@ void DungeonEngine::initializePngImages() {
 }
 
 
-void DungeonEngine::initializeAudioSystem() {
+void DungeonEngine::initializeAudioSystem(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio module... ";
 #endif
@@ -177,7 +168,7 @@ void DungeonEngine::initializeAudioSystem() {
 }
 
 
-void DungeonEngine::initializeNetworkSystem() {
+void DungeonEngine::initializeNetworkSystem(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL network module... ";
 #endif
@@ -237,9 +228,8 @@ void DungeonEngine::stop(void) {
 
 	GraphicAssets::releaseAssets();
 
-	//delete this->currentMusic;
+	delete this->currentMusic;
 	SDL_GL_DeleteContext(this->glContext);
-	//SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
 
 	//SDLNet_Quit();
@@ -308,7 +298,7 @@ bool DungeonEngine::playMusic(bool loop, int volume) {
 }
 
 
-bool DungeonEngine::isQuit() {
+bool DungeonEngine::isQuit(void) {
 	return this->quit;
 }
 
@@ -318,22 +308,17 @@ void DungeonEngine::setQuit(bool q) {
 }
 
 
-SDL_Renderer* DungeonEngine::getRenderer() {
-	return this->renderer;
-}
-
-
-SDL_Window* DungeonEngine::getWindow() {
+SDL_Window* DungeonEngine::getWindow(void) {
 	return this->window;
 }
 
 
-TextFont* DungeonEngine::createFont(std::string fn, bool s) {
-	return new TextFont(this->renderer, fn, s);
-}
+//TextFont* DungeonEngine::createFont(std::string fn, bool s) {
+//	return new TextFont(this->renderer, fn, s);
+//}
 
 
-bool DungeonEngine::writeConfigFile() {
+bool DungeonEngine::writeConfigFile(void) {
 #ifdef _DEBUG 
 	std::cout << "Saving config file... ";
 #endif
@@ -353,7 +338,7 @@ bool DungeonEngine::writeConfigFile() {
 }
 
 
-bool DungeonEngine::readConfigFile() {
+bool DungeonEngine::readConfigFile(void) {
 	std::ifstream ifile(CONFIG_FILE_NAME, std::ios::binary);
 	if (!ifile.good()) {
 		std::cout << "Cannot open settings file for reading!" << std::endl;
@@ -367,17 +352,17 @@ bool DungeonEngine::readConfigFile() {
 
 
 void DungeonEngine::loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum) {
-	GraphicAssets::getAssets()->loadAsset(fileName, this->renderer, spriteWidth, spriteHeight, imagesEnum);
+	//GraphicAssets::getAssets()->loadAsset(fileName, this->renderer, spriteWidth, spriteHeight, imagesEnum);
 }
 
 
 void DungeonEngine::drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y) {
-	GraphicAssets::getAssets()->spriteSheets[SpriteSheetNo]->draw(
-		this->renderer,
-		&clip,
-		x,
-		y,
-		this->scale);
+	//GraphicAssets::getAssets()->spriteSheets[SpriteSheetNo]->draw(
+	//	this->renderer,
+	//	&clip,
+	//	x,
+	//	y,
+	//	this->scale);
 }
 
 GLuint DungeonEngine::loadTexture(const std::string& fileName) {

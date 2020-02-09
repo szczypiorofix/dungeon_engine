@@ -9,6 +9,7 @@
 
 #include <SDL_opengl.h>
 #include "../dng_engine/GameState.h"
+#include "../dng_engine/Texture.h"
 #include "MainMenuButton.h"
 
 
@@ -37,7 +38,9 @@ private:
 
 	int selectedButton;
 	
-	GLuint backgroundImageTexture;
+	Texture* backgroundTexture;
+	Texture* logoTexture;
+	Texture* testTexture;
 
 	State* state;
 };

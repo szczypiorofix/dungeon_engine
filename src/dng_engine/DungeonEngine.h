@@ -55,19 +55,18 @@ public:
 	Settings settings;
 	float scale;
 
-	bool isQuit();
+	bool isQuit(void);
 	void setQuit(bool quit);
 
 	SDL_Cursor* cursor;
-	SDL_Renderer* getRenderer();
-	SDL_Window* getWindow();
+	SDL_Window* getWindow(void);
 
 	TextFont* createFont(std::string, bool s);
 	
 	void loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum);
 	void drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y);
 
-	void initTimer();
+	void initTimer(void);
 
 	bool loadMusic(std::string musicFile);
 	bool playMusic(bool loop, int volume);
@@ -76,7 +75,6 @@ public:
 
 protected:
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 	SDL_GLContext glContext;
 
 	Camera* camera;
@@ -94,16 +92,15 @@ private:
 	int tilesOnScreenFromCenterX;
 	int tilesOnScreenFromCenterY;
 
-	bool writeConfigFile();
-	bool readConfigFile();
+	bool writeConfigFile(void);
+	bool readConfigFile(void);
 
-	void initSDL();
-	void createWindow();
-	void createRenderer();
-	void initOGL();
-	void initializePngImages();
-	void initializeAudioSystem();
-	void initializeNetworkSystem();
+	void initSDL(void);
+	void createWindow(void);
+	void initOGL(void);
+	void initializePngImages(void);
+	void initializeAudioSystem(void);
+	void initializeNetworkSystem(void);
 
 };
 

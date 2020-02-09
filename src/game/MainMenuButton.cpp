@@ -15,7 +15,7 @@ MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, i
     this->y = y;
     this->width = width;
     this->height = height;    
-    this->textFont = new TextFont(engine->getRenderer(), "vingue");
+    //this->textFont = new TextFont(engine->getRenderer(), "vingue");
     this->listeners = {false};
     this->selected = false;
 }
@@ -61,7 +61,7 @@ void MainMenuButton::update() {
 }
 
 
-void MainMenuButton::render() {
+void MainMenuButton::render(void) {
     int yOffset = 0; // offset to Y when is focus on button or/and button is pressed
     SDL_Rect tempClip;
     if (this->listeners.onFocus) {
