@@ -52,18 +52,14 @@ void Game::DE_GameLoop() {
 		elapsed = start - previous;
 		previous = start;
 		lag += elapsed;
-
 		viewTimer += elapsed;
 		renderTimer += elapsed;
-
 		while (lag >= MS_PER_UPDATE) {
 			this->DE_Input(&event);
 			this->DE_Update();
 			_t++;
 			lag -= MS_PER_UPDATE;
 		}
-
-
 		if (fpsCap) {
 			if (renderTimer >= MS_PER_RENDER) {
 				this->DE_Render();
@@ -75,7 +71,6 @@ void Game::DE_GameLoop() {
 			renderTimer = 0;
 			_f++;
 		}
-
 		if (viewTimer >= 1000) {
 			this->fps = _f;
 			this->ticks = _t;
@@ -85,6 +80,11 @@ void Game::DE_GameLoop() {
 			viewTimer = 0;
 		}
 
+		//this->DE_Input(&event);
+		//this->DE_Update();
+		//this->DE_Render();
+
+		//SDL_Delay(1000.0f / 60.0f);
 	}
 
 	this->engine->stop();
@@ -118,14 +118,38 @@ void Game::DE_Update() {
 
 
 void Game::DE_Render() {
-	SDL_SetRenderDrawColor(this->engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderClear(this->engine->getRenderer());
 
-	// --------------------------- Render start ---------------------------
+	// ------------------------- OLD -------------------------
+	//SDL_SetRenderDrawColor(this->engine->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
+	//SDL_RenderClear(this->engine->getRenderer());
+	//// --------------------------- Render start ---------------------------
+	//this->render();
+	//// ---------------------------- Render end ----------------------------
+	//SDL_RenderPresent(this->engine->getRenderer());
+
+
+
+	// ######################## OPENGL ########################
+	// ------------------------- NEW -------------------------
+
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	//// --------------------------- Render start ---------------------------
+
+	glPushMatrix(); // Star faze for rendering
+
+	glOrtho(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1); // Set the matrix
+
+
 
 	this->render();
 
-	// ---------------------------- Render end ----------------------------
 
-	SDL_RenderPresent(this->engine->getRenderer());
+	glPopMatrix(); // End faze for rendering
+
+
+	//// ---------------------------- Render end ----------------------------
+
+	SDL_GL_SwapWindow(this->engine->getWindow());
+
 }

@@ -31,26 +31,10 @@ DungeonEngine::DungeonEngine() {
 	this->camera = NULL;
 	this->tilesOnScreenFromCenterX = 0;
 	this->tilesOnScreenFromCenterY = 0;
-	//this->coordinatesText[0] = ' ';
-
-	//this->mouseRightButtonPressed = false;
 
 	this->viewLockedOn = ViewLockedOn::PLAYER;
 
 	this->scale = settings.scale;
-
-	//this->fpsCap = true;
-	//this->lastTime = 0L;
-	//this->timer = 0L;
-	//this->delta = 0.0f;
-	//this->updates = 0;
-	//this->frames = 0;
-	//this->now = 0L;
-	//this->amountOfTicks = 60.0f;
-	//this->fpsCount = 0;
-	//this->ticksCount = 0;
-	//this->ns = 0;
-	//this->displayMode = 0;
 
 	this->scrollVector = NULL;
 
@@ -88,7 +72,7 @@ void DungeonEngine::createWindow() {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL window... ";
 #endif
-	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	if (this->window == NULL) {
 		std::cout << "SDL_CreateWindow() error: " << SDL_GetError() << std::endl;
 		this->started = false;
@@ -112,6 +96,50 @@ void DungeonEngine::createRenderer() {
 		SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
 		this->started = true;
 	}
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
+}
+
+
+void DungeonEngine::initOGL() {
+#ifdef _DEBUG 
+	std::cout << "Initializing OpenGL ... ";
+#endif
+
+	this->glContext = SDL_GL_CreateContext(this->window);
+
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	SDL_GL_SetSwapInterval(1); // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3); // OpenGL 2.1 version
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	// Spacify clear color
+	glClearColor(0, 0, 0, 1);
+
+	// Viewport to display
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	// Shader model
+	glShadeModel(GL_SMOOTH);
+
+	// 2D rendering
+	glMatrixMode(GL_PROJECTION);
+
+	// Save it!
+	glLoadIdentity();
+
+	// Disable depth checking
+	glDisable(GL_DEPTH_TEST);
+
+
 #ifdef _DEBUG
 	std::cout << "done." << std::endl;
 #endif
@@ -209,8 +237,9 @@ void DungeonEngine::stop(void) {
 
 	GraphicAssets::releaseAssets();
 
-	delete this->currentMusic;
-	SDL_DestroyRenderer(this->renderer);
+	//delete this->currentMusic;
+	SDL_GL_DeleteContext(this->glContext);
+	//SDL_DestroyRenderer(this->renderer);
 	SDL_DestroyWindow(this->window);
 
 	//SDLNet_Quit();
@@ -227,7 +256,8 @@ void DungeonEngine::launchSubsystems(void) {
 
 	initSDL();
 	createWindow();
-	createRenderer();
+	//createRenderer();
+	initOGL();
 	initializePngImages();
 	initializeAudioSystem();
 	initializeNetworkSystem();
@@ -349,3 +379,27 @@ void DungeonEngine::drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int
 		y,
 		this->scale);
 }
+
+GLuint DungeonEngine::loadTexture(const std::string& fileName) {
+	std::string fn = DIR_RES_IMAGES + fileName;
+	SDL_Surface* image = IMG_Load(fn.c_str());
+	if (image == NULL) {
+		std::cout << "Unable to load image " << fileName << ", : " << IMG_GetError() << std::endl;
+		exit(1);
+	}
+	unsigned object(0);
+
+	glGenTextures(1, &object);
+	glBindTexture(GL_TEXTURE_2D, object);
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+
+	SDL_FreeSurface(image);
+
+	return object;
+}
+

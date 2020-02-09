@@ -28,6 +28,7 @@ private:
 	MainMenuButton* backToMenuButton;
 
 	State* state;
+
 };
 
 #endif
