@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 0,2,1,0
+ PRODUCTVERSION 0,2,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -69,12 +69,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "szczypiorofix"
             VALUE "FileDescription", "Dungone Engine - simple 2D engine made with c++"
-            VALUE "FileVersion", "1.0.0.1"
+            VALUE "FileVersion", "0, 2, 1, 0"
             VALUE "InternalName", "dungeon_ending.exe"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "dungeon_engine.exe"
             VALUE "ProductName", "Dungeon Engine"
-            VALUE "ProductVersion", "1.0.0.1"
+            VALUE "ProductVersion", "0.2.1.0"
         END
     END
     BLOCK "VarFileInfo"
