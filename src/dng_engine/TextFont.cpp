@@ -8,46 +8,15 @@
 #include "XMLHelper.h"
 
 
-TextFont::TextFont(SDL_Renderer* r, std::string fn) {
-	renderer = r;
-	charsCount = 0;
-	fontWidth = 0;
-	fontHeight = 0;
-	fontSpace = 0;
-	fontName = fn;
-	scallable = false;
-	fontImage = NULL;
-	fontItems = NULL;
-	prepareImage(r, fn);
-	parseXML(fontName);
-}
-
-
-TextFont::TextFont(SDL_Renderer* r, std::string fn, bool s): TextFont(r, fn) {
-	scallable = s;
-}
-
-
-void TextFont::prepareImage(SDL_Renderer* r, std::string f) {
-	std::string fileName = DIR_FONTS + f + ".png";
-	SDL_Surface* loadedSurface = IMG_Load(fileName.c_str());
-	if (loadedSurface == NULL) {
-		std::cout << "Unable to load image vingue.png. SDL_image error: " << IMG_GetError() << std::endl;
-		exit(1);
-	}
-	else {
-		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
-		fontImage = SDL_CreateTextureFromSurface(r, loadedSurface);
-		if (fontImage == NULL) {
-			std::cout << "Unable to create texture from vingue.png. Error: " << SDL_GetError() << std::endl;
-			exit(1);
-		}
-		else {
-			imageWidth = loadedSurface->w;
-			imageHeight = loadedSurface->h;
-		}
-		SDL_FreeSurface(loadedSurface);
-	}
+TextFont::TextFont(std::string fn, Texture* tex) {
+	this->charsCount = 0;
+	this->fontWidth = 0;
+	this->fontHeight = 0;
+	this->fontSpace = 0;
+	this->fontName = fn;
+	this->fontImage = tex;
+	this->fontItems = NULL;
+	this->parseXML(fn);
 }
 
 
@@ -81,9 +50,9 @@ void TextFont::parseXML(std::string xmlFileName) {
 		exit(1);
 	}
 
-	fontWidth	= XMLHelper::readPropShort(cur, (const xmlChar*)"width");
-	fontHeight	= XMLHelper::readPropShort(cur, (const xmlChar*)"height");
-	fontSpace	= XMLHelper::readPropShort(cur, (const xmlChar*)"space");
+	this->fontWidth	= XMLHelper::readPropShort(cur, (const xmlChar*)"width");
+	this->fontHeight	= XMLHelper::readPropShort(cur, (const xmlChar*)"height");
+	this->fontSpace	= XMLHelper::readPropShort(cur, (const xmlChar*)"space");
 
 	cur = cur->xmlChildrenNode;
 
@@ -91,12 +60,12 @@ void TextFont::parseXML(std::string xmlFileName) {
 
 	while (mainItems != NULL) {
 		if (!xmlStrcmp(mainItems->name, (const xmlChar*)"item")) {
-			charsCount++;
+			this->charsCount++;
 		}
 		mainItems = mainItems->next;
 	}
 
-	fontItems = new FontItem * [charsCount];
+	this->fontItems = new FontItem * [this->charsCount];
 
 	int i = 0;
 	mainItems = cur;
@@ -114,7 +83,7 @@ void TextFont::parseXML(std::string xmlFileName) {
 			tempItem->leading	= XMLHelper::readPropShort(mainItems, (const xmlChar*)"leading");
 			tempItem->trailing	= XMLHelper::readPropShort(mainItems, (const xmlChar*)"trailing");
 			
-			fontItems[i] = tempItem;
+			this->fontItems[i] = tempItem;
 			i++;
 		}
 		mainItems = mainItems->next;
@@ -130,9 +99,9 @@ void TextFont::parseXML(std::string xmlFileName) {
 float TextFont::getStringFontWidth(const char* text) {
 	float c = 0.0f;
 	for (int i = 0; text[i] != 0; i++) {
-		for (int j = 0; j < charsCount; j++) {
-			if (text[i] == fontItems[j]->ascii) {
-				c += fontItems[j]->width;
+		for (int j = 0; j < this->charsCount; j++) {
+			if (text[i] == this->fontItems[j]->ascii) {
+				c += this->fontItems[j]->width;
 			}
 		}
 	}
@@ -141,22 +110,36 @@ float TextFont::getStringFontWidth(const char* text) {
 }
 
 
-void TextFont::draw(const char* text, int x, int y, float size, float scale) {
-	SDL_Rect renderQuad = { 0, 0, 0, 0 };
-	int c = 0;
-	while (text[c] != 0) {
-		for (int i = 0; i < charsCount; i++) {
-			if (text[c] == fontItems[i]->ascii) {
-				
-				renderQuad.x = x + fontItems[i]->trailing + fontItems[i]->leading + (int)(c * fontWidth * size);
-				renderQuad.y = y;// +fontItems[i]->top;
-				renderQuad.w = (int) (fontWidth * scale * size);
-				renderQuad.h = (int) (fontHeight * scale * size);
-				
-				SDL_Rect clip = { fontItems[i]->x, fontItems[i]->y, fontItems[i]->width, fontItems[i]->height };
-				SDL_RenderCopy(renderer, fontImage, &clip, &renderQuad);
+void TextFont::draw(const char* text, GLfloat x, GLfloat y, float size) {
 
-				//SDL_RenderDrawRect(this->renderer, &renderQuad);
+	TextureRect src = {
+		0, 0, 0, 0
+	};
+
+	TextureRect dest = {
+		0, 0, 0, 0
+	};
+
+	int c = 0;
+
+	while (text[c] != 0) {
+		for (int i = 0; i < this->charsCount; i++) {
+			if (text[c] == this->fontItems[i]->ascii) {
+
+				dest.x = x + fontItems[i]->trailing + fontItems[i]->leading + (int)(c * fontWidth * size);
+				dest.y = (GLfloat)y;// +fontItems[i]->top;
+				dest.w = (GLfloat)(fontWidth * size);
+				dest.h = (GLfloat)(fontHeight * size);
+
+				src = {
+					(GLfloat) fontItems[i]->x,
+					(GLfloat) fontItems[i]->y,
+					(GLfloat) fontItems[i]->width,
+					(GLfloat) fontItems[i]->height
+				};
+
+				this->fontImage->draw(src, dest);
+
 			}
 		}
 		c++;

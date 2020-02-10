@@ -9,13 +9,11 @@
 
 
 DungeonGame::DungeonGame() {
-
 	this->mainMenuState = nullptr;
 	this->mainGameState = nullptr;
 	this->currentState = nullptr;
 
 	this->state = State::MAIN_MENU;
-
 }
 
 
@@ -149,6 +147,7 @@ void DungeonGame::render() {
 
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
+
 	switch (this->state) {
 		case State::MAIN_GAME:
 			this->mainGameState->render();
@@ -172,15 +171,16 @@ void DungeonGame::launch(void) {
 	
 	this->currentState = this->mainMenuState;
 
-	
+	// LOGGING SYSTEM
+	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
+	SDL_LogError(SDL_LOG_PRIORITY_ERROR, "############# ERROR !!! ###############");
+	// LOGGING SYSTEM
 
-	// engine->loadMusic("ex-aws_cave.xm");
+
 	engine->loadMusic("menu-music.ogg");
 	engine->playMusic(true, 10);
 
-	/*engine->loadImageToAssets("dg_humans32.png", 32, 32, SpriteSheet::CHARACTERS);
-	engine->loadImageToAssets("dg_grounds32.png", 32, 32, SpriteSheet::BASICTILES);
-	
+	/*	
 	this->tiledMap = new TiledMap("worldmap.tmx");*/
 
 

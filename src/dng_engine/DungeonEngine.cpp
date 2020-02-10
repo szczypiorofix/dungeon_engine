@@ -35,7 +35,7 @@ DungeonEngine::DungeonEngine() {
 	this->viewLockedOn = ViewLockedOn::PLAYER;
 
 	this->scale = settings.scale;
-
+	
 	this->scrollVector = NULL;
 
 }
@@ -130,6 +130,7 @@ void DungeonEngine::initOGL(void) {
 	// Disable depth checking
 	glDisable(GL_DEPTH_TEST);
 
+	
 
 #ifdef _DEBUG
 	std::cout << "done." << std::endl;
@@ -311,11 +312,6 @@ void DungeonEngine::setQuit(bool q) {
 SDL_Window* DungeonEngine::getWindow(void) {
 	return this->window;
 }
-
-
-//TextFont* DungeonEngine::createFont(std::string fn, bool s) {
-//	return new TextFont(this->renderer, fn, s);
-//}
 
 
 bool DungeonEngine::writeConfigFile(void) {

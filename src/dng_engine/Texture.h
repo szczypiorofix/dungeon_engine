@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
@@ -16,7 +21,7 @@ class Texture {
 
 public:
 	Texture(std::string fileName);
-	Texture(std::string fileName, uint16_t tileWidth, uint16_t tileHeight);
+	Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight);
 	~Texture();
 
 	GLuint id;

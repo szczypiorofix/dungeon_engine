@@ -7,12 +7,11 @@
 
 
 Game::Game() {
-	std::cout << "Game::constructor" << std::endl;
 	this->tiledMap = nullptr;
     this->camera = nullptr;
     this->engine = new DungeonEngine();
 	this->engine->launchSubsystems();
-	this->fpsCap = true;
+	this->fpsCap = false;
 	this->fps = 0;
 	this->ticks = 0;
 }
@@ -79,6 +78,8 @@ void Game::DE_GameLoop() {
 			_t = 0;
 			viewTimer = 0;
 		}
+
+		SDL_Delay(1);
 
 		//this->DE_Input(&event);
 		//this->DE_Update();

@@ -8,16 +8,17 @@
 
 
 
-MainMenuButton::MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text) {
-    this->engine = engine;
+MainMenuButton::MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat height, std::string text, Texture* bt, Texture* ft) {
     this->text = text;
     this->x = x;
     this->y = y;
     this->width = width;
-    this->height = height;    
-    //this->textFont = new TextFont(engine->getRenderer(), "vingue");
+    this->height = height;
+    this->buttonTexture = bt;
+
+    this->textFont = new TextFont("vingue", ft);
+    
     this->listeners = {false};
-    this->selected = false;
 }
 
 
@@ -62,35 +63,31 @@ void MainMenuButton::update() {
 
 
 void MainMenuButton::render(void) {
-    int yOffset = 0; // offset to Y when is focus on button or/and button is pressed
-    SDL_Rect tempClip;
+    GLfloat yOffset = 0.0f; // offset to Y when is focus on button or/and button is pressed
+    TextureRect tempClip;
     if (this->listeners.onFocus) {
         tempClip = { 0, 32, 168, 32 };
         if (this->listeners.onMouseButtonLeftDown) {
             tempClip = { 0, 64, 168, 32 };
-            yOffset = 3;
+            yOffset = 3.0f;
         }
         else {
-            yOffset = 1;
+            yOffset = 1.0f;
         }
     }
     else {
         tempClip = { 0, 0, 168, 32 };
     }
     
-    engine->drawImage(SpriteSheet::GUI_BUTTON, tempClip, this->x, this->y);
+    TextureRect dest = {
+        this->x,
+        this->y,
+        168,
+        32
+    };
+    this->buttonTexture->draw(tempClip, dest);
 
-    if (this->selected) {
-        tempClip = { 0, 96, 168, 32 };
-        engine->drawImage(SpriteSheet::GUI_BUTTON, tempClip, this->x, this->y);
-    }
-
-    this->textFont->draw(this->text.c_str(), this->x + 28, this->y + 8 + yOffset, 0.25f, 1.0f);
+    this->textFont->draw(this->text.c_str(), this->x + 28.0f, this->y + 8.0f + yOffset, 0.25f);
     
-}
-
-
-void MainMenuButton::setSelected(bool s) {
-    this->selected = s;
 }
 
