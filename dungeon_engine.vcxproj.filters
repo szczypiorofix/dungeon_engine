@@ -123,9 +123,6 @@
     <ClInclude Include="src\game\MainGameState.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="src\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="res\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>

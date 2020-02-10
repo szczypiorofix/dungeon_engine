@@ -118,7 +118,6 @@
     <ClInclude Include="src\game\GameObject.h" />
     <ClInclude Include="src\game\Level.h" />
     <ClInclude Include="src\game\Player.h" />
-    <ClInclude Include="src\resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png" />
