@@ -5,6 +5,7 @@ Simple 2D game engine made with SDL2 and OGL
 ## Latest build status
 
 ![C/C++ CI](https://github.com/szczypiorofix/dungeon_engine/workflows/C/C++%20CI/badge.svg)
+[![Build status](https://ci.appveyor.com/api/projects/status/2l79tdduco3r7pb8/branch/master?svg=true)](https://ci.appveyor.com/project/szczypiorofix/dungeon-engine/branch/master)
 ![Version](https://img.shields.io/badge/version-0.2.01-blue.svg "Version icon")
 
 ## Necessary libraries (build x86)
