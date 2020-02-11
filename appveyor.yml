@@ -1,12 +1,28 @@
+image: Ubuntu
+
+branches:
+    only: master
+
+
+build:
+    publish_wap: true
+    verbosity: minimal
+
+
+build_script: echo Ubuntu build script
+
+
+
+
 #image:
 #    - Visual Studio 2019
 
-init:
-    - cmd: "echo Hey, I'm displayed on Windows only!"
+#init:
+#    - cmd: "echo Hey, I'm displayed on Windows only!"
 
-branches:
-    only:
-    - master
+#branches:
+#    only:
+#    - master
 
 #environment:
 #    matrix:

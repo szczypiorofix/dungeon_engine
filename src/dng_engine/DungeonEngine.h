@@ -58,9 +58,7 @@ public:
 
 	SDL_Cursor* cursor;
 	SDL_Window* getWindow(void);
-	
-	void loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum);
-	void drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y);
+
 
 	void initTimer(void);
 
