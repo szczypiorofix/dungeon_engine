@@ -1,17 +1,19 @@
 image:
-	- Visual Studio 2017
+    - Visual Studio 2017
 
 init:
-- cmd: echo Hey, I'm displayed on Windows only!
+    - cmd: "echo Hey, I'm displayed on Windows only!"
+
+branches:
+    only:
+    - master
 
 environment:
-  matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      PLATFORM: x86
-      TOOLS: "MSVC"
-
+    matrix:
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+        - PLATFORM: x86
+        - TOOLS: "MSVC"
 
 configuration:
-  - Debug
-  - Release
-
+    - Debug
+    - Release
