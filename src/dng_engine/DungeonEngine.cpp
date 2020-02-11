@@ -72,7 +72,7 @@ void DungeonEngine::createWindow(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL window... ";
 #endif
-	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
+	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (this->window == NULL) {
 		std::cout << "SDL_CreateWindow() error: " << SDL_GetError() << std::endl;
 		this->started = false;
@@ -250,6 +250,12 @@ void DungeonEngine::stop(void) {
 void DungeonEngine::launchSubsystems(void) {
 
 	initSDL();
+	
+	// LOGGING SYSTEM
+	//SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
+	//SDL_LogError(SDL_LOG_PRIORITY_INFO, "SDL Logging system has started.");
+	// LOGGING SYSTEM
+	
 	createWindow();
 	initOGL();
 	initializePngImages();
@@ -297,6 +303,9 @@ bool DungeonEngine::loadMusic(std::string musicFile) {
 
 
 bool DungeonEngine::playMusic(bool loop, float volume) {
+
+	// TODO: make loops for music
+
 	this->currentMusic->playMusic(volume);
 	return true;
 }
@@ -347,21 +356,6 @@ bool DungeonEngine::readConfigFile(void) {
 	ifile.read((char*)&this->settings, sizeof(this->settings));
 	ifile.close();
 	return true;
-}
-
-
-void DungeonEngine::loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum) {
-	//GraphicAssets::getAssets()->loadAsset(fileName, this->renderer, spriteWidth, spriteHeight, imagesEnum);
-}
-
-
-void DungeonEngine::drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y) {
-	//GraphicAssets::getAssets()->spriteSheets[SpriteSheetNo]->draw(
-	//	this->renderer,
-	//	&clip,
-	//	x,
-	//	y,
-	//	this->scale);
 }
 
 GLuint DungeonEngine::loadTexture(const std::string& fileName) {

@@ -10,6 +10,7 @@
 
 
 DungeonGame::DungeonGame() {
+
 	this->mainMenuState = nullptr;
 	this->mainGameState = nullptr;
 	this->currentState = nullptr;
@@ -183,13 +184,6 @@ void DungeonGame::launch(void) {
 	this->mainGameState = new MainGameState(this->engine, &this->state);
 	
 	this->currentState = this->mainMenuState;
-
-	// LOGGING SYSTEM
-	
-	//SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
-	//SDL_LogError(SDL_LOG_PRIORITY_ERROR, "############# ERROR !!! ###############");
-	
-	// LOGGING SYSTEM
 
 
 	engine->loadMusic("menu-music.ogg");

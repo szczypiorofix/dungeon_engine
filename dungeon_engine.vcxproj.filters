@@ -206,6 +206,7 @@
     <None Include="res\images\mm-gui-controlls.pyxel">
       <Filter>Resource Files\gui</Filter>
     </None>
+    <None Include=".vsconfig" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">
