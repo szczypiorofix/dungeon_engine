@@ -1,5 +1,5 @@
 image:
-    - Visual Studio 2017
+    - Visual Studio 2019
 
 init:
     - cmd: "echo Hey, I'm displayed on Windows only!"
@@ -10,7 +10,7 @@ branches:
 
 environment:
     matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
         - PLATFORM: x86
         - TOOLS: "MSVC"
 
