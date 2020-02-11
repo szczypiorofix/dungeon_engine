@@ -17,7 +17,7 @@
 class MainMenuButton : public GUIElement {
 
 public:
-    MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat height, std::string text, Texture* buttonTexture, Texture* fontTexture);
+    MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat height, std::string text, Texture* buttonTexture);
     ~MainMenuButton();
 
     virtual void input(SDL_Event* event);

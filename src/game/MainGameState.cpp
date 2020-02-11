@@ -4,7 +4,7 @@
  */
 
 #include "MainGameState.h"
-
+#include "../dng_engine/FontAssets.h"
 
 
 MainGameState::MainGameState(DungeonEngine* engine, State* s) {
@@ -13,9 +13,9 @@ MainGameState::MainGameState(DungeonEngine* engine, State* s) {
 
     this->mainMenuButtonsTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
     this->vingueFontTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT];
-    this->backToMenuButton = new MainMenuButton(325, 200, 168, 34, "MAIN MENU", this->mainMenuButtonsTexture, this->vingueFontTexture);
+    this->backToMenuButton = new MainMenuButton(325, 200, 168, 34, "MAIN MENU", this->mainMenuButtonsTexture);
 
-    this->textFont = new TextFont("vingue", this->vingueFontTexture);
+    this->textFont = FontAssets::getAssets()->fonts[FontAssets::FONT_ASSETS_VINGUE];
 }
 
 
