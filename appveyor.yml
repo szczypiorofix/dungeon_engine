@@ -8,16 +8,15 @@ branches:
     only:
     - master
 
-environment:
-    matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-        - PLATFORM: x86
-        - TOOLS: "MSVC"
+#environment:
+#    matrix:
+#        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+#        - PLATFORM: x86
+#        - TOOLS: "MSVC"
 
-configuration:
-    - Debug
-    - Release
+#configuration:
+#    - Release
 
-build:
-    project: dungeon_engine.sln
-    verbosity: minimal
+#build:
+#    project: dungeon_engine.sln
+#    verbosity: minimal
