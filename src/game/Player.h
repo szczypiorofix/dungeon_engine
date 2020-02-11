@@ -8,7 +8,7 @@
 #pragma once
 
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "../dng_engine/Defines.h"
 #include "../dng_engine/Vector2.h"

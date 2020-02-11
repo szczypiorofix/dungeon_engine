@@ -7,25 +7,63 @@
 #include "Music.h"
 #include "Defines.h"
 
+
+
+
+
+ // ############################ BASS ############################
+
+//BASS_Init(-1, 44100, 0, 0, NULL);
+//std::cout << "ERROR CODE: " << BASS_ErrorGetCode() << std::endl;
+
+// ############### FOR MOD & XM #####################
+//HMUSIC music = BASS_MusicLoad(FALSE, "../res/music/ex-aws_cave.xm", 0, 0, 0, 0);
+//std::cout << "ERROR CODE: " << BASS_ErrorGetCode() << std::endl;
+
+//BASS_ChannelPlay(music, TRUE);
+
+// ########### SAMPLE ############
+//HSAMPLE sample = BASS_SampleLoad(FALSE, "../res/music/menu-music.ogg", 0, 0, 1, 0);
+//HCHANNEL channel = BASS_SampleGetChannel(sample, TRUE);
+//std::cout << "Sample: " << sample << std::endl;
+//std::cout << "ERROR CODE: " << BASS_ErrorGetCode() << std::endl;
+//BASS_Start();
+//std::cout << "ERROR CODE: " << BASS_ErrorGetCode() << std::endl;
+//
+//BASS_ChannelPlay(channel, TRUE);
+//std::cout << "ERROR CODE: " << BASS_ErrorGetCode() << std::endl;
+
+
+
 Music::Music(const std::string musicFile) {
 	this->volume = Music::DEFAULT_MUSIC_VOLUME;
 	this->loop = false;
 	std::string musicFileName = DIR_RES_MUSIC + musicFile;
-	this->music = Mix_LoadMUS(musicFileName.c_str());
-	if (this->music == NULL) {
-		std::cout << "Failed to load beat music! SDL_mixer Error: " << Mix_GetError() << std::endl;
+	this->sample = BASS_SampleLoad(FALSE, musicFileName.c_str(), 0, 0, 1, 0);
+	if (this->sample == 0) {
+		std::cout << "Failed to load sample! BASS_SampleLoad Error: " << BASS_ErrorGetCode() << std::endl;
+		exit(1);
+	}
+	this->channel = BASS_SampleGetChannel(sample, TRUE);
+	if (this->channel == NULL) {
+		std::cout << "Failed to get channel! BASS_SampleGetChannel Error: " << BASS_ErrorGetCode() << std::endl;
 		exit(1);
 	}
 }
 
 
-Music::Music(const std::string musicFile, int volume) {
+Music::Music(const std::string musicFile, float volume) {
 	this->volume = volume;
 	this->loop = false;
 	std::string musicFileName = DIR_RES_MUSIC + musicFile;
-	this->music = Mix_LoadMUS(musicFileName.c_str());
-	if (this->music == NULL) {
-		std::cout << "Failed to load beat music! SDL_mixer Error: " << Mix_GetError() << std::endl;
+	this->sample = BASS_SampleLoad(FALSE, musicFileName.c_str(), 0, 0, 1, 0);
+	if (this->sample == 0) {
+		std::cout << "Failed to load sample! BASS_SampleLoad Error: " << BASS_ErrorGetCode() << std::endl;
+		exit(1);
+	}
+	this->channel = BASS_SampleGetChannel(sample, TRUE);
+	if (this->channel == NULL) {
+		std::cout << "Failed to get channel! BASS_SampleGetChannel Error: " << BASS_ErrorGetCode() << std::endl;
 		exit(1);
 	}
 }
@@ -35,29 +73,15 @@ Music::~Music() {
 #ifdef _DEBUG 
 	std::cout << "Releasing music... ";
 #endif
-	Mix_FreeMusic(this->music);
+	BASS_Free();
 #ifdef _DEBUG 
 	std::cout << "done." << std::endl;
 #endif
 }
 
 
-Mix_Music* Music::getMusic() {
-	return this->music;
-}
-
-
 bool Music::playMusic() {
-	if (Mix_PlayingMusic() == 0) {
-		if (this->loop) {
-			Mix_PlayMusic(this->music, -1); // -1 play forever, 0 - no play
-		}
-		else {
-			Mix_PlayMusic(this->music, 0); // -1 play forever, 0 - no play
-		}
-		
-		Mix_VolumeMusic(this->volume);
-	}
+	BASS_ChannelPlay(this->channel, TRUE);
 	return true;
 }
 
@@ -69,18 +93,10 @@ bool Music::playMusic(bool _loop) {
 }
 
 
-bool Music::playMusic(int _volume) {
+bool Music::playMusic(float _volume) {
 	this->volume = _volume;
-	Mix_VolumeMusic(_volume);
-	this->playMusic();
+	BASS_SetVolume(_volume);
+	BASS_ChannelPlay(this->channel, TRUE);
 	return true;
 }
 
-
-bool Music::playMusic(bool _loop, int _volume) {
-	this->volume = _volume;
-	this->loop = _loop;
-	Mix_VolumeMusic(_volume);
-	this->playMusic();
-	return true;
-}

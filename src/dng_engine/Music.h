@@ -7,26 +7,25 @@
 #define _MUSIC_H_
 #pragma once
 
-#include <SDL_mixer.h>
+#include <BASS/bass.h>
 
 class Music {
 
 public:
 	Music(const std::string musicFile);
-	Music(const std::string musicFile, int volume);
+	Music(const std::string musicFile, float volume);
 	~Music();
 
-	Mix_Music* getMusic();
-
 	bool playMusic(bool _loop);
-	bool playMusic(int _volume);
-	bool playMusic(bool _loop, int _volume);
+	bool playMusic(float _volume);
 
-	static const int DEFAULT_MUSIC_VOLUME = 25;
+	constexpr static float DEFAULT_MUSIC_VOLUME = 1.0f;
 
 private:
-	Mix_Music* music;
-	int volume;
+	HSAMPLE sample;
+	HCHANNEL channel;
+
+	float volume;
 	bool loop;
 	bool playMusic();
 };

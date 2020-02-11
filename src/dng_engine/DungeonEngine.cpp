@@ -55,7 +55,7 @@ void DungeonEngine::initSDL(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio & video main modules... ";
 #endif
-	this->started = (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0);
+	this->started = (SDL_Init(SDL_INIT_VIDEO) == 0); // (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0);
 	if (!this->started) {
 		std::cout << "SDL_Init() error : " << SDL_GetError() << std::endl;
 		this->started = false;
@@ -156,31 +156,34 @@ void DungeonEngine::initializePngImages(void) {
 
 void DungeonEngine::initializeAudioSystem(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL audio module... ";
+	std::cout << "Initializing BASS audio module... ";
 #endif
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-		std::cout << "SDL_mixer Mix_OpenAudio() error: " << Mix_GetError() << std::endl;
+	if (BASS_Init(-1, 44100, 0, 0, NULL) < 0) {
+		std::cout << "SDL_mixer BASS_Init() error code: " << BASS_ErrorGetCode() << std::endl;
 		this->started = false;
 	} else
 		this->started = true;
+
+	BASS_Start();
+
 #ifdef _DEBUG
 	std::cout << "done." << std::endl;
 #endif
 }
 
 
-void DungeonEngine::initializeNetworkSystem(void) {
-#ifdef _DEBUG 
-	std::cout << "Initializing SDL network module... ";
-#endif
-	if (SDLNet_Init() == -1) {
-		std::cout << "SDLNet_Init() error: " << SDLNet_GetError() << std::endl;
-		this->started = false;
-	} else
-		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+//void DungeonEngine::initializeNetworkSystem(void) {
+//#ifdef _DEBUG 
+//	std::cout << "Initializing SDL network module... ";
+//#endif
+//	if (SDLNet_Init() == -1) {
+//		std::cout << "SDLNet_Init() error: " << SDLNet_GetError() << std::endl;
+//		this->started = false;
+//	} else
+//		this->started = true;
+//#ifdef _DEBUG
+//	std::cout << "done." << std::endl;
+//#endif
 
 	//Uint16 port = 80;
 
@@ -215,7 +218,7 @@ void DungeonEngine::initializeNetworkSystem(void) {
 	//SDLNet_TCP_Close(sd);
 
 	
-}
+//}
 
 
 void DungeonEngine::stop(void) {
@@ -230,6 +233,7 @@ void DungeonEngine::stop(void) {
 	GraphicAssets::releaseAssets();
 
 	delete this->currentMusic;
+
 	SDL_GL_DeleteContext(this->glContext);
 	SDL_DestroyWindow(this->window);
 
@@ -247,11 +251,9 @@ void DungeonEngine::launchSubsystems(void) {
 
 	initSDL();
 	createWindow();
-	//createRenderer();
 	initOGL();
 	initializePngImages();
 	initializeAudioSystem();
-	initializeNetworkSystem();
 
 	std::string cursorFileName = DIR_RES_IMAGES;
 	cursorFileName.append("mouse_cursor.png");
@@ -261,6 +263,7 @@ void DungeonEngine::launchSubsystems(void) {
 		std::cout << "Error while locking mouse pointer to the window." << std::endl;
 		exit(1);
 	}
+
 	SDL_ShowCursor(SDL_ENABLE);
 	SDL_WarpMouseInWindow(this->window, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
@@ -293,8 +296,8 @@ bool DungeonEngine::loadMusic(std::string musicFile) {
 }
 
 
-bool DungeonEngine::playMusic(bool loop, int volume) {
-	this->currentMusic->playMusic(loop, volume);
+bool DungeonEngine::playMusic(bool loop, float volume) {
+	this->currentMusic->playMusic(volume);
 	return true;
 }
 

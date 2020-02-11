@@ -41,8 +41,10 @@ void TextFont::parseXML(std::string xmlFileName) {
 		std::cout << "Empty document." << std::endl;
 		exit(1);
 	}
-
+#ifdef _DEBUG 
 	std::cout << "Reading " << xmlFile << " file ..." << std::endl;
+#endif
+	
 
 	if (xmlStrcmp(cur->name, (const xmlChar*)"font")) {
 		std::cout << "Document of the wrong type. Root node must be 'font'." << std::endl;
