@@ -1,3 +1,8 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #ifndef _FONT_ASSETS_H_
 #define _FONT_ASSETS_H_
 #pragma once

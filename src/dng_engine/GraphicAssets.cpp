@@ -8,7 +8,10 @@
 
 
 GraphicAssets::GraphicAssets() {
+#ifdef _DEBUG 
 	std::cout << "Creating new graphic assets..." << std::endl;
+#endif
+	
 	this->textures[IMAGE_ASSETS_MAIN_MENU_BACKGROUND] = NULL;
 	this->textures[IMAGE_ASSETS_LOGO] = NULL;
 	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
@@ -21,11 +24,16 @@ GraphicAssets::~GraphicAssets() {}
 
 
 void GraphicAssets::releaseAssets() {
-	std::cout << "Releasing textures... ";
+#ifdef _DEBUG 
+	std::cout << "Releasing textures ... ";
+#endif
+	
 	for (int i = 0; i < MAX_SPRITESHEETS; i++) {
 		delete GraphicAssets::getAssets()->textures[i];
 	}
+#ifdef _DEBUG 
 	std::cout << "done." << std::endl;
+#endif
 }
 
 

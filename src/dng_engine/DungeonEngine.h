@@ -8,16 +8,14 @@
 #pragma once
 
 #include <string>
-#include <SDL.h>
-#include <SDL_opengl.h>
-#include <SDL_image.h>
-#include <SDL_net.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_image.h>
 
 #include "Music.h"
 #include "GraphicAssets.h"
 #include "Camera.h"
 #include "Vector2.h"
-//#include "TextFont.h"
 
 
 enum class ViewLockedOn {
@@ -67,7 +65,7 @@ public:
 	void initTimer(void);
 
 	bool loadMusic(std::string musicFile);
-	bool playMusic(bool loop, int volume);
+	bool playMusic(bool loop, float volume);
 
 	GLuint loadTexture(const std::string& fileName);
 
@@ -98,7 +96,6 @@ private:
 	void initOGL(void);
 	void initializePngImages(void);
 	void initializeAudioSystem(void);
-	void initializeNetworkSystem(void);
 
 };
 

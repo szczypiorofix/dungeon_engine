@@ -7,7 +7,7 @@
 #define _ANIMATION_H_
 #pragma once
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "Texture.h"
 
 

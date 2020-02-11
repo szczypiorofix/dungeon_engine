@@ -3,8 +3,8 @@
  * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
  */
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "Texture.h"
 #include "Defines.h"
 
@@ -14,7 +14,10 @@ Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
 	this->columns = (int)(this->width / this->tileWidth);
+#ifdef _DEBUG 
 	std::cout << "Texture: " << fileName << ", columns: " << this->columns << std::endl;
+#endif
+	
 }
 
 

@@ -7,7 +7,7 @@
 #define _TEXTURE_H_
 
 #include <iostream>
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 
 typedef struct TextureRect {

@@ -123,17 +123,17 @@
     <ClInclude Include="res\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dng_engine\GUIElement.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\dng_engine\Texture.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="src\game\MainMenuButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dng_engine\Texture.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\game</Filter>
     </ClInclude>
     <ClInclude Include="src\dng_engine\FontAssets.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\GUIElement.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,8 +200,12 @@
     <None Include="res\gui\mm-gui-controlls.pyxel">
       <Filter>Resource Files\gui</Filter>
     </None>
-    <None Include="res\images\mm-gui-button.pyxel" />
-    <None Include="res\images\mm-gui-controlls.pyxel" />
+    <None Include="res\images\mm-gui-button.pyxel">
+      <Filter>Resource Files\gui</Filter>
+    </None>
+    <None Include="res\images\mm-gui-controlls.pyxel">
+      <Filter>Resource Files\gui</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\fonts\vingue.png">
@@ -253,22 +257,13 @@
       <Filter>Resource Files\gui</Filter>
     </Image>
     <Image Include="res\images\logo-title.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\world_map_wallpaper.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\world_map_wallpaper.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\mm-background-shade.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
     </Image>
     <Image Include="res\images\mm-gui-button.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\gui</Filter>
     </Image>
     <Image Include="res\images\mm-gui-controlls.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\gui</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -332,17 +327,17 @@
     <ClCompile Include="src\game\MainGameState.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\dng_engine\FontAssets.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\dng_engine\GUIElement.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\game\MainMenuButton.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\dng_engine\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dng_engine\FontAssets.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,17 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #include "FontAssets.h"
 
 
 
 FontAssets::FontAssets() {
+#ifdef _DEBUG 
 	std::cout << "Creating new font assets..." << std::endl;
+#endif
+	
 	this->fonts[0] = NULL;
 }
 
@@ -12,11 +20,17 @@ FontAssets::~FontAssets() {}
 
 
 void FontAssets::releaseAssets() {
-	std::cout << "Releasing textures... ";
+#ifdef _DEBUG 
+	std::cout << "Releasing fonts ... ";
+#endif
+	
 	for (int i = 0; i < MAX_FONTS; i++) {
 		delete FontAssets::getAssets()->fonts[i];
 	}
+	
+#ifdef _DEBUG 
 	std::cout << "done." << std::endl;
+#endif
 }
 
 
