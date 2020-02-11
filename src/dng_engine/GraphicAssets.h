@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Texture.h"
 
-constexpr int MAX_SPRITESHEETS = 4;
+constexpr int MAX_SPRITESHEETS = 5;
 
 
 class GraphicAssets {

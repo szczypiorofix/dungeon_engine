@@ -5,10 +5,10 @@
 
 #include "MainMenuButton.h"
 #include "../dng_engine/GameState.h"
+#include "../dng_engine/FontAssets.h"
 
 
-
-MainMenuButton::MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat height, std::string text, Texture* bt, Texture* ft) {
+MainMenuButton::MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat height, std::string text, Texture* bt) {
     this->text = text;
     this->x = x;
     this->y = y;
@@ -16,7 +16,7 @@ MainMenuButton::MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat heig
     this->height = height;
     this->buttonTexture = bt;
 
-    this->textFont = new TextFont("vingue", ft);
+    this->textFont = FontAssets::getAssets()->fonts[FontAssets::FONT_ASSETS_VINGUE];
     
     this->listeners = {false};
 }

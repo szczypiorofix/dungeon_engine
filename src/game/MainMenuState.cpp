@@ -19,9 +19,9 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
 
     this->buttons = new MainMenuButton*[MAX_BUTTONS];
 
-    this->buttons[NEWGAME_BUTTON]   = new MainMenuButton(325, 260, 168, 34, "NEW GAME", this->mainMenuButtonsTexture, this->vingueFontTexture);
-    this->buttons[OPTIONS_BUTTON]   = new MainMenuButton(325, 300, 160, 34, "OPTIONS", this->mainMenuButtonsTexture, this->vingueFontTexture);
-    this->buttons[EXIT_BUTTON]      = new MainMenuButton(325, 340, 168, 34, "QUIT GAME", this->mainMenuButtonsTexture, this->vingueFontTexture);
+    this->buttons[NEWGAME_BUTTON]   = new MainMenuButton(325, 260, 168, 34, "NEW GAME", this->mainMenuButtonsTexture);
+    this->buttons[OPTIONS_BUTTON]   = new MainMenuButton(325, 300, 160, 34, "OPTIONS", this->mainMenuButtonsTexture);
+    this->buttons[EXIT_BUTTON]      = new MainMenuButton(325, 340, 168, 34, "QUIT GAME", this->mainMenuButtonsTexture);
 
     //this->textFont = new TextFont("vingue", this->vingueFontTexture);
 }
