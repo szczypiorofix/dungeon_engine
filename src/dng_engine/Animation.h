@@ -8,13 +8,13 @@
 #pragma once
 
 #include <SDL.h>
-#include "Spritesheet.h"
+#include "Texture.h"
 
 
 class Animation {
 
 public:
-	Animation(SpriteSheet* spriteSheet, unsigned short speed, unsigned int sw, unsigned int sh, const unsigned short size, const unsigned int* frames);
+	Animation(Texture* texture, unsigned short speed, unsigned int sw, unsigned int sh, const unsigned short size, const unsigned int* frames);
 	~Animation();
 	int nextFrame();
 	SDL_Rect getFrame(int index);
@@ -27,7 +27,7 @@ private:
 	unsigned short speed;
 	int curFrame;
 	int counter;
-	SpriteSheet* spriteSheet;
+	Texture* spriteSheet;
 
 };
 

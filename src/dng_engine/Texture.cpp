@@ -14,7 +14,7 @@ Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
 	this->columns = (int)(this->width / this->tileWidth);
-	//std::cout << "Columns: " << this->columns << std::endl;
+	std::cout << "Texture: " << fileName << ", columns: " << this->columns << std::endl;
 }
 
 

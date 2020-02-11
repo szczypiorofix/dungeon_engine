@@ -8,26 +8,22 @@
 
 
 GraphicAssets::GraphicAssets() {
-	std::cout << "Creating new assets..." << std::endl;
-	spriteSheets[SpriteSheet::BASICTILES] = NULL;
-	spriteSheets[SpriteSheet::CHARACTERS] = NULL;
-	spriteSheets[SpriteSheet::WALLPAPER] = NULL;
-	spriteSheets[SpriteSheet::LOGO] = NULL;
-	spriteSheets[SpriteSheet::MAINMENUSHADE] = NULL;
-	spriteSheets[SpriteSheet::GUI_BUTTON] = NULL;
-	spriteSheets[SpriteSheet::GUI_CONTROLLS] = NULL;
+	std::cout << "Creating new graphic assets..." << std::endl;
+	this->textures[IMAGE_ASSETS_MAIN_MENU_BACKGROUND] = NULL;
+	this->textures[IMAGE_ASSETS_LOGO] = NULL;
+	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
+	this->textures[IMAGE_ASSETS_VINGUE_FONT] = NULL;
+	this->textures[IMAGE_ASSETS_TEST_TEXTURE] = NULL;
 }
 
 
-GraphicAssets::~GraphicAssets() {
-
-}
+GraphicAssets::~GraphicAssets() {}
 
 
 void GraphicAssets::releaseAssets() {
 	std::cout << "Releasing textures... ";
 	for (int i = 0; i < MAX_SPRITESHEETS; i++) {
-		delete GraphicAssets::getAssets()->spriteSheets[i];
+		delete GraphicAssets::getAssets()->textures[i];
 	}
 	std::cout << "done." << std::endl;
 }
@@ -41,9 +37,16 @@ GraphicAssets* GraphicAssets::getAssets() {
 }
 
 
-void GraphicAssets::loadAsset(std::string fileName, SDL_Renderer* renderer, int spriteWidth, int spriteHeight, int imagesEnum) {
-	SpriteSheet* tempSpriteSheet = new SpriteSheet(DIR_RES_IMAGES + fileName, renderer, spriteWidth, spriteHeight, imagesEnum);
-	GraphicAssets::getAssets()->spriteSheets[imagesEnum] = tempSpriteSheet;
+void GraphicAssets::addToAssets(std::string fileName, GLfloat tileWidth, GLfloat tileHeight, const int imagesEnum) {
+	Texture* tempTexture = new Texture(fileName, tileWidth, tileHeight);
+	GraphicAssets::getAssets()->textures[imagesEnum] = tempTexture;
 }
+
+
+void GraphicAssets::addToAssets(std::string fileName, const int imagesEnum) {
+	Texture* tempTexture = new Texture(fileName);
+	GraphicAssets::getAssets()->textures[imagesEnum] = tempTexture;
+}
+
 
 GraphicAssets* GraphicAssets::instance = nullptr;

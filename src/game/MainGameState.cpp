@@ -11,8 +11,8 @@ MainGameState::MainGameState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
-    this->mainMenuButtonsTexture = new Texture("../res/images/mm-gui-button.png", 168, 128);
-    this->vingueFontTexture = new Texture("../res/fonts/vingue.png");
+    this->mainMenuButtonsTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
+    this->vingueFontTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT];
     this->backToMenuButton = new MainMenuButton(325, 200, 168, 34, "MAIN MENU", this->mainMenuButtonsTexture, this->vingueFontTexture);
 
     this->textFont = new TextFont("vingue", this->vingueFontTexture);
@@ -53,6 +53,7 @@ void MainGameState::update() {
 
 
 void MainGameState::render() {
+
     this->textFont->draw("MAIN GAME", 280, 50, 0.5f);
 
     this->backToMenuButton->render();

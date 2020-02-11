@@ -8,24 +8,33 @@
 #pragma once
 
 #include <iostream>
-#include "SpriteSheet.h"
+#include "Texture.h"
 
-constexpr int MAX_SPRITESHEETS = 7;
+constexpr int MAX_SPRITESHEETS = 4;
 
 
 class GraphicAssets {
 
 public:
 
+	static const int IMAGE_ASSETS_MAIN_MENU_BACKGROUND = 0;
+	static const int IMAGE_ASSETS_LOGO = 1;
+	static const int IMAGE_ASSETS_MAIN_MENU_BUTTONS = 2;
+	static const int IMAGE_ASSETS_VINGUE_FONT = 3;
+	static const int IMAGE_ASSETS_TEST_TEXTURE = 4;
+	
+
 	static GraphicAssets* getAssets();
-	static void loadAsset(std::string fileName, SDL_Renderer* renderer, int spriteWidth, int spriteHeight, int imagesEnum);
+	static void addToAssets(std::string fileName, GLfloat spriteWidth, GLfloat spriteHeight, const int imagesEnum);
+	static void addToAssets(std::string fileName, const int imagesEnum);
 	static void releaseAssets();
 
-	SpriteSheet* spriteSheets[MAX_SPRITESHEETS];
+	Texture* textures[MAX_SPRITESHEETS];
 
 private:
 
 	static GraphicAssets* instance;
+
 	GraphicAssets();
 	~GraphicAssets();
 };

@@ -11,11 +11,11 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
-    this->backgroundTexture = new Texture("../res/images/background.png");
-    this->logoTexture = new Texture("../res/images/logo-title.png");
-    this->testTexture = new Texture("../res/images/dg_people32.png", 32, 32);
-    this->mainMenuButtonsTexture = new Texture("../res/images/mm-gui-button.png", 168, 128);
-    this->vingueFontTexture = new Texture("../res/fonts/vingue.png");
+    this->backgroundTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND];
+    this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
+    this->mainMenuButtonsTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
+    this->vingueFontTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT];
+    this->testTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_TEST_TEXTURE];
 
     this->buttons = new MainMenuButton*[MAX_BUTTONS];
 
@@ -23,12 +23,12 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->buttons[OPTIONS_BUTTON]   = new MainMenuButton(325, 300, 160, 34, "OPTIONS", this->mainMenuButtonsTexture, this->vingueFontTexture);
     this->buttons[EXIT_BUTTON]      = new MainMenuButton(325, 340, 168, 34, "QUIT GAME", this->mainMenuButtonsTexture, this->vingueFontTexture);
 
-    this->textFont = new TextFont("vingue", this->vingueFontTexture);
+    //this->textFont = new TextFont("vingue", this->vingueFontTexture);
 }
 
 
 MainMenuState::~MainMenuState() {
-    delete this->textFont;
+    //delete this->textFont;
 }
 
 

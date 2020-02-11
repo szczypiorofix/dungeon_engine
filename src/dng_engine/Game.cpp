@@ -22,11 +22,6 @@ Game::~Game() {
 
 
 void Game::gameLoop() {
-	this->DE_GameLoop();
-}
-
-
-void Game::DE_GameLoop() {
 	
 	SDL_Event event;
 	this->engine->initTimer();

@@ -34,7 +34,7 @@ public:
 	constexpr static int MAX_BUTTONS = 3;
 
 private:
-	TextFont* textFont;
+	//TextFont* textFont;
 	MainMenuButton** buttons;
 	
 	Texture* backgroundTexture;
