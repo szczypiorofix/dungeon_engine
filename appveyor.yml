@@ -1,7 +1,8 @@
 image: Ubuntu
 
 branches:
-    only: master
+    only:
+        - master
 
 
 build:
@@ -9,7 +10,8 @@ build:
     verbosity: minimal
 
 
-build_script: echo Ubuntu build script
+build_script:
+    - echo Ubuntu build script
 
 
 
