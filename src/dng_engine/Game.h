@@ -17,7 +17,6 @@
 class Game {
 
 public:
-
 	Game();
 	~Game();
 
@@ -41,7 +40,6 @@ protected:
 
 private:
 
-    void DE_GameLoop();
     void DE_Input(SDL_Event* event);
     void DE_Update();
     void DE_Render();

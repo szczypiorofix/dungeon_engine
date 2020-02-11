@@ -10,8 +10,7 @@
 #include <iostream>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#include <SDL_image.h>
-
+#include "Texture.h"
 
 typedef struct FontItem {
 	short ascii;
@@ -30,20 +29,17 @@ typedef struct FontItem {
 class TextFont {
 
 public:
-	TextFont(SDL_Renderer* r, std::string fn);
-	TextFont(SDL_Renderer* r, std::string fn, bool s);
+	TextFont(std::string fn, Texture* tex);
 	~TextFont();
 
-	void draw(const char* text, int x, int y, float size, float scale);
+	void draw(const char* text, GLfloat x, GLfloat y, float size);
 
 private:
-	SDL_Texture* fontImage;
-	SDL_Renderer* renderer;
+	Texture* fontImage;
 	int imageWidth;
 	int imageHeight;
 	FontItem** fontItems;
 	int charsCount;
-	bool scallable;
 	
 	std::string fontName;
 
@@ -52,7 +48,6 @@ private:
 	int fontSpace;
 
 	void parseXML(std::string xmlFileName);
-	void prepareImage(SDL_Renderer* r, std::string f);
 	float getStringFontWidth(const char* text);
 
 };

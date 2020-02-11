@@ -8,14 +8,12 @@
 #pragma once
 
 #include <SDL.h>
-#include "DungeonEngine.h"
-
+#include <SDL_opengl.h>
 
 class GUIElement {
 
 public:
 	GUIElement();
-	GUIElement(DungeonEngine* engine);
 	~GUIElement();
 
 	virtual void input(SDL_Event* event) = 0;
@@ -32,12 +30,11 @@ public:
 	} Listeners;
 
 protected:
-	DungeonEngine* engine;
 
-	int x;
-	int y;
-	int width;
-	int height;
+	GLfloat x;
+	GLfloat y;
+	GLfloat width;
+	GLfloat height;
 
 };
 

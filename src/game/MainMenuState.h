@@ -10,6 +10,7 @@
 #include <SDL_opengl.h>
 #include "../dng_engine/GameState.h"
 #include "../dng_engine/Texture.h"
+#include "../dng_engine/TextFont.h"
 #include "MainMenuButton.h"
 
 
@@ -33,14 +34,14 @@ public:
 	constexpr static int MAX_BUTTONS = 3;
 
 private:
-	TextFont* textFont;
+	//TextFont* textFont;
 	MainMenuButton** buttons;
-
-	int selectedButton;
 	
 	Texture* backgroundTexture;
 	Texture* logoTexture;
 	Texture* testTexture;
+	Texture* mainMenuButtonsTexture;
+	Texture* vingueFontTexture;
 
 	State* state;
 };

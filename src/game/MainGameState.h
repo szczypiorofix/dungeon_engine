@@ -8,7 +8,9 @@
 #pragma once
 
 #include "../dng_engine/GameState.h"
+#include "../dng_engine/TextFont.h"
 #include "MainMenuButton.h"
+
 
 
 class MainGameState : public GameState {
@@ -24,7 +26,8 @@ public:
 
 private:
 	TextFont* textFont;
-	
+	Texture* mainMenuButtonsTexture;
+	Texture* vingueFontTexture;
 	MainMenuButton* backToMenuButton;
 
 	State* state;

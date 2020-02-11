@@ -99,9 +99,6 @@
     <ClInclude Include="src\dng_engine\TextFont.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="src\dng_engine\SpriteSheet.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\Player.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\dng_engine\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dng_engine\FontAssets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -314,9 +314,6 @@
     <ClCompile Include="src\game\Player.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\dng_engine\SpriteSheet.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\dng_engine\TextFont.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
@@ -342,6 +339,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dng_engine\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dng_engine\FontAssets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

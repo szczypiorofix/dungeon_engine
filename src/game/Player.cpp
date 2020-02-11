@@ -30,15 +30,15 @@ Player::Player(std::string name, float x, float y, int width, int height, SDL_Re
 	const unsigned int framesPlayerUp[]		= { 40, 41, 42 };
 	const unsigned int framesPlayerDown[]	= { 4 , 5 , 6  };
 	
-	SpriteSheet* playerSprite = GraphicAssets::getAssets()->spriteSheets[SpriteSheet::CHARACTERS];
-	this->walkingAnimation = new Animation * [4];
+	//SpriteSheet* playerSprite = GraphicAssets::getAssets()->spriteSheets[SpriteSheet::CHARACTERS];
+	//this->walkingAnimation = new Animation * [4];
 
-	this->walkingAnimation[DIR_UP]		= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerUp);
-	this->walkingAnimation[DIR_RIGHT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerRight);
-	this->walkingAnimation[DIR_DOWN]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerDown);
-	this->walkingAnimation[DIR_LEFT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerLeft);
+	//this->walkingAnimation[DIR_UP]		= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerUp);
+	//this->walkingAnimation[DIR_RIGHT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerRight);
+	//this->walkingAnimation[DIR_DOWN]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerDown);
+	//this->walkingAnimation[DIR_LEFT]	= new Animation(playerSprite, 6, this->width, this->height, 3, framesPlayerLeft);
 
-	this->walkingAnimation[this->direction]->setCurrentFrame(this->direction);
+	//this->walkingAnimation[this->direction]->setCurrentFrame(this->direction);
 }
 
 
@@ -47,15 +47,15 @@ Player::~Player() {
 
 
 void Player::draw(float scale, float x, float y) {
-	SDL_Rect drawRect = { 0, 0, 16, 16 };
-	Animation* curAnim = this->walkingAnimation[this->direction];
-	SDL_Rect tempClip = curAnim->getFrame(curAnim->getCurFrame());
-	GraphicAssets::getAssets()->spriteSheets[SpriteSheet::CHARACTERS]->draw(
-		this->renderer,
-		&tempClip,
-		(int) ( this->vector->x + x ),
-		(int) ( this->vector->y + y ),
-		scale);
+	//SDL_Rect drawRect = { 0, 0, 16, 16 };
+	//Animation* curAnim = this->walkingAnimation[this->direction];
+	//SDL_Rect tempClip = curAnim->getFrame(curAnim->getCurFrame());
+	//GraphicAssets::getAssets()->spriteSheets[SpriteSheet::CHARACTERS]->draw(
+	//	this->renderer,
+	//	&tempClip,
+	//	(int) ( this->vector->x + x ),
+	//	(int) ( this->vector->y + y ),
+	//	scale);
 }
 
 

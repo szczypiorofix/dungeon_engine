@@ -11,25 +11,19 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->engine = engine;
     this->state = s;
 
-    this->backgroundTexture = new Texture("background.png");
-    this->logoTexture = new Texture("logo-title.png");
-    this->testTexture = new Texture("dg_people32.png", 32, 32);
+    this->backgroundTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND];
+    this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
+    this->mainMenuButtonsTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
+    this->vingueFontTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT];
+    this->testTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_TEST_TEXTURE];
 
-    //this->buttons = new MainMenuButton*[MAX_BUTTONS];
+    this->buttons = new MainMenuButton*[MAX_BUTTONS];
 
-    //this->buttons[NEWGAME_BUTTON] = new MainMenuButton(this->engine, 270, 260, 168, 34, "NEW GAME");
-    //this->buttons[OPTIONS_BUTTON] = new MainMenuButton(this->engine, 270, 300, 160, 34, "OPTIONS");
-    //this->buttons[EXIT_BUTTON] = new MainMenuButton(this->engine, 270, 340, 168, 34, "QUIT GAME");
+    this->buttons[NEWGAME_BUTTON]   = new MainMenuButton(325, 260, 168, 34, "NEW GAME", this->mainMenuButtonsTexture, this->vingueFontTexture);
+    this->buttons[OPTIONS_BUTTON]   = new MainMenuButton(325, 300, 160, 34, "OPTIONS", this->mainMenuButtonsTexture, this->vingueFontTexture);
+    this->buttons[EXIT_BUTTON]      = new MainMenuButton(325, 340, 168, 34, "QUIT GAME", this->mainMenuButtonsTexture, this->vingueFontTexture);
 
-    //this->selectedButton = 0;
-    //this->buttons[NEWGAME_BUTTON]->setSelected(true);
-
-    //this->textFont = this->engine->createFont("vingue", true);
-    //this->engine->loadImageToAssets("world_map_wallpaper.jpg", 32, 32, SpriteSheet::WALLPAPER);
-    //this->engine->loadImageToAssets("logo-title.png", 32, 32, SpriteSheet::LOGO);
-    //this->engine->loadImageToAssets("mm-background-shade.png", 32, 32, SpriteSheet::MAINMENUSHADE);
-    //this->engine->loadImageToAssets("mm-gui-button.png", 32, 32, SpriteSheet::GUI_BUTTON);
-    //this->engine->loadImageToAssets("mm-gui-controlls.png", 32, 32, SpriteSheet::GUI_CONTROLLS);
+    //this->textFont = new TextFont("vingue", this->vingueFontTexture);
 }
 
 
@@ -40,18 +34,18 @@ MainMenuState::~MainMenuState() {
 
 void MainMenuState::update() {
     
-    //if (this->buttons[NEWGAME_BUTTON]->listeners.onMouseButtonLeftClicked) {
-    //    *this->state = State::MAIN_GAME;
-    //}
+    if (this->buttons[NEWGAME_BUTTON]->listeners.onMouseButtonLeftClicked) {
+        *this->state = State::MAIN_GAME;
+    }
 
-    //if (this->buttons[EXIT_BUTTON]->listeners.onMouseButtonLeftClicked) {
-    //    this->engine->setQuit(true);
-    //}
+    if (this->buttons[EXIT_BUTTON]->listeners.onMouseButtonLeftClicked) {
+        this->engine->setQuit(true);
+    }
 
-    //// !IMPORTANT TO CLEAR THE MOUSE CLICKED FLAG AFTER ANY AOTHER ACTIONS
-    //for (int i = 0; i < MAX_BUTTONS; i++) {
-    //    this->buttons[i]->update();
-    //}
+    // !IMPORTANT TO CLEAR THE MOUSE CLICKED FLAG AFTER ANY AOTHER ACTIONS
+    for (int i = 0; i < MAX_BUTTONS; i++) {
+        this->buttons[i]->update();
+    }
     
 }
 
@@ -65,28 +59,12 @@ void MainMenuState::input(SDL_Event* event) {
         case SDLK_SPACE:
             std::cout << "THIS IS MAIN MENU STATE" << std::endl;
             break;
-        //case SDLK_UP:
-        //    this->buttons[this->selectedButton]->setSelected(false);
-        //    this->selectedButton--;
-        //    if (this->selectedButton < 0) {
-        //        this->selectedButton = MAX_BUTTONS - 1;
-        //    }
-        //    this->buttons[this->selectedButton]->setSelected(true);
-        //    break;
-        //case SDLK_DOWN:
-        //    this->buttons[this->selectedButton]->setSelected(false);
-        //    this->selectedButton++;
-        //    if (this->selectedButton >= MAX_BUTTONS) {
-        //        this->selectedButton = 0;
-        //    }
-        //    this->buttons[this->selectedButton]->setSelected(true);
-        //    break;
         }
     }
 
-    //for (int i = 0; i < MAX_BUTTONS; i++) {
-    //    this->buttons[i]->input(event);
-    //}
+    for (int i = 0; i < MAX_BUTTONS; i++) {
+        this->buttons[i]->input(event);
+    }
 
 }
 
@@ -122,8 +100,13 @@ void MainMenuState::render() {
     };
     this->logoTexture->draw(s, d);
 
+    //this->testTexture->drawTile(6, 100, 100);
 
-    this->testTexture->drawTile(7, 100, 100);
+
+    for (int i = 0; i < MAX_BUTTONS; i++) {
+        this->buttons[i]->render();
+    }
+
 
     //// Hello World Triangle
     //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON

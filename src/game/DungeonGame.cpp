@@ -4,18 +4,17 @@
  */
 
 #include "DungeonGame.h"
-
+#include "../dng_engine/GraphicAssets.h"
+#include "../dng_engine/FontAssets.h"
 
 
 
 DungeonGame::DungeonGame() {
-
 	this->mainMenuState = nullptr;
 	this->mainGameState = nullptr;
 	this->currentState = nullptr;
 
 	this->state = State::MAIN_MENU;
-
 }
 
 
@@ -149,6 +148,7 @@ void DungeonGame::render() {
 
 	//player->draw(engine->scale, -camera->vec->x, -camera->vec->y);
 
+
 	switch (this->state) {
 		case State::MAIN_GAME:
 			this->mainGameState->render();
@@ -167,20 +167,39 @@ void DungeonGame::render() {
 void DungeonGame::launch(void) {
 	std::cout << "Dungeon game launch" << std::endl;
 	
+
+	/*this->backgroundTexture = new Texture("../res/images/background.png");
+	this->logoTexture = new Texture("../res/images/logo-title.png");
+	this->testTexture = new Texture("../res/images/dg_people32.png", 32, 32);
+	this->mainMenuButtonsTexture = new Texture("../res/images/mm-gui-button.png", 168, 128);
+	this->vingueFontTexture = new Texture("../res/fonts/vingue.png");*/
+
+	// LOADING GRAPHIC ASSETS
+	GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
+	GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);
+	GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 128, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
+	GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
+	GraphicAssets::addToAssets("../res/images/dg_people32.png", 32, 32, GraphicAssets::IMAGE_ASSETS_TEST_TEXTURE);
+
+	// LOADING FONT ASSETS
+	FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
+
+
 	this->mainMenuState = new MainMenuState(this->engine, &this->state);
 	this->mainGameState = new MainGameState(this->engine, &this->state);
 	
 	this->currentState = this->mainMenuState;
 
-	
+	// LOGGING SYSTEM
+	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
+	SDL_LogError(SDL_LOG_PRIORITY_ERROR, "############# ERROR !!! ###############");
+	// LOGGING SYSTEM
 
-	// engine->loadMusic("ex-aws_cave.xm");
+
 	engine->loadMusic("menu-music.ogg");
-	engine->playMusic(true, 10);
+	engine->playMusic(true, 3);
 
-	/*engine->loadImageToAssets("dg_humans32.png", 32, 32, SpriteSheet::CHARACTERS);
-	engine->loadImageToAssets("dg_grounds32.png", 32, 32, SpriteSheet::BASICTILES);
-	
+	/*	
 	this->tiledMap = new TiledMap("worldmap.tmx");*/
 
 

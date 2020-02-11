@@ -1,35 +1,34 @@
+/*
+ * Dungeon Engine
+ * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ */
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Texture.h"
 #include "Defines.h"
 
 
-Texture::Texture(std::string fileName, uint16_t tileWidth, uint16_t tileHeight) {
-	
+Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->id = loadTexture(fileName);
-
-	this->tileWidth = (GLfloat)tileWidth;
-	this->tileHeight = (GLfloat)tileHeight;
+	this->tileWidth = tileWidth;
+	this->tileHeight = tileHeight;
 	this->columns = (int)(this->width / this->tileWidth);
-	//std::cout << "Columns: " << this->columns << std::endl;
+	std::cout << "Texture: " << fileName << ", columns: " << this->columns << std::endl;
 }
 
 
 Texture::Texture(std::string fileName) {
-	
 	this->id = loadTexture(fileName);
-	
 	this->tileWidth = 0.0f;
 	this->tileHeight = 0.0f;
 	this->columns = 0;
-
 }
 
 
 GLuint Texture::loadTexture(std::string fileName) {
 
-	std::string fn = DIR_RES_IMAGES + fileName;
-	SDL_Surface* image = IMG_Load(fn.c_str());
+	SDL_Surface* image = IMG_Load(fileName.c_str());
 	if (image == NULL) {
 		std::cout << "Unable to load image " << fileName << ", : " << IMG_GetError() << std::endl;
 		exit(1);

@@ -9,12 +9,15 @@
 
 #include "../dng_engine/GUIElement.h"
 #include "../dng_engine/GameState.h"
+#include "../dng_engine/Texture.h"
+#include "../dng_engine/TextFont.h"
+
 
 
 class MainMenuButton : public GUIElement {
 
 public:
-    MainMenuButton(DungeonEngine* engine, int x, int y, int width, int height, std::string text);
+    MainMenuButton(GLfloat x, GLfloat y, GLfloat width, GLfloat height, std::string text, Texture* buttonTexture, Texture* fontTexture);
     ~MainMenuButton();
 
     virtual void input(SDL_Event* event);
@@ -22,14 +25,13 @@ public:
     virtual void render();
 
     Listeners listeners;
-
-    void setSelected(bool s);
+    Texture* buttonTexture;
+    Texture* fontTexture;
 
 private:
 
     TextFont* textFont;
     std::string text;
-    bool selected;
     
 };
 

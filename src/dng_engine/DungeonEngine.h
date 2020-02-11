@@ -17,7 +17,7 @@
 #include "GraphicAssets.h"
 #include "Camera.h"
 #include "Vector2.h"
-#include "TextFont.h"
+//#include "TextFont.h"
 
 
 enum class ViewLockedOn {
@@ -60,8 +60,6 @@ public:
 
 	SDL_Cursor* cursor;
 	SDL_Window* getWindow(void);
-
-	TextFont* createFont(std::string, bool s);
 	
 	void loadImageToAssets(std::string fileName, int spriteWidth, int spriteHeight, int imagesEnum);
 	void drawImage(const int SpriteSheetNo, SDL_Rect clip, int x, int y);
