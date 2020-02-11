@@ -17,3 +17,7 @@ environment:
 configuration:
     - Debug
     - Release
+
+build:
+    project: dungeon_engine.sln
+    verbosity: minimal
