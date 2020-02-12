@@ -6,7 +6,7 @@
 #include "Game.h"
 
 
-Game::Game() {
+Game::Game(void) {
 	this->tiledMap = nullptr;
     this->camera = nullptr;
     this->engine = new DungeonEngine();
@@ -17,14 +17,12 @@ Game::Game() {
 }
 
 
-Game::~Game() {
-}
+Game::~Game(void) {}
 
 
-void Game::gameLoop() {
+void Game::gameLoop(void) {
 	
 	SDL_Event event;
-	this->engine->initTimer();
 
 	double start = SDL_GetTicks();
 	double renderTimer = 0, viewTimer = 0;
@@ -173,12 +171,14 @@ void Game::DE_Input(SDL_Event* event) {
 }
 
 
-void Game::DE_Update() {
+void Game::DE_Update(void) {
+
 	this->update();
+
 }
 
 
-void Game::DE_Render() {
+void Game::DE_Render(void) {
 
 	// ######################## OPENGL ########################
 

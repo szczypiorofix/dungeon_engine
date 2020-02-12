@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [v0.2.02] - 2020-02-12
+### Added
+- Added BASS library for sfx & music
+
+
 ## [v0.2.01] - 2020-02-09
 ### Added
 - Added OpenGL support instead of SDL renderer

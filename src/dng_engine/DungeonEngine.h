@@ -7,10 +7,10 @@
 #define _DUNGEONENGINE_H_
 #pragma once
 
-#include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_image.h>
+#include <string>
 
 #include "Music.h"
 #include "GraphicAssets.h"
@@ -29,7 +29,7 @@ typedef struct Settings {
 	int screenHeight;
 	float scale;
 	int fullScreen;
-	int musicVolume;
+	float musicVolume;
 } Settings;
 
 
@@ -45,8 +45,6 @@ public:
 	static const int MIN_SCALE = 1;
 	static const int MAX_SCALE = 5;
 
-	const char* CONFIG_FILE_NAME = "dungeon_engine.cfg";
-
 	void launchSubsystems(void);
 	void stop(void);
 
@@ -59,13 +57,19 @@ public:
 	SDL_Cursor* cursor;
 	SDL_Window* getWindow(void);
 
+	void loadMusic(std::string musicFile);
+	bool playMusic(float volume);
+	bool playMusic();
 
-	void initTimer(void);
+	bool stopMusic();
 
-	bool loadMusic(std::string musicFile);
-	bool playMusic(bool loop, float volume);
+	bool pauseMusic();
+
+	void releaseMusic();
 
 	GLuint loadTexture(const std::string& fileName);
+
+	Music* getCurrentMusic();
 
 protected:
 	SDL_Window* window;
@@ -77,6 +81,7 @@ protected:
 
 	ViewLockedOn viewLockedOn;
 
+
 private:
 
 	Music* currentMusic;
@@ -85,9 +90,6 @@ private:
 	bool quit;
 	int tilesOnScreenFromCenterX;
 	int tilesOnScreenFromCenterY;
-
-	bool writeConfigFile(void);
-	bool readConfigFile(void);
 
 	void initSDL(void);
 	void createWindow(void);

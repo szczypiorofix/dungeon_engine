@@ -4,7 +4,7 @@
  */
 
 #include "MainMenuState.h"
-
+#include <BASS/bass.h>
 
 
 MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
@@ -17,23 +17,23 @@ MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
     this->vingueFontTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT];
     this->testTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_TEST_TEXTURE];
 
-    this->buttons = new MainMenuButton*[MAX_BUTTONS];
+    this->buttons = new MainMenuButton * [MAX_BUTTONS];
 
-    this->buttons[NEWGAME_BUTTON]   = new MainMenuButton(325, 260, 168, 34, "NEW GAME", this->mainMenuButtonsTexture);
-    this->buttons[OPTIONS_BUTTON]   = new MainMenuButton(325, 300, 160, 34, "OPTIONS", this->mainMenuButtonsTexture);
-    this->buttons[EXIT_BUTTON]      = new MainMenuButton(325, 340, 168, 34, "QUIT GAME", this->mainMenuButtonsTexture);
+    this->buttons[NEWGAME_BUTTON] = new MainMenuButton(325, 260, 168, 34, "NEW GAME", this->mainMenuButtonsTexture);
+    this->buttons[OPTIONS_BUTTON] = new MainMenuButton(325, 300, 160, 34, "OPTIONS", this->mainMenuButtonsTexture);
+    this->buttons[EXIT_BUTTON] = new MainMenuButton(325, 340, 168, 34, "QUIT GAME", this->mainMenuButtonsTexture);
 
     //this->textFont = new TextFont("vingue", this->vingueFontTexture);
 }
 
 
-MainMenuState::~MainMenuState() {
+MainMenuState::~MainMenuState(void) {
     //delete this->textFont;
 }
 
 
-void MainMenuState::update() {
-    
+void MainMenuState::update(void) {
+
     if (this->buttons[NEWGAME_BUTTON]->listeners.onMouseButtonLeftClicked) {
         *this->state = State::MAIN_GAME;
     }
@@ -46,7 +46,7 @@ void MainMenuState::update() {
     for (int i = 0; i < MAX_BUTTONS; i++) {
         this->buttons[i]->update();
     }
-    
+
 }
 
 
@@ -69,7 +69,7 @@ void MainMenuState::input(SDL_Event* event) {
 }
 
 
-void MainMenuState::render() {
+void MainMenuState::render(void) {
 
     TextureRect s = {
         0,
@@ -105,8 +105,7 @@ void MainMenuState::render() {
 
     for (int i = 0; i < MAX_BUTTONS; i++) {
         this->buttons[i]->render();
-    }
-
+    }  
 
     //// Hello World Triangle
     //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON

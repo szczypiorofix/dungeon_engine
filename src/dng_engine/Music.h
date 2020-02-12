@@ -12,22 +12,30 @@
 class Music {
 
 public:
-	Music(const std::string musicFile);
-	Music(const std::string musicFile, float volume);
+
+	// DEFAULT MUSIC VOLUME = 100%
+	constexpr static float DEFAULT_MUSIC_VOLUME = 1.0f;
+
+
+	Music(const std::string musicFile, float volume, bool loop);
 	~Music();
 
-	bool playMusic(bool _loop);
 	bool playMusic(float _volume);
+	bool playMusic();
+	bool stopMusic();
+	bool pauseMusic();
 
-	constexpr static float DEFAULT_MUSIC_VOLUME = 1.0f;
+	HCHANNEL getChannel();
+	HSTREAM getStream();
 
 private:
 	HSAMPLE sample;
 	HCHANNEL channel;
+	HSTREAM stream;
 
 	float volume;
 	bool loop;
-	bool playMusic();
+
 };
 
 #endif

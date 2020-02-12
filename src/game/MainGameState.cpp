@@ -19,7 +19,7 @@ MainGameState::MainGameState(DungeonEngine* engine, State* s) {
 }
 
 
-MainGameState::~MainGameState() {}
+MainGameState::~MainGameState(void) {}
 
 
 void MainGameState::input(SDL_Event* event) {
@@ -40,7 +40,7 @@ void MainGameState::input(SDL_Event* event) {
 }
 
 
-void MainGameState::update() {
+void MainGameState::update(void) {
     
     if (this->backToMenuButton->listeners.onMouseButtonLeftClicked) {
         *this->state = State::MAIN_MENU;
@@ -52,7 +52,7 @@ void MainGameState::update() {
 }
 
 
-void MainGameState::render() {
+void MainGameState::render(void) {
 
     this->textFont->draw("MAIN GAME", 280, 50, 0.5f);
 

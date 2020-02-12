@@ -20,11 +20,11 @@ class MainMenuState : public GameState {
 public:
 
 	MainMenuState(DungeonEngine* engine, State* s);
-	~MainMenuState();
+	~MainMenuState(void);
 
 	virtual void input(SDL_Event* event);
-	virtual void update();
-	virtual void render();
+	virtual void update(void);
+	virtual void render(void);
 
 	// Buttons
 	constexpr static int NEWGAME_BUTTON = 0;

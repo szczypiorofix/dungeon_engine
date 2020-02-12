@@ -9,7 +9,7 @@
 #include "../dng_engine/FontAssets.h"
 
 
-DungeonGame::DungeonGame() {
+DungeonGame::DungeonGame(void) {
 
 	this->mainMenuState = nullptr;
 	this->mainGameState = nullptr;
@@ -20,20 +20,10 @@ DungeonGame::DungeonGame() {
 }
 
 
-DungeonGame::~DungeonGame() {}
+DungeonGame::~DungeonGame(void) {}
 
 
 void DungeonGame::input(SDL_Event* event) {
-	if (event->type == SDL_KEYUP) {
-		switch (event->key.keysym.sym) {
-		case SDLK_1:
-			this->state = State::MAIN_MENU;
-			break;
-		case SDLK_2:
-			this->state = State::MAIN_GAME;
-			break;
-		}
-	}
 	switch (this->state) {
 		case State::MAIN_GAME:
 			this->mainGameState->input(event);
@@ -108,7 +98,7 @@ void DungeonGame::input(SDL_Event* event) {
 }
 
 
-void DungeonGame::update() {
+void DungeonGame::update(void) {
 
 	switch (this->state) {
 		case State::MAIN_GAME:
@@ -125,7 +115,7 @@ void DungeonGame::update() {
 }
 
 
-void DungeonGame::render() {
+void DungeonGame::render(void) {
 	//for (int l = 0; l < this->tiledMap->map.layerCounter; l++) {
 	//	for (int i = 0; i < this->tiledMap->map.width * this->tiledMap->map.height; i++) {
 	//		int id = (this->tiledMap->map.layers[l]->data.arr[i]) - 1;
@@ -187,7 +177,7 @@ void DungeonGame::launch(void) {
 
 
 	engine->loadMusic("menu-music.ogg");
-	engine->playMusic(true, 0.5f);
+	engine->playMusic(true);
 
 	/*	
 	this->tiledMap = new TiledMap("worldmap.tmx");*/

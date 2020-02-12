@@ -13,15 +13,14 @@
 
 DungeonEngine::DungeonEngine() {
 	
-	if (!readConfigFile()) {
-		settings = {
-		800,					// Screen width
-		600,					// Screen height
+	
+	this->settings = {
+		800,							// Screen width
+		600,							// Screen height
 		DungeonEngine::MIN_SCALE,		// scale
-		0,// fullscreen
-		10 // music volume
-		};
-	}	
+		0,								// 1 - fullscreen, 0 - window
+		0.5f							// music volume
+	};	
 	
 	this->started = false;
 	this->quit = false;
@@ -41,14 +40,7 @@ DungeonEngine::DungeonEngine() {
 }
 
 
-DungeonEngine::~DungeonEngine() {
-}
-
-
-void DungeonEngine::initTimer() {
-	//this->lastTime = SDL_GetTicks();
-	//this->timer = SDL_GetTicks();
-}
+DungeonEngine::~DungeonEngine() {}
 
 
 void DungeonEngine::initSDL(void) {
@@ -129,8 +121,6 @@ void DungeonEngine::initOGL(void) {
 
 	// Disable depth checking
 	glDisable(GL_DEPTH_TEST);
-
-	
 
 #ifdef _DEBUG
 	std::cout << "done." << std::endl;
@@ -223,7 +213,6 @@ void DungeonEngine::initializeAudioSystem(void) {
 
 void DungeonEngine::stop(void) {
 
-	writeConfigFile();
 #ifdef _DEBUG 
 	std::cout << "Shutting down SDL modules..." << std::endl;
 #endif
@@ -296,18 +285,34 @@ void DungeonEngine::launchSubsystems(void) {
 }
 
 
-bool DungeonEngine::loadMusic(std::string musicFile) {
-	currentMusic = new Music(musicFile);
-	return true;
+void DungeonEngine::loadMusic(std::string musicFile) {
+	currentMusic = new Music(musicFile, 1.0f, true);
 }
 
 
-bool DungeonEngine::playMusic(bool loop, float volume) {
+bool DungeonEngine::playMusic(float volume) {
+	this->settings.musicVolume = volume;
+	return this->currentMusic->playMusic(volume);
+}
 
-	// TODO: make loops for music
 
-	this->currentMusic->playMusic(volume);
-	return true;
+bool DungeonEngine::playMusic() {
+	return this->currentMusic->playMusic(this->settings.musicVolume);
+}
+
+
+bool DungeonEngine::stopMusic() {
+	return this->currentMusic->stopMusic();
+}
+
+
+bool DungeonEngine::pauseMusic() {
+	return this->currentMusic->pauseMusic();
+}
+
+
+void DungeonEngine::releaseMusic() {
+	delete this->currentMusic;
 }
 
 
@@ -321,42 +326,15 @@ void DungeonEngine::setQuit(bool q) {
 }
 
 
+Music* DungeonEngine::getCurrentMusic() {
+	return this->currentMusic;
+}
+
+
 SDL_Window* DungeonEngine::getWindow(void) {
 	return this->window;
 }
 
-
-bool DungeonEngine::writeConfigFile(void) {
-#ifdef _DEBUG 
-	std::cout << "Saving config file... ";
-#endif
-	this->settings.scale = this->scale;
-
-	std::ofstream ofile(CONFIG_FILE_NAME, std::ios::binary);
-	if (!ofile.good()) {
-		std::cout << "Cannot open settings file for writing!" << std::endl;
-		return false;
-	}
-	ofile.write((const char*)&this->settings, sizeof(this->settings));
-	ofile.close();
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
-	return true;
-}
-
-
-bool DungeonEngine::readConfigFile(void) {
-	std::ifstream ifile(CONFIG_FILE_NAME, std::ios::binary);
-	if (!ifile.good()) {
-		std::cout << "Cannot open settings file for reading!" << std::endl;
-		std::cout << "Switching to default values." << std::endl;
-		return false;
-	}
-	ifile.read((char*)&this->settings, sizeof(this->settings));
-	ifile.close();
-	return true;
-}
 
 GLuint DungeonEngine::loadTexture(const std::string& fileName) {
 	std::string fn = DIR_RES_IMAGES + fileName;

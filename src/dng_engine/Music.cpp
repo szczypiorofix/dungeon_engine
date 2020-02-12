@@ -35,37 +35,24 @@
 
 
 
-Music::Music(const std::string musicFile) {
-	this->volume = Music::DEFAULT_MUSIC_VOLUME;
-	this->loop = false;
-	std::string musicFileName = DIR_RES_MUSIC + musicFile;
-	this->sample = BASS_SampleLoad(FALSE, musicFileName.c_str(), 0, 0, 1, 0);
-	if (this->sample == 0) {
-		std::cout << "Failed to load sample! BASS_SampleLoad Error: " << BASS_ErrorGetCode() << std::endl;
-		exit(1);
-	}
-	this->channel = BASS_SampleGetChannel(sample, TRUE);
-	if (this->channel == NULL) {
-		std::cout << "Failed to get channel! BASS_SampleGetChannel Error: " << BASS_ErrorGetCode() << std::endl;
-		exit(1);
-	}
-}
 
-
-Music::Music(const std::string musicFile, float volume) {
+Music::Music(const std::string musicFile, float volume, bool loop) {
+	
 	this->volume = volume;
-	this->loop = false;
+	this->loop = loop;
 	std::string musicFileName = DIR_RES_MUSIC + musicFile;
-	this->sample = BASS_SampleLoad(FALSE, musicFileName.c_str(), 0, 0, 1, 0);
+
+	int flag = 0;
+	if (loop) {
+		flag = BASS_SAMPLE_LOOP;
+	}
+
+	this->stream = BASS_StreamCreateFile(FALSE, musicFileName.c_str(), 0, 0, flag);
 	if (this->sample == 0) {
-		std::cout << "Failed to load sample! BASS_SampleLoad Error: " << BASS_ErrorGetCode() << std::endl;
+		std::cout << "Failed to load stream! BASS_StreamCreateFile Error: " << BASS_ErrorGetCode() << std::endl;
 		exit(1);
 	}
-	this->channel = BASS_SampleGetChannel(sample, TRUE);
-	if (this->channel == NULL) {
-		std::cout << "Failed to get channel! BASS_SampleGetChannel Error: " << BASS_ErrorGetCode() << std::endl;
-		exit(1);
-	}
+
 }
 
 
@@ -73,7 +60,7 @@ Music::~Music() {
 #ifdef _DEBUG 
 	std::cout << "Releasing music... ";
 #endif
-	BASS_Free();
+	BASS_StreamFree(this->stream);
 #ifdef _DEBUG 
 	std::cout << "done." << std::endl;
 #endif
@@ -81,22 +68,42 @@ Music::~Music() {
 
 
 bool Music::playMusic() {
-	BASS_ChannelPlay(this->channel, TRUE);
-	return true;
-}
-
-
-bool Music::playMusic(bool _loop) {
-	this->loop = _loop;
-	this->playMusic();
-	return true;
+	BASS_SetVolume(this->volume);
+	bool r = BASS_ChannelPlay(this->stream, TRUE);
+	if (!r) {
+		std::cout << "Failed to play channel! BASS_ChannelPlay Error: " << BASS_ErrorGetCode() << std::endl;
+	}
+	return r;
 }
 
 
 bool Music::playMusic(float _volume) {
 	this->volume = _volume;
 	BASS_SetVolume(_volume);
-	BASS_ChannelPlay(this->channel, TRUE);
-	return true;
+	bool r = BASS_ChannelPlay(this->stream, TRUE);
+	if (!r) {
+		std::cout << "Failed to play channel! BASS_ChannelPlay Error: " << BASS_ErrorGetCode() << std::endl;
+	}
+	return r;
+}
+
+
+bool Music::stopMusic() {
+	return BASS_ChannelStop(this->stream);
+}
+
+
+bool Music::pauseMusic() {
+	return BASS_ChannelPause(this->stream);
+}
+
+
+HCHANNEL Music::getChannel() {
+	return this->channel;
+}
+
+
+HSTREAM Music::getStream() {
+	return this->stream;
 }
 

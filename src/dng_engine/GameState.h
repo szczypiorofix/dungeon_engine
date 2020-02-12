@@ -21,13 +21,13 @@ class GameState {
 
 public:
 
-	GameState();
+	GameState(void);
 	GameState(DungeonEngine* engine);
-	~GameState();
+	~GameState(void);
 
 	virtual void input(SDL_Event* event) = 0;
-	virtual void update() = 0;
-	virtual void render() = 0;
+	virtual void update(void) = 0;
+	virtual void render(void) = 0;
 
 protected:
 
