@@ -14,11 +14,15 @@
 
 
 
+/**
+Main Game class. Does all the stuff with initializing game engine, starting video and audio subsystems. It holds
+main game loop with input, update and render parts.
+*/
 class Game {
 
 public:
-	Game();
-	~Game();
+	Game(void);
+	~Game(void);
 
 
 protected:
@@ -27,10 +31,10 @@ protected:
     TiledMap* tiledMap;
 
     virtual void input(SDL_Event* event) = 0;
-    virtual void update() = 0;
-    virtual void render() = 0;
+    virtual void update(void) = 0;
+    virtual void render(void) = 0;
     
-    void gameLoop();
+    void gameLoop(void);
     
     State state;
 
@@ -41,8 +45,8 @@ protected:
 private:
 
     void DE_Input(SDL_Event* event);
-    void DE_Update();
-    void DE_Render();
+    void DE_Update(void);
+    void DE_Render(void);
 
 };
 

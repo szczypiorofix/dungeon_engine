@@ -6,7 +6,7 @@
 #include "GameState.h"
 
 
-GameState::GameState() {
+GameState::GameState(void) {
     this->engine = nullptr;
 }
 
@@ -16,6 +16,4 @@ GameState::GameState(DungeonEngine* engine) {
 }
 
 
-GameState::~GameState() {
-
-}
+GameState::~GameState(void) {}

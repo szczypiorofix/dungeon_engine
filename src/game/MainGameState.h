@@ -18,11 +18,11 @@ class MainGameState : public GameState {
 public:
 
 	MainGameState(DungeonEngine* engine, State* s);
-	~MainGameState();
+	~MainGameState(void);
 
 	virtual void input(SDL_Event* event);
-	virtual void update();
-	virtual void render();
+	virtual void update(void);
+	virtual void render(void);
 
 private:
 	TextFont* textFont;

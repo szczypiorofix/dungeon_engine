@@ -7,7 +7,7 @@
 #include "game/DungeonGame.h"
 
 /**
-* Entry point
+* Main entry point
 */
 int main(int argc, char* argv[]) {
 	

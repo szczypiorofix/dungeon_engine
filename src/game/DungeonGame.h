@@ -13,17 +13,21 @@
 #include "MainGameState.h"
 
 
+/**
+Dungeon Game main class. Extends Game class and its virtual methods: input, update and render.
+It holds 2 (for now) States: Main Menu State and Main Game State, both with separate game loop implementations.
+*/
 class DungeonGame : public Game {
 
 public:
-	DungeonGame();
-	~DungeonGame();
+	DungeonGame(void);
+	~DungeonGame(void);
 
 	void launch(void);
 
 	virtual void input(SDL_Event* event);
-	virtual void update();
-	virtual void render();
+	virtual void update(void);
+	virtual void render(void);
 
 	MainMenuState* mainMenuState;
 	MainGameState* mainGameState;
@@ -31,10 +35,6 @@ public:
 	GameState* currentState;
 
 private:
-	
-	
-	const float SCROLL_SPEED = 32.0f;
-
 
 };
 
