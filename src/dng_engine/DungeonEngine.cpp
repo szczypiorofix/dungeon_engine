@@ -35,7 +35,7 @@ DungeonEngine::DungeonEngine() {
 
 	this->scale = settings.scale;
 	
-	this->scrollVector = NULL;
+	//this->scrollVector = NULL;
 
 }
 
@@ -95,12 +95,23 @@ void DungeonEngine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-	SDL_GL_SetSwapInterval(1); // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
-
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	
+	// Setting OpenGL version to 3.1
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
+
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK) {
+		std::cout << "Error initializing GLEW! " << glewGetErrorString(glewError) << std::endl;
+	}
+
+	if (SDL_GL_SetSwapInterval(1) < 0) { // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
+		std::cout <<  "Warning: Unable to set VSync! SDL Error: " << SDL_GetError() << std::endl;
+	}
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -296,22 +307,22 @@ bool DungeonEngine::playMusic(float volume) {
 }
 
 
-bool DungeonEngine::playMusic() {
+bool DungeonEngine::playMusic(void) {
 	return this->currentMusic->playMusic(this->settings.musicVolume);
 }
 
 
-bool DungeonEngine::stopMusic() {
+bool DungeonEngine::stopMusic(void) {
 	return this->currentMusic->stopMusic();
 }
 
 
-bool DungeonEngine::pauseMusic() {
+bool DungeonEngine::pauseMusic(void) {
 	return this->currentMusic->pauseMusic();
 }
 
 
-void DungeonEngine::releaseMusic() {
+void DungeonEngine::releaseMusic(void) {
 	delete this->currentMusic;
 }
 
@@ -326,7 +337,7 @@ void DungeonEngine::setQuit(bool q) {
 }
 
 
-Music* DungeonEngine::getCurrentMusic() {
+Music* DungeonEngine::getCurrentMusic(void) {
 	return this->currentMusic;
 }
 

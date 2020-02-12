@@ -7,8 +7,12 @@
 #define _DUNGEONENGINE_H_
 #pragma once
 
+
+
 #include <SDL2/SDL.h>
+#include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
+#include <GL/GLU.h>
 #include <SDL2/SDL_image.h>
 #include <string>
 
@@ -59,17 +63,17 @@ public:
 
 	void loadMusic(std::string musicFile);
 	bool playMusic(float volume);
-	bool playMusic();
+	bool playMusic(void);
 
-	bool stopMusic();
+	bool stopMusic(void);
 
-	bool pauseMusic();
+	bool pauseMusic(void);
 
-	void releaseMusic();
+	void releaseMusic(void);
 
 	GLuint loadTexture(const std::string& fileName);
 
-	Music* getCurrentMusic();
+	Music* getCurrentMusic(void);
 
 protected:
 	SDL_Window* window;

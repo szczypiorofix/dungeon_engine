@@ -4,6 +4,7 @@
  */
 
 #include "MainGameState.h"
+#include "../dng_engine/GraphicAssets.h"
 #include "../dng_engine/FontAssets.h"
 
 

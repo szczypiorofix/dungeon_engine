@@ -7,7 +7,6 @@
 #define _MAINMENUSTATE_H_
 #pragma once
 
-#include <SDL2/SDL_opengl.h>
 #include "../dng_engine/GameState.h"
 #include "../dng_engine/Texture.h"
 #include "../dng_engine/TextFont.h"

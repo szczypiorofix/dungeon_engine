@@ -3,8 +3,9 @@
  * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
  */
 
-#include "MainMenuState.h"
 #include <BASS/bass.h>
+#include "MainMenuState.h"
+#include "../dng_engine/GraphicAssets.h"
 
 
 MainMenuState::MainMenuState(DungeonEngine* engine, State* s) {
