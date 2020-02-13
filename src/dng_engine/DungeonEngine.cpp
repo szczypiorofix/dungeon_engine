@@ -139,6 +139,42 @@ void DungeonEngine::initOGL(void) {
 }
 
 
+bool DungeonEngine::initShaders(void) {
+#ifdef _DEBUG 
+	std::cout << "Initializing shaders ... ";
+#endif
+
+	//Success flag
+	bool success = true;
+
+	//Generate program
+	gProgramID = glCreateProgram();
+
+	//Create vertex shader
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	//Get vertex source
+	const GLchar* vertexShaderSource[] =
+	{
+		"#version 140\nin vec2 LVertexPos2D; void main() { gl_Position = vec4( LVertexPos2D.x, LVertexPos2D.y, 0, 1 ); }"
+	};
+
+	//Set vertex source
+	glShaderSource(vertexShader, 1, vertexShaderSource, NULL);
+
+	//Compile vertex source
+	glCompileShader(vertexShader);
+
+
+
+#ifdef _DEBUG
+	std::cout << "done." << std::endl;
+#endif
+
+	return success;
+}
+
+
 void DungeonEngine::initializePngImages(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL PNG images module... ";
@@ -249,17 +285,21 @@ void DungeonEngine::stop(void) {
 
 void DungeonEngine::launchSubsystems(void) {
 
-	initSDL();
+	this->initSDL();
 	
 	// LOGGING SYSTEM
 	//SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
 	//SDL_LogError(SDL_LOG_PRIORITY_INFO, "SDL Logging system has started.");
 	// LOGGING SYSTEM
 	
-	createWindow();
-	initOGL();
-	initializePngImages();
-	initializeAudioSystem();
+	this->createWindow();
+	this->initOGL();
+	if (!this->initShaders()) {
+		std::cout << "Unable to initialize OGL shaders." << std::endl;
+		exit(1);
+	}
+	this->initializePngImages();
+	this->initializeAudioSystem();
 
 	std::string cursorFileName = DIR_RES_IMAGES;
 	cursorFileName.append("mouse_cursor.png");
