@@ -4,6 +4,7 @@
  */
 
 
+#include <iostream>
 #include "DungeonGame.h"
 #include "../dng_engine/GraphicAssets.h"
 #include "../dng_engine/FontAssets.h"
@@ -177,7 +178,7 @@ void DungeonGame::launch(void) {
 
 
 	engine->loadMusic("menu-music.ogg");
-	engine->playMusic(true);
+	engine->playMusic(0.01f);
 
 	/*	
 	this->tiledMap = new TiledMap("worldmap.tmx");*/

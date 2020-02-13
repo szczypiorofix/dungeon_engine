@@ -3,12 +3,13 @@
  * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
  */
 
+#include <iostream>
 #include "Game.h"
 
 
 Game::Game(void) {
-	this->tiledMap = nullptr;
-    this->camera = nullptr;
+	//this->tiledMap = nullptr;
+ //   this->camera = nullptr;
     this->engine = new DungeonEngine();
 	this->engine->launchSubsystems();
 	this->fpsCap = false;
@@ -184,7 +185,7 @@ void Game::DE_Render(void) {
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glPushMatrix();
-	glOrtho(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1); // Set the matrix
+	glOrtho(0, DungeonEngine::SCREEN_WIDTH, DungeonEngine::SCREEN_HEIGHT, 0, -1.0, 1.0); // Set the matrix
 
 	// ================================= Render Start =================================
 	

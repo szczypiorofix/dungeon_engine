@@ -13,6 +13,8 @@
 
 DungeonEngine::DungeonEngine() {
 	
+	this->cursor = NULL;
+	this->scrollVector = NULL;
 	
 	this->settings = {
 		800,							// Screen width
@@ -35,7 +37,7 @@ DungeonEngine::DungeonEngine() {
 
 	this->scale = settings.scale;
 	
-	this->scrollVector = NULL;
+	//this->scrollVector = NULL;
 
 }
 
@@ -45,7 +47,7 @@ DungeonEngine::~DungeonEngine() {}
 
 void DungeonEngine::initSDL(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL audio & video main modules... ";
+	std::cout << "Initializing SDL audio & video main modules... \n";
 #endif
 	this->started = (SDL_Init(SDL_INIT_VIDEO) == 0); // (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0);
 	if (!this->started) {
@@ -53,16 +55,14 @@ void DungeonEngine::initSDL(void) {
 		this->started = false;
 	} else
 		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+
 	atexit(SDL_Quit);
 }
 
 
 void DungeonEngine::createWindow(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL window... ";
+	std::cout << "Initializing SDL window... \n";
 #endif
 	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (this->window == NULL) {
@@ -70,15 +70,13 @@ void DungeonEngine::createWindow(void) {
 		this->started = false;
 	} else
 		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+
 }
 
 
 void DungeonEngine::initOGL(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing OpenGL ... ";
+	std::cout << "Initializing OpenGL ... \n";
 #endif
 
 	this->glContext = SDL_GL_CreateContext(this->window);
@@ -95,12 +93,23 @@ void DungeonEngine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-	SDL_GL_SetSwapInterval(1); // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
-
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	
+	// Setting OpenGL version to 3.1
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
+
+	glewExperimental = GL_TRUE;
+	GLenum glewError = glewInit();
+	if (glewError != GLEW_OK) {
+		std::cout << "Error initializing GLEW! " << glewGetErrorString(glewError) << std::endl;
+	}
+
+	if (SDL_GL_SetSwapInterval(1) < 0) { // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
+		std::cout <<  "Warning: Unable to set VSync! SDL Error: " << SDL_GetError() << std::endl;
+	}
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -122,15 +131,15 @@ void DungeonEngine::initOGL(void) {
 	// Disable depth checking
 	glDisable(GL_DEPTH_TEST);
 
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
 }
+
+
+
 
 
 void DungeonEngine::initializePngImages(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL PNG images module... ";
+	std::cout << "Initializing SDL PNG images module... \n";
 #endif
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -138,15 +147,13 @@ void DungeonEngine::initializePngImages(void) {
 		this->started = false;
 	} else
 		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+
 }
 
 
 void DungeonEngine::initializeAudioSystem(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing BASS audio module... ";
+	std::cout << "Initializing BASS audio module... \n";
 #endif
 	if (BASS_Init(-1, 44100, 0, 0, NULL) < 0) {
 		std::cout << "SDL_mixer BASS_Init() error code: " << BASS_ErrorGetCode() << std::endl;
@@ -156,9 +163,6 @@ void DungeonEngine::initializeAudioSystem(void) {
 
 	BASS_Start();
 
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
 }
 
 
@@ -238,17 +242,17 @@ void DungeonEngine::stop(void) {
 
 void DungeonEngine::launchSubsystems(void) {
 
-	initSDL();
+	this->initSDL();
 	
 	// LOGGING SYSTEM
 	//SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
 	//SDL_LogError(SDL_LOG_PRIORITY_INFO, "SDL Logging system has started.");
 	// LOGGING SYSTEM
 	
-	createWindow();
-	initOGL();
-	initializePngImages();
-	initializeAudioSystem();
+	this->createWindow();
+	this->initOGL();
+	this->initializePngImages();
+	this->initializeAudioSystem();
 
 	std::string cursorFileName = DIR_RES_IMAGES;
 	cursorFileName.append("mouse_cursor.png");
@@ -296,22 +300,22 @@ bool DungeonEngine::playMusic(float volume) {
 }
 
 
-bool DungeonEngine::playMusic() {
+bool DungeonEngine::playMusic(void) {
 	return this->currentMusic->playMusic(this->settings.musicVolume);
 }
 
 
-bool DungeonEngine::stopMusic() {
+bool DungeonEngine::stopMusic(void) {
 	return this->currentMusic->stopMusic();
 }
 
 
-bool DungeonEngine::pauseMusic() {
+bool DungeonEngine::pauseMusic(void) {
 	return this->currentMusic->pauseMusic();
 }
 
 
-void DungeonEngine::releaseMusic() {
+void DungeonEngine::releaseMusic(void) {
 	delete this->currentMusic;
 }
 
@@ -326,7 +330,7 @@ void DungeonEngine::setQuit(bool q) {
 }
 
 
-Music* DungeonEngine::getCurrentMusic() {
+Music* DungeonEngine::getCurrentMusic(void) {
 	return this->currentMusic;
 }
 
