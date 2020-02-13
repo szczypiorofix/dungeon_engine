@@ -47,7 +47,7 @@ DungeonEngine::~DungeonEngine() {}
 
 void DungeonEngine::initSDL(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL audio & video main modules... ";
+	std::cout << "Initializing SDL audio & video main modules... \n";
 #endif
 	this->started = (SDL_Init(SDL_INIT_VIDEO) == 0); // (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0);
 	if (!this->started) {
@@ -55,16 +55,14 @@ void DungeonEngine::initSDL(void) {
 		this->started = false;
 	} else
 		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+
 	atexit(SDL_Quit);
 }
 
 
 void DungeonEngine::createWindow(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL window... ";
+	std::cout << "Initializing SDL window... \n";
 #endif
 	this->window = SDL_CreateWindow("Dungeon Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (this->window == NULL) {
@@ -72,15 +70,13 @@ void DungeonEngine::createWindow(void) {
 		this->started = false;
 	} else
 		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+
 }
 
 
 void DungeonEngine::initOGL(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing OpenGL ... ";
+	std::cout << "Initializing OpenGL ... \n";
 #endif
 
 	this->glContext = SDL_GL_CreateContext(this->window);
@@ -135,54 +131,15 @@ void DungeonEngine::initOGL(void) {
 	// Disable depth checking
 	glDisable(GL_DEPTH_TEST);
 
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
 }
 
 
-bool DungeonEngine::initShaders(void) {
-#ifdef _DEBUG 
-	std::cout << "Initializing shaders ... ";
-#endif
 
-	//Success flag
-	bool success = true;
-
-	//Generate program
-	gProgramID = glCreateProgram();
-
-	//Create vertex shader
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-	//Get vertex source
-	const GLchar* vertexShaderSource[] =
-	{
-		"#version 140\nin vec2 LVertexPos2D; void main() { gl_Position = vec4( LVertexPos2D.x, LVertexPos2D.y, 0, 1 ); }"
-	};
-
-	//Set vertex source
-	glShaderSource(vertexShader, 1, vertexShaderSource, NULL);
-
-	//Compile vertex source
-	glCompileShader(vertexShader);
-
-
-	// TODO: http://openil.sourceforge.net/download.php for images ??
-
-
-
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
-
-	return success;
-}
 
 
 void DungeonEngine::initializePngImages(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing SDL PNG images module... ";
+	std::cout << "Initializing SDL PNG images module... \n";
 #endif
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -190,15 +147,13 @@ void DungeonEngine::initializePngImages(void) {
 		this->started = false;
 	} else
 		this->started = true;
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
+
 }
 
 
 void DungeonEngine::initializeAudioSystem(void) {
 #ifdef _DEBUG 
-	std::cout << "Initializing BASS audio module... ";
+	std::cout << "Initializing BASS audio module... \n";
 #endif
 	if (BASS_Init(-1, 44100, 0, 0, NULL) < 0) {
 		std::cout << "SDL_mixer BASS_Init() error code: " << BASS_ErrorGetCode() << std::endl;
@@ -208,9 +163,6 @@ void DungeonEngine::initializeAudioSystem(void) {
 
 	BASS_Start();
 
-#ifdef _DEBUG
-	std::cout << "done." << std::endl;
-#endif
 }
 
 
@@ -299,10 +251,6 @@ void DungeonEngine::launchSubsystems(void) {
 	
 	this->createWindow();
 	this->initOGL();
-	if (!this->initShaders()) {
-		std::cout << "Unable to initialize OGL shaders." << std::endl;
-		exit(1);
-	}
 	this->initializePngImages();
 	this->initializeAudioSystem();
 

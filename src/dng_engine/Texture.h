@@ -35,9 +35,17 @@ public:
 	void draw(TextureRect src, TextureRect dest);
 	void drawTile(int _id, GLfloat dx, GLfloat dy);
 
+	GLuint gProgramID = 0;
+	GLint gVertexPos2DLocation = -1;
+	GLuint gVBO = 0;
+	GLuint gIBO = 0;
+
+	bool initShaders(void);
 
 private:
 	GLuint loadTexture(std::string fileName);
+	void printShaderLog(GLuint shader);
+	void printProgramLog(GLuint program);
 
 
 };

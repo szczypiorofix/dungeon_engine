@@ -85,15 +85,9 @@ protected:
 
 	ViewLockedOn viewLockedOn;
 
-
 private:
 
 	Music* currentMusic;
-
-	GLuint gProgramID = 0;
-	GLint gVertexPos2DLocation = -1;
-	GLuint gVBO = 0;
-	GLuint gIBO = 0;
 
 	bool started;
 	bool quit;
@@ -103,7 +97,7 @@ private:
 	void initSDL(void);
 	void createWindow(void);
 	void initOGL(void);
-	bool initShaders(void);
+	
 	void initializePngImages(void);
 	void initializeAudioSystem(void);
 

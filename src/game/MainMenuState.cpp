@@ -99,14 +99,36 @@ void MainMenuState::render(void) {
         250,
         150
     };
-    this->logoTexture->draw(s, d);
+    
+    //this->logoTexture->draw(s, d);
 
     //this->testTexture->drawTile(6, 100, 100);
 
 
     for (int i = 0; i < MAX_BUTTONS; i++) {
         this->buttons[i]->render();
-    }  
+    }
+
+    //Bind program
+    glUseProgram(this->logoTexture->gProgramID);
+
+    //Enable vertex position
+    glEnableVertexAttribArray(this->logoTexture->gVertexPos2DLocation);
+
+    //Set vertex data
+    glBindBuffer(GL_ARRAY_BUFFER, this->logoTexture->gVBO);
+    glVertexAttribPointer(this->logoTexture->gVertexPos2DLocation, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+
+    //Set index data and render
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->logoTexture->gIBO);
+    glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
+
+    //Disable vertex position
+    glDisableVertexAttribArray(this->logoTexture->gVertexPos2DLocation);
+
+    //Unbind program
+    glUseProgram(NULL);
+
 
     //// Hello World Triangle
     //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
