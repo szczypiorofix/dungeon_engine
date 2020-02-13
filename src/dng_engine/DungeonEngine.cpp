@@ -13,6 +13,8 @@
 
 DungeonEngine::DungeonEngine() {
 	
+	this->cursor = NULL;
+	this->scrollVector = NULL;
 	
 	this->settings = {
 		800,							// Screen width
@@ -164,6 +166,9 @@ bool DungeonEngine::initShaders(void) {
 
 	//Compile vertex source
 	glCompileShader(vertexShader);
+
+
+	// TODO: http://openil.sourceforge.net/download.php for images ??
 
 
 
