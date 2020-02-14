@@ -67,7 +67,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;opengl32.lib;glew32.lib;libxml2.lib;lua53.lib;bass.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;opengl32.lib;glew32.lib;freeglut.lib;libxml2.lib;lua53.lib;bass.lib</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:LIBCMT
  %(AdditionalOptions)</AdditionalOptions>
     </Link>

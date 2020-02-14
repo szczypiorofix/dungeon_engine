@@ -100,7 +100,7 @@ void MainMenuState::render(void) {
         150
     };
     
-    //this->logoTexture->draw(s, d);
+    this->logoTexture->draw(s, d);
 
     //this->testTexture->drawTile(6, 100, 100);
 
@@ -110,24 +110,24 @@ void MainMenuState::render(void) {
     }
 
     //Bind program
-    glUseProgram(this->logoTexture->gProgramID);
+    //glUseProgram(this->logoTexture->gProgramID);
 
-    //Enable vertex position
-    glEnableVertexAttribArray(this->logoTexture->gVertexPos2DLocation);
+    ////Enable vertex position
+    //glEnableVertexAttribArray(this->logoTexture->gVertexPos2DLocation);
 
-    //Set vertex data
-    glBindBuffer(GL_ARRAY_BUFFER, this->logoTexture->gVBO);
-    glVertexAttribPointer(this->logoTexture->gVertexPos2DLocation, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
+    ////Set vertex data
+    //glBindBuffer(GL_ARRAY_BUFFER, this->logoTexture->gVBO);
+    //glVertexAttribPointer(this->logoTexture->gVertexPos2DLocation, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), NULL);
 
-    //Set index data and render
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->logoTexture->gIBO);
-    glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
+    ////Set index data and render
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->logoTexture->gIBO);
+    //glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
 
-    //Disable vertex position
-    glDisableVertexAttribArray(this->logoTexture->gVertexPos2DLocation);
+    ////Disable vertex position
+    //glDisableVertexAttribArray(this->logoTexture->gVertexPos2DLocation);
 
-    //Unbind program
-    glUseProgram(NULL);
+    ////Unbind program
+    //glUseProgram(NULL);
 
 
     //// Hello World Triangle
