@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <IL/il.h>
 
 #include "DungeonEngine.h"
 #include "Defines.h"
@@ -253,6 +254,58 @@ void DungeonEngine::launchSubsystems(void) {
 	this->initOGL();
 	this->initializePngImages();
 	this->initializeAudioSystem();
+
+
+
+
+	// https://www.geeks3d.com/20090105/tutorial-how-to-load-and-display-an-image-with-devil-and-opengl/
+
+	// https://moddb.fandom.com/wiki/DevIL:Tutorials:Basics
+	ILuint texid; /* ILuint is a 32bit unsigned integer.
+  Variable texid will be used to store image name. */
+	ILboolean success; /* ILboolean is type similar to GLboolean and can equal GL_FALSE (0) or GL_TRUE (1)
+	  it can have different value (because it's just typedef of unsigned char), but this sould be
+	  avoided.
+	  Variable success will be used to determine if some function returned success or failure. */
+	GLuint image;
+	int finished;
+
+	ilInit(); /* Initialization of DevIL */
+	ilGenImages(1, &texid); /* Generation of one image name */
+	ilBindImage(texid); /* Binding of image name */
+	std::string testImageFileName = DIR_RES_IMAGES;
+	testImageFileName.append("logo-title.png");
+	success = ilLoadImage(testImageFileName.c_str()); /* Loading of image "image.jpg" */
+	if (success) /* If no error occured: */
+	{
+		success = ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE); /* Convert every colour component into
+		  unsigned byte. If your image contains alpha channel you can replace IL_RGB with IL_RGBA */
+		if (!success)
+		{
+			/* Error occured */
+			SDL_Quit();
+		}
+		glGenTextures(1, &image); /* Texture name generation */
+		glBindTexture(GL_TEXTURE_2D, image); /* Binding of texture name */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); /* We will use linear
+		  interpolation for magnification filter */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); /* We will use linear
+		  interpolation for minifying filter */
+		glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
+			ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE,
+			ilGetData()); /* Texture specification */
+	}
+	else
+	{
+		/* Error occured */
+		SDL_Quit();
+	}
+	ilDeleteImages(1, &texid); /* Because we have already copied image data into texture data
+	  we can release memory used by image. */
+
+
+
+
 
 	std::string cursorFileName = DIR_RES_IMAGES;
 	cursorFileName.append("mouse_cursor.png");
