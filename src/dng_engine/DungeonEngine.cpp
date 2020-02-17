@@ -50,7 +50,7 @@ void DungeonEngine::initSDL(void) {
 #ifdef _DEBUG 
 	std::cout << "Initializing SDL audio & video main modules... \n";
 #endif
-	this->started = (SDL_Init(SDL_INIT_VIDEO) == 0); // (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) == 0);
+	this->started = (SDL_Init(SDL_INIT_VIDEO) == 0);
 	if (!this->started) {
 		std::cout << "SDL_Init() error : " << SDL_GetError() << std::endl;
 		this->started = false;
@@ -101,7 +101,7 @@ void DungeonEngine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
 
-	glewExperimental = GL_TRUE;
+	//glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK) {
 		std::cout << "Error initializing GLEW! " << glewGetErrorString(glewError) << std::endl;
@@ -246,8 +246,8 @@ void DungeonEngine::launchSubsystems(void) {
 	this->initSDL();
 	
 	// LOGGING SYSTEM
-	//SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
-	//SDL_LogError(SDL_LOG_PRIORITY_INFO, "SDL Logging system has started.");
+	// SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
+	// SDL_LogError(SDL_LOG_PRIORITY_INFO, "SDL Logging system has started.");
 	// LOGGING SYSTEM
 	
 	this->createWindow();
@@ -268,7 +268,7 @@ void DungeonEngine::launchSubsystems(void) {
 	  avoided.
 	  Variable success will be used to determine if some function returned success or failure. */
 	GLuint image;
-	int finished;
+
 
 	ilInit(); /* Initialization of DevIL */
 	ilGenImages(1, &texid); /* Generation of one image name */

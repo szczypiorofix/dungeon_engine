@@ -61,6 +61,9 @@ void MainMenuState::input(SDL_Event* event) {
             std::cout << "THIS IS MAIN MENU STATE" << std::endl;
             break;
         }
+    } if (event->type == SDL_MOUSEMOTION) {
+        this->mousePosX = (GLfloat) event->motion.x;
+        this->mousePosY = (GLfloat) event->motion.y;
     }
 
     for (int i = 0; i < MAX_BUTTONS; i++) {

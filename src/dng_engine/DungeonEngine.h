@@ -7,7 +7,8 @@
 #define _DUNGEONENGINE_H_
 #pragma once
 
-
+// for GLEW static linking
+#define GLEW_STATIC
 
 #include <SDL2/SDL.h>
 #include <GL/glew.h>

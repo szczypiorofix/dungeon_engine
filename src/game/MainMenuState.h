@@ -36,6 +36,9 @@ private:
 	//TextFont* textFont;
 	MainMenuButton** buttons;
 	
+	GLfloat mousePosX;
+	GLfloat mousePosY;
+
 	Texture* backgroundTexture;
 	Texture* logoTexture;
 	Texture* testTexture;
